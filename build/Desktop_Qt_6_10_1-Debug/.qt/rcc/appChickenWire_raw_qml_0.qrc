@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/qt/qml/ChickenWire/">
+    <file alias="Main.qml">/home/juddn/ChickenWire/Main.qml</file>
+  </qresource>
+</RCC>
+

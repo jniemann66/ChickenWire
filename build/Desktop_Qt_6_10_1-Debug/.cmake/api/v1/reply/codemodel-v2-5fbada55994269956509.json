@@ -1,0 +1,205 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-0d426e3a63e74e4861f3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ChickenWire",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "all_aotstats::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_aotstats-Debug-ba6ff68130bface69a24.json",
+					"name" : "all_aotstats",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint-Debug-31cae720b5ea0f097002.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_json-Debug-8c68ed2ed7800e9098a2.json",
+					"name" : "all_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_module-Debug-27b430cea9d1c1d4a68a.json",
+					"name" : "all_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmltyperegistrations::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmltyperegistrations-Debug-20ec321c6883d119e46d.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire-Debug-787827e5533a54263f53.json",
+					"name" : "appChickenWire",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_autogen-Debug-0468d2cd51d39db215b4.json",
+					"name" : "appChickenWire_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_autogen_timestamp_deps-Debug-84c9801fb7f449bb2f13.json",
+					"name" : "appChickenWire_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_copy_qml::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_copy_qml-Debug-fced838ed5fececad4b7.json",
+					"name" : "appChickenWire_copy_qml",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_copy_res::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_copy_res-Debug-8efd8f46eff16e05df38.json",
+					"name" : "appChickenWire_copy_res",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_qmlimportscan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_qmlimportscan-Debug-4199697f1edc5acf1091.json",
+					"name" : "appChickenWire_qmlimportscan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_qmllint-Debug-2bf61b440cc7a9a96e7f.json",
+					"name" : "appChickenWire_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_qmllint_json-Debug-9c4d17cf45388e213ecc.json",
+					"name" : "appChickenWire_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_qmllint_module-Debug-6de699d5e3aa8f7117b1.json",
+					"name" : "appChickenWire_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appChickenWire_qmltyperegistration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appChickenWire_qmltyperegistration-Debug-d5c41bd9e21519c11617.json",
+					"name" : "appChickenWire_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "generate_qmlls_build_ini_file::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-generate_qmlls_build_ini_file-Debug-0842e5ec9869123a6af7.json",
+					"name" : "generate_qmlls_build_ini_file",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_appChickenWire_aotstats_target::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_appChickenWire_aotstats_target-Debug-01c1d3683e25721e8418.json",
+					"name" : "module_appChickenWire_aotstats_target",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug",
+		"source" : "/home/juddn/ChickenWire"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

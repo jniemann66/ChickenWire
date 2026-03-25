@@ -1,0 +1,114 @@
+{
+    "classes": [
+        {
+            "className": "TonnetzController",
+            "lineNumber": 4,
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "semitone",
+                            "type": "int"
+                        },
+                        {
+                            "name": "i",
+                            "type": "int"
+                        },
+                        {
+                            "name": "j",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 2,
+                    "lineNumber": 12,
+                    "name": "selectNote",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "root",
+                            "type": "int"
+                        },
+                        {
+                            "name": "third",
+                            "type": "int"
+                        },
+                        {
+                            "name": "fifth",
+                            "type": "int"
+                        },
+                        {
+                            "name": "isMajor",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 3,
+                    "lineNumber": 13,
+                    "name": "selectTriad",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "TonnetzController",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "semitone",
+                            "type": "int"
+                        },
+                        {
+                            "name": "i",
+                            "type": "int"
+                        },
+                        {
+                            "name": "j",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 0,
+                    "lineNumber": 17,
+                    "name": "noteSelected",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "root",
+                            "type": "int"
+                        },
+                        {
+                            "name": "third",
+                            "type": "int"
+                        },
+                        {
+                            "name": "fifth",
+                            "type": "int"
+                        },
+                        {
+                            "name": "isMajor",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 1,
+                    "lineNumber": 18,
+                    "name": "triadSelected",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "TonnetzController.h",
+    "outputRevision": 69
+}

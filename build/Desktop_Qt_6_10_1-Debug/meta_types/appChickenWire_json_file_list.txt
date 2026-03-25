@@ -1,0 +1,1 @@
+/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include/../EWIEGA46WW/moc_TonnetzController.cpp.json

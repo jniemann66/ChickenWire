@@ -1,0 +1,5 @@
+--resource
+/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qmake_ChickenWire.qrc
+--resource
+/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/appChickenWire_raw_qml_0.qrc
+/qt/qml/ChickenWire/Main.qml

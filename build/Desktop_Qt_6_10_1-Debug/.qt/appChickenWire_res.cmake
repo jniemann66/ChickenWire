@@ -1,0 +1,7 @@
+
+set(target "appChickenWire")
+set(working_dir "/home/juddn/ChickenWire")
+set(src_and_dest_list
+
+)
+set(timestamp_file "/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/appChickenWire_res.txt")
