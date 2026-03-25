@@ -117,3 +117,5 @@
 55	68	1774439960074899991	CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o	b645d041fc86b9b0
 55	700	1774439960073534212	CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp.o	8619b1fc7be64b17
 700	907	1774439960718517401	appChickenWire	5c0a7a830a1bf1b5
+2	4	1774440440931000863	CMakeFiles/clean.additional	b13e625ee288ef68
+4	7	1774440440933259424	clean	7adf74806070bde8
