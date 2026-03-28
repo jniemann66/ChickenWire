@@ -56,7 +56,12 @@ Item {
         id: canvas
         anchors.fill: parent
 
-        readonly property var noteNames: ["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
+        property var noteNames:      tonnetzController.noteNames
+        property var majorRootNoteNames: tonnetzController.majorRootNoteNames
+        property var minorRootNoteNames: tonnetzController.minorRootNoteNames
+        onNoteNamesChanged:      requestPaint()
+        onMajorRootNoteNamesChanged: requestPaint()
+        onMinorRootNoteNamesChanged: requestPaint()
 
         // Viewport — same coordinate system as Tonnetz.qml; restored from / saved to visualizerSwitcher
         property real originX: width  / 2
@@ -181,7 +186,8 @@ Item {
 
         // Chord label: "C" for C major, "Am" for A minor.
         function chordLabel(I, J, isMajor) {
-            return noteNames[rootNote(I, J, isMajor)] + (isMajor ? "" : "m")
+            var names = isMajor ? majorRootNoteNames : minorRootNoteNames
+            return names[rootNote(I, J, isMajor)] + (isMajor ? "" : "m")
         }
 
         // Visible range in Tonnetz lattice coordinates (dual vertices lie inside same bounds).

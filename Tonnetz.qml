@@ -52,7 +52,12 @@ Item {
         id: canvas
         anchors.fill: parent
 
-        readonly property var noteNames: ["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
+        property var noteNames:      tonnetzController.noteNames
+        property var majorRootNoteNames: tonnetzController.majorRootNoteNames
+        property var minorRootNoteNames: tonnetzController.minorRootNoteNames
+        onNoteNamesChanged:      requestPaint()
+        onMajorRootNoteNamesChanged: requestPaint()
+        onMinorRootNoteNamesChanged: requestPaint()
         readonly property int startNote: 0
 
         // Viewport state — restored from / saved to visualizerSwitcher on each change
@@ -148,8 +153,9 @@ Item {
 
         // Chord label matching ChickenWire's vertex labels: "C", "Am", "F♯m" …
         function chordLabel(i, j, isMajor) {
-            var root = isMajor ? noteAt(i, j) : noteAt(i, j + 1)
-            return noteNames[root] + (isMajor ? "" : "m")
+            var root  = isMajor ? noteAt(i, j) : noteAt(i, j + 1)
+            var names = isMajor ? majorRootNoteNames : minorRootNoteNames
+            return names[root] + (isMajor ? "" : "m")
         }
 
         function visibleRange() {
