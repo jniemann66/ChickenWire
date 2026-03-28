@@ -1,4 +1,5 @@
 import QtQuick
+import ChickenWire
 
 Item {
     anchors.fill: parent
@@ -7,7 +8,7 @@ Item {
     // through at partial opacity during the cross-fade.
     Rectangle {
         anchors.fill: parent
-        color: "#1a1a2e"
+        color: Theme.background
     }
 
     // Both visualizers are always loaded; opacity drives the cross-fade.

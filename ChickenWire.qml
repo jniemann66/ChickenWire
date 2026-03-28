@@ -13,6 +13,7 @@
 // These correspond to the three neo-Riemannian transformations P, R, L.
 
 import QtQuick
+import ChickenWire
 
 Item {
     id: root
@@ -56,12 +57,17 @@ Item {
         id: canvas
         anchors.fill: parent
 
-        property var noteNames:      tonnetzController.noteNames
+        property var noteNames:          tonnetzController.noteNames
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
-        onNoteNamesChanged:      requestPaint()
+        property int highlightedNotes:   tonnetzController.highlightedNotes
+        onNoteNamesChanged:          requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
+        onHighlightedNotesChanged:   requestPaint()
+
+        // Returns true if semitone s is in the highlighted set.
+        function isHL(s) { return !!((highlightedNotes >> s) & 1) }
 
         // Viewport — same coordinate system as Tonnetz.qml; restored from / saved to visualizerSwitcher
         property real originX: width  / 2
@@ -277,6 +283,31 @@ Item {
             var r        = Math.max(4, baseRadius * scale)
             var fontSize = Math.max(1, Math.min(r * 0.72, 11 * scale))
 
+            // ── highlighted note-set: hex face fills ──────────────────────
+            if (highlightedNotes !== 0) {
+                for (var fi = iMin; fi <= iMax; fi++) {
+                    for (var fj = jMin; fj <= jMax; fj++) {
+                        if (!isHL(noteAt(fi, fj))) continue
+                        var hh0 = dualPos(fi,     fj,     true )
+                        var hh1 = dualPos(fi - 1, fj,     false)
+                        var hh2 = dualPos(fi - 1, fj,     true )
+                        var hh3 = dualPos(fi - 1, fj - 1, false)
+                        var hh4 = dualPos(fi,     fj - 1, true )
+                        var hh5 = dualPos(fi,     fj - 1, false)
+                        ctx.beginPath()
+                        ctx.moveTo(hh0.x, hh0.y); ctx.lineTo(hh1.x, hh1.y)
+                        ctx.lineTo(hh2.x, hh2.y); ctx.lineTo(hh3.x, hh3.y)
+                        ctx.lineTo(hh4.x, hh4.y); ctx.lineTo(hh5.x, hh5.y)
+                        ctx.closePath()
+                        ctx.fillStyle   = Theme.hlFaceFill
+                        ctx.fill()
+                        ctx.strokeStyle = Theme.hlHexStroke
+                        ctx.lineWidth   = Math.max(1, 2 * scale)
+                        ctx.stroke()
+                    }
+                }
+            }
+
             // ── 0. Selected note hex-face highlight ───────────────────────
             if (hasSelNote) {
                 var h0 = dualPos(selNoteI,     selNoteJ,     true )  // major(I,J)
@@ -293,9 +324,9 @@ Item {
                 ctx.lineTo(h4.x, h4.y)
                 ctx.lineTo(h5.x, h5.y)
                 ctx.closePath()
-                ctx.fillStyle   = "rgba(255,210,60,0.18)"
+                ctx.fillStyle   = Theme.selHexFill
                 ctx.fill()
-                ctx.strokeStyle = "rgba(255,210,60,0.6)"
+                ctx.strokeStyle = Theme.selHexStroke
                 ctx.lineWidth   = Math.max(1, 2 * scale)
                 ctx.stroke()
             }
@@ -310,9 +341,9 @@ Item {
             for (var i = iMin; i <= iMax; i++) {
                 for (var j = jMin; j <= jMax; j++) {
                     var pm = dualPos(i,   j,   true )
-                    drawEdge(ctx, pm, dualPos(i,   j,   false), "#4a9eff")  // L — blue
-                    drawEdge(ctx, pm, dualPos(i-1, j,   false), "#ff9f43")  // R — orange
-                    drawEdge(ctx, pm, dualPos(i,   j-1, false), "#ff6b9d")  // P — pink
+                    drawEdge(ctx, pm, dualPos(i,   j,   false), Theme.edgeL)  // L — blue
+                    drawEdge(ctx, pm, dualPos(i-1, j,   false), Theme.edgeR)  // R — orange
+                    drawEdge(ctx, pm, dualPos(i,   j-1, false), Theme.edgeP)  // P — pink
                 }
             }
 
@@ -322,7 +353,7 @@ Item {
                 ctx.font         = faceFontSize + "px sans-serif"
                 ctx.textAlign    = "center"
                 ctx.textBaseline = "middle"
-                ctx.fillStyle    = "#8888aa"
+                ctx.fillStyle    = Theme.labelFaint
                 for (var fi = iMin; fi <= iMax; fi++) {
                     for (var fj = jMin; fj <= jMax; fj++) {
                         var hc = hexCenter(fi, fj)
@@ -346,23 +377,30 @@ Item {
                             np.y < -r || np.y > height + r) continue
 
                         var isSel = hasSel && ni === selI && nj === selJ && isMaj === selMajor
+                        var isTriadHL = isMaj
+                            ? (isHL(noteAt(ni,nj)) && isHL(noteAt(ni,nj+1)) && isHL(noteAt(ni+1,nj)))
+                            : (isHL(noteAt(ni,nj+1)) && isHL(noteAt(ni+1,nj)) && isHL(noteAt(ni+1,nj+1)))
 
                         ctx.beginPath()
                         ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
 
                         if (isSel) {
-                            ctx.fillStyle   = "#b8860b"
-                            ctx.strokeStyle = "#ffd700"
+                            ctx.fillStyle   = Theme.selFill
+                            ctx.strokeStyle = Theme.selStroke
+                            ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                        } else if (isTriadHL) {
+                            ctx.fillStyle   = Theme.hlNodeFill
+                            ctx.strokeStyle = Theme.hlColor
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                         } else if (isMaj) {
                             // Major triads: warm amber border
-                            ctx.fillStyle   = "#221830"
-                            ctx.strokeStyle = "#e8a045"
+                            ctx.fillStyle   = Theme.majorFill
+                            ctx.strokeStyle = Theme.majorStroke
                             ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
                         } else {
                             // Minor triads: cool blue border
-                            ctx.fillStyle   = "#182030"
-                            ctx.strokeStyle = "#5a9fd4"
+                            ctx.fillStyle   = Theme.minorFill
+                            ctx.strokeStyle = Theme.minorStroke
                             ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
                         }
 
@@ -370,7 +408,9 @@ Item {
                         ctx.stroke()
 
                         if (r > 7) {
-                            ctx.fillStyle = isSel ? "#fff8dc" : "#e8e8f0"
+                            ctx.fillStyle = isSel      ? Theme.selText
+                                          : isTriadHL  ? Theme.hlColor
+                                          :              Theme.triadText
                             ctx.fillText(chordLabel(ni, nj, isMaj), np.x, np.y)
                         }
                     }

@@ -1,6 +1,7 @@
 #include "TonnetzController.h"
 
 #include <QDebug>
+#include <QVariantList>
 
 // default names
 static const QStringList DEFAULT_NOTE_NAMES = {
@@ -22,7 +23,9 @@ TonnetzController::TonnetzController(QObject *parent)
     , m_noteNames(DEFAULT_NOTE_NAMES)
     , m_majorRootNoteNames(DEFAULT_MAJOR_ROOT_NOTE_NAMES)
     , m_minorRootNoteNames(DEFAULT_MINOR_ROOT_NOTE_NAMES)
-{}
+{
+     setHighlightedNotes({0, 3, 6, 9});   // C++
+}
 
 bool TonnetzController::validateNames(const QStringList &names, const char *which)
 {
@@ -42,7 +45,7 @@ bool TonnetzController::setNoteNames(const QStringList &names)
     return true;
 }
 
-bool TonnetzController::setMajorNoteNames(const QStringList &names)
+bool TonnetzController::setMajorRootNoteNames(const QStringList &names)
 {
     if (!validateNames(names, "setMajorNoteNames")) return false;
     if (m_majorRootNoteNames == names) return true;
@@ -51,13 +54,33 @@ bool TonnetzController::setMajorNoteNames(const QStringList &names)
     return true;
 }
 
-bool TonnetzController::setMinorNoteNames(const QStringList &names)
+bool TonnetzController::setMinorRootNoteNames(const QStringList &names)
 {
     if (!validateNames(names, "setMinorNoteNames")) return false;
     if (m_minorRootNoteNames == names) return true;
     m_minorRootNoteNames = names;
     emit minorRootNoteNamesChanged();
     return true;
+}
+
+void TonnetzController::setHighlightedNotes(const QVariantList &semitones)
+{
+    int mask = 0;
+    for (const QVariant &v : semitones) {
+        int s = v.toInt();
+        if (s >= 0 && s < 12)
+            mask |= (1 << s);
+    }
+    if (m_highlightedNotes == mask) return;
+    m_highlightedNotes = mask;
+    emit highlightedNotesChanged();
+}
+
+void TonnetzController::clearHighlightedNotes()
+{
+    if (m_highlightedNotes == 0) return;
+    m_highlightedNotes = 0;
+    emit highlightedNotesChanged();
 }
 
 void TonnetzController::selectNote(int semitone, int i, int j)

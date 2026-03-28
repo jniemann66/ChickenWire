@@ -1,4 +1,5 @@
 import QtQuick
+import ChickenWire
 
 Item {
     focus: true
@@ -52,12 +53,17 @@ Item {
         id: canvas
         anchors.fill: parent
 
-        property var noteNames:      tonnetzController.noteNames
+        property var noteNames:          tonnetzController.noteNames
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
-        onNoteNamesChanged:      requestPaint()
+        property int highlightedNotes:   tonnetzController.highlightedNotes
+        onNoteNamesChanged:          requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
+        onHighlightedNotesChanged:   requestPaint()
+
+        // Returns true if semitone s is in the highlighted set.
+        function isHL(s) { return !!((highlightedNotes >> s) & 1) }
         readonly property int startNote: 0
 
         // Viewport state — restored from / saved to visualizerSwitcher on each change
@@ -263,17 +269,55 @@ Item {
             var r        = Math.max(5, baseRadius * scale)
             var fontSize = Math.max(1, 13 * scale)
 
+            // ── highlighted note-set: filled triangles (drawn first, behind everything) ──
+            if (highlightedNotes !== 0) {
+                ctx.fillStyle = Theme.hlFaceFill
+                for (var i = iMin; i <= iMax; i++) {
+                    for (var j = jMin; j <= jMax; j++) {
+                        // Major triangle: (i,j)–(i+1,j)–(i,j+1)
+                        if (isHL(noteAt(i,j)) && isHL(noteAt(i+1,j)) && isHL(noteAt(i,j+1))) {
+                            var tp0=nodePos(i,j), tp1=nodePos(i+1,j), tp2=nodePos(i,j+1)
+                            ctx.beginPath(); ctx.moveTo(tp0.x,tp0.y)
+                            ctx.lineTo(tp1.x,tp1.y); ctx.lineTo(tp2.x,tp2.y); ctx.closePath(); ctx.fill()
+                        }
+                        // Minor triangle: (i+1,j)–(i,j+1)–(i+1,j+1)
+                        if (isHL(noteAt(i+1,j)) && isHL(noteAt(i,j+1)) && isHL(noteAt(i+1,j+1))) {
+                            var tp0=nodePos(i+1,j), tp1=nodePos(i,j+1), tp2=nodePos(i+1,j+1)
+                            ctx.beginPath(); ctx.moveTo(tp0.x,tp0.y)
+                            ctx.lineTo(tp1.x,tp1.y); ctx.lineTo(tp2.x,tp2.y); ctx.closePath(); ctx.fill()
+                        }
+                    }
+                }
+            }
+
             // ── edges ──
             ctx.lineWidth = Math.max(0.5, 1.5 * scale)
             for (var i = iMin; i <= iMax; i++) {
                 for (var j = jMin; j <= jMax; j++) {
                     var p = nodePos(i, j)
                     if (i + 1 <= iMax)
-                        drawEdge(ctx, p, nodePos(i+1, j  ), "#4a9eff")
+                        drawEdge(ctx, p, nodePos(i+1, j  ), Theme.edgeL)
                     if (j + 1 <= jMax)
-                        drawEdge(ctx, p, nodePos(i,   j+1), "#ff9f43")
+                        drawEdge(ctx, p, nodePos(i,   j+1), Theme.edgeR)
                     if (i + 1 <= iMax && j - 1 >= jMin)
-                        drawEdge(ctx, p, nodePos(i+1, j-1), "#ff6b9d")
+                        drawEdge(ctx, p, nodePos(i+1, j-1), Theme.edgeP)
+                }
+            }
+
+            // ── highlighted note-set: edge overlay ──
+            if (highlightedNotes !== 0) {
+                ctx.lineWidth = Math.max(1, 3 * scale)
+                for (var i = iMin; i <= iMax; i++) {
+                    for (var j = jMin; j <= jMax; j++) {
+                        if (!isHL(noteAt(i, j))) continue
+                        var p = nodePos(i, j)
+                        if (i+1 <= iMax && isHL(noteAt(i+1, j)))
+                            drawEdge(ctx, p, nodePos(i+1, j  ), Theme.hlEdge)
+                        if (j+1 <= jMax && isHL(noteAt(i, j+1)))
+                            drawEdge(ctx, p, nodePos(i,   j+1), Theme.hlEdge)
+                        if (i+1 <= iMax && j-1 >= jMin && isHL(noteAt(i+1, j-1)))
+                            drawEdge(ctx, p, nodePos(i+1, j-1), Theme.hlEdge)
+                    }
                 }
             }
 
@@ -283,7 +327,7 @@ Item {
                 ctx.font         = triadFontSize + "px sans-serif"
                 ctx.textAlign    = "center"
                 ctx.textBaseline = "middle"
-                ctx.fillStyle    = "#8888aa"
+                ctx.fillStyle    = Theme.labelFaint
                 for (var ti = iMin; ti <= iMax; ti++) {
                     for (var tj = jMin; tj <= jMax; tj++) {
                         var cMaj = triadCenter(ti, tj, true)
@@ -312,9 +356,9 @@ Item {
                 ctx.lineTo(p1.x, p1.y)
                 ctx.lineTo(p2.x, p2.y)
                 ctx.closePath()
-                ctx.fillStyle = "rgba(255, 210, 60, 0.28)"
+                ctx.fillStyle = Theme.selTriadFill
                 ctx.fill()
-                ctx.strokeStyle = "rgba(255, 210, 60, 0.7)"
+                ctx.strokeStyle = Theme.selTriadStroke
                 ctx.lineWidth   = Math.max(1, 2 * scale)
                 ctx.stroke()
             }
@@ -331,18 +375,31 @@ Item {
                         np.y < -r || np.y > height + r)
                         continue
 
-                    var isSelected = hasSelNode && ni === selNodeI && nj === selNodeJ
+                    var isSelected    = hasSelNode && ni === selNodeI && nj === selNodeJ
+                    var isHighlighted = isHL(noteAt(ni, nj))
 
                     ctx.beginPath()
                     ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
-                    ctx.fillStyle   = isSelected ? "#b8860b" : "#16213e"
+                    if (isSelected) {
+                        ctx.fillStyle   = Theme.selFill
+                        ctx.strokeStyle = Theme.selStroke
+                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                    } else if (isHighlighted) {
+                        ctx.fillStyle   = Theme.hlNodeFill
+                        ctx.strokeStyle = Theme.hlColor
+                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                    } else {
+                        ctx.fillStyle   = Theme.nodeFill
+                        ctx.strokeStyle = Theme.nodeStroke
+                        ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
+                    }
                     ctx.fill()
-                    ctx.strokeStyle = isSelected ? "#ffd700" : "#e0e0e0"
-                    ctx.lineWidth   = Math.max(0.5, (isSelected ? 2.5 : 1.5) * scale)
                     ctx.stroke()
 
                     if (r > 10) {
-                        ctx.fillStyle = isSelected ? "#fff8dc" : "#f0f0f0"
+                        ctx.fillStyle = isSelected    ? Theme.selText
+                                      : isHighlighted ? Theme.hlColor
+                                      :                 Theme.nodeText
                         ctx.fillText(noteNames[noteAt(ni, nj)], np.x, np.y)
                     }
                 }

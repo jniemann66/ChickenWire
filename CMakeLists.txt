@@ -15,9 +15,12 @@ qt_add_executable(appChickenWire
     VisualizerSwitcher.h
 )
 
+set_source_files_properties(Theme.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
 qt_add_qml_module(appChickenWire
     URI ChickenWire
     QML_FILES
+        Theme.qml         # singleton colour palette — edit here to retheme
         Main.qml          # top-level shell — switch visualizers here
         Tonnetz.qml       # Tonnetz triangular lattice (notes = vertices, triads = faces)
         ChickenWire.qml   # dual honeycomb lattice (triads = vertices, notes = faces)
