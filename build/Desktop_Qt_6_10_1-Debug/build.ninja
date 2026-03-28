@@ -47,7 +47,7 @@ cmake_ninja_workdir = /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/
 #############################################
 # Order-only phony target for appChickenWire
 
-build cmake_object_order_depends_target_appChickenWire: phony || .qt/rcc/qrc_appChickenWire_raw_qml_0.cpp .qt/rcc/qrc_qmake_ChickenWire.cpp .rcc/qmlcache/appChickenWire_Main_qml.cpp .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_qmlcache_loader.cpp ChickenWire/appChickenWire.qmltypes appChickenWire_autogen appChickenWire_autogen/mocs_compilation.cpp appChickenWire_autogen/timestamp appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan appchickenwire_qmltyperegistrations.cpp generate_qmlls_build_ini_file meta_types/appChickenWire_json_file_list.txt meta_types/appChickenWire_json_file_list.txt.timestamp meta_types/qt6appchickenwire_metatypes.json meta_types/qt6appchickenwire_metatypes.json.gen
+build cmake_object_order_depends_target_appChickenWire: phony || .qt/rcc/qrc_appChickenWire_raw_qml_0.cpp .qt/rcc/qrc_qmake_ChickenWire.cpp .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_Main_qml.cpp .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_qmlcache_loader.cpp ChickenWire/appChickenWire.qmltypes appChickenWire_autogen appChickenWire_autogen/mocs_compilation.cpp appChickenWire_autogen/timestamp appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan appchickenwire_qmltyperegistrations.cpp generate_qmlls_build_ini_file meta_types/appChickenWire_json_file_list.txt meta_types/appChickenWire_json_file_list.txt.timestamp meta_types/qt6appchickenwire_metatypes.json meta_types/qt6appchickenwire_metatypes.json.gen
 
 build CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
@@ -105,6 +105,22 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
 
+build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp || cmake_object_order_depends_target_appChickenWire
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
+  OBJECT_DIR = CMakeFiles/appChickenWire.dir
+  OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
+
+build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp || cmake_object_order_depends_target_appChickenWire
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
+  OBJECT_DIR = CMakeFiles/appChickenWire.dir
+  OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
+
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o.d
@@ -121,7 +137,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_ap
 #############################################
 # Link the executable appChickenWire
 
-build appChickenWire: CXX_EXECUTABLE_LINKER__appChickenWire_Debug CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.o CMakeFiles/appChickenWire.dir/main.cpp.o CMakeFiles/appChickenWire.dir/TonnetzController.cpp.o CMakeFiles/appChickenWire.dir/appchickenwire_qmltyperegistrations.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qmake_ChickenWire.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_qmlcache_loader.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o | /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6QuickWidgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Quick.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6OpenGL.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Qml.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Network.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Widgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Gui.so.6.10.1 /usr/lib64/libGLX.so /usr/lib64/libOpenGL.so /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Core.so.6.10.1 || appChickenWire_autogen appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan generate_qmlls_build_ini_file
+build appChickenWire: CXX_EXECUTABLE_LINKER__appChickenWire_Debug CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.o CMakeFiles/appChickenWire.dir/main.cpp.o CMakeFiles/appChickenWire.dir/TonnetzController.cpp.o CMakeFiles/appChickenWire.dir/appchickenwire_qmltyperegistrations.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qmake_ChickenWire.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_qmlcache_loader.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o | /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6QuickWidgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Quick.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6OpenGL.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Qml.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Network.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Widgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Gui.so.6.10.1 /usr/lib64/libGLX.so /usr/lib64/libOpenGL.so /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Core.so.6.10.1 || appChickenWire_autogen appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan generate_qmlls_build_ini_file
   FLAGS = -DQT_QML_DEBUG -g
   LINK_LIBRARIES = -Wl,-rpath,/home/juddn/Qt/6.10.1/gcc_64/lib:  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6QuickWidgets.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Quick.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6OpenGL.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Qml.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Network.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Widgets.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Gui.so.6.10.1  /usr/lib64/libGLX.so  /usr/lib64/libOpenGL.so  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Core.so.6.10.1  -Wl,-rpath-link,/home/juddn/Qt/6.10.1/gcc_64/lib
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
@@ -200,13 +216,13 @@ build generate_qmlls_build_ini_file: phony CMakeFiles/generate_qmlls_build_ini_f
 #############################################
 # Utility command for module_appChickenWire_aotstats_target
 
-build module_appChickenWire_aotstats_target: phony CMakeFiles/module_appChickenWire_aotstats_target .rcc/qmlcache/module_appChickenWire.aotstats .rcc/qmlcache/appChickenWire_Main_qml.cpp .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats appchickenwire_qmltyperegistrations.cpp ChickenWire/appChickenWire.qmltypes appChickenWire_qmltyperegistration
+build module_appChickenWire_aotstats_target: phony CMakeFiles/module_appChickenWire_aotstats_target .rcc/qmlcache/module_appChickenWire.aotstats .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_Main_qml.cpp .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats appchickenwire_qmltyperegistrations.cpp ChickenWire/appChickenWire.qmltypes appChickenWire_qmltyperegistration
 
 
 #############################################
 # Utility command for all_aotstats
 
-build all_aotstats: phony CMakeFiles/all_aotstats .rcc/qmlcache/all_aotstats.aotstats .rcc/qmlcache/all_aotstats.txt .rcc/qmlcache/module_appChickenWire.aotstats .rcc/qmlcache/appChickenWire_Main_qml.cpp .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats appchickenwire_qmltyperegistrations.cpp ChickenWire/appChickenWire.qmltypes module_appChickenWire_aotstats_target
+build all_aotstats: phony CMakeFiles/all_aotstats .rcc/qmlcache/all_aotstats.aotstats .rcc/qmlcache/all_aotstats.txt .rcc/qmlcache/module_appChickenWire.aotstats .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_Main_qml.cpp .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats appchickenwire_qmltyperegistrations.cpp ChickenWire/appChickenWire.qmltypes module_appChickenWire_aotstats_target
 
 
 #############################################
@@ -339,9 +355,27 @@ build .rcc/qmlcache/appChickenWire_Main_qml.cpp .rcc/qmlcache/appChickenWire_Mai
 
 
 #############################################
+# Custom command for .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp
+
+build .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats | ${cmake_ninja_workdir}.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp ${cmake_ninja_workdir}.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlcachegen /home/juddn/ChickenWire/Tonnetz.qml .qt/rcc/qmake_ChickenWire.qrc .qt/rcc/appChickenWire_raw_qml_0.qrc ChickenWire/appChickenWire.qmltypes ChickenWire/qmldir
+  COMMAND = cd /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug && /home/juddn/Qt/Tools/CMake/bin/cmake -E make_directory /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache && /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlcachegen --bare --resource-path /qt/qml/ChickenWire/Tonnetz.qml -I /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug -I /home/juddn/Qt/6.10.1/gcc_64/qml -i /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/ChickenWire/qmldir --resource /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qmake_ChickenWire.qrc --resource /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/appChickenWire_raw_qml_0.qrc --dump-aot-stats "--module-id=ChickenWire(appChickenWire)" -o /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp /home/juddn/ChickenWire/Tonnetz.qml
+  DESC = Generating .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp, .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats
+  restat = 1
+
+
+#############################################
+# Custom command for .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp
+
+build .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.aotstats | ${cmake_ninja_workdir}.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp ${cmake_ninja_workdir}.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.aotstats: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlcachegen /home/juddn/ChickenWire/ChickenWire.qml .qt/rcc/qmake_ChickenWire.qrc .qt/rcc/appChickenWire_raw_qml_0.qrc ChickenWire/appChickenWire.qmltypes ChickenWire/qmldir
+  COMMAND = cd /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug && /home/juddn/Qt/Tools/CMake/bin/cmake -E make_directory /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache && /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlcachegen --bare --resource-path /qt/qml/ChickenWire/ChickenWire.qml -I /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug -I /home/juddn/Qt/6.10.1/gcc_64/qml -i /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/ChickenWire/qmldir --resource /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qmake_ChickenWire.qrc --resource /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/appChickenWire_raw_qml_0.qrc --dump-aot-stats "--module-id=ChickenWire(appChickenWire)" -o /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp /home/juddn/ChickenWire/ChickenWire.qml
+  DESC = Generating .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp, .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.aotstats
+  restat = 1
+
+
+#############################################
 # Custom command for .qt/rcc/qrc_appChickenWire_raw_qml_0.cpp
 
-build .qt/rcc/qrc_appChickenWire_raw_qml_0.cpp | ${cmake_ninja_workdir}.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp: CUSTOM_COMMAND /home/juddn/ChickenWire/Main.qml .qt/rcc/appChickenWire_raw_qml_0.qrc /home/juddn/Qt/6.10.1/gcc_64/libexec/rcc || appChickenWire_autogen appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan generate_qmlls_build_ini_file
+build .qt/rcc/qrc_appChickenWire_raw_qml_0.cpp | ${cmake_ninja_workdir}.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp: CUSTOM_COMMAND /home/juddn/ChickenWire/Main.qml /home/juddn/ChickenWire/Tonnetz.qml /home/juddn/ChickenWire/ChickenWire.qml .qt/rcc/appChickenWire_raw_qml_0.qrc /home/juddn/Qt/6.10.1/gcc_64/libexec/rcc || appChickenWire_autogen appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan generate_qmlls_build_ini_file
   COMMAND = cd /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug && /home/juddn/Qt/6.10.1/gcc_64/libexec/rcc --output /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp --name appChickenWire_raw_qml_0 /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/appChickenWire_raw_qml_0.qrc
   DESC = Running rcc for resource appChickenWire_raw_qml_0
   restat = 1
@@ -376,21 +410,21 @@ build CMakeFiles/appChickenWire_qmltyperegistration | ${cmake_ninja_workdir}CMak
 #############################################
 # Custom command for CMakeFiles/appChickenWire_qmllint
 
-build CMakeFiles/appChickenWire_qmllint | ${cmake_ninja_workdir}CMakeFiles/appChickenWire_qmllint: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint /home/juddn/ChickenWire/Main.qml .rcc/qmllint/appChickenWire.rsp || all_qmltyperegistrations appChickenWire_qmltyperegistration
+build CMakeFiles/appChickenWire_qmllint | ${cmake_ninja_workdir}CMakeFiles/appChickenWire_qmllint: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint /home/juddn/ChickenWire/Main.qml /home/juddn/ChickenWire/Tonnetz.qml /home/juddn/ChickenWire/ChickenWire.qml .rcc/qmllint/appChickenWire.rsp || all_qmltyperegistrations appChickenWire_qmltyperegistration
   COMMAND = cd /home/juddn/ChickenWire && /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint @/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmllint/appChickenWire.rsp
 
 
 #############################################
 # Custom command for CMakeFiles/appChickenWire_qmllint_json
 
-build CMakeFiles/appChickenWire_qmllint_json | ${cmake_ninja_workdir}CMakeFiles/appChickenWire_qmllint_json: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint /home/juddn/ChickenWire/Main.qml .rcc/qmllint/appChickenWire_json.rsp || all_qmltyperegistrations appChickenWire_qmltyperegistration
+build CMakeFiles/appChickenWire_qmllint_json | ${cmake_ninja_workdir}CMakeFiles/appChickenWire_qmllint_json: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint /home/juddn/ChickenWire/Main.qml /home/juddn/ChickenWire/Tonnetz.qml /home/juddn/ChickenWire/ChickenWire.qml .rcc/qmllint/appChickenWire_json.rsp || all_qmltyperegistrations appChickenWire_qmltyperegistration
   COMMAND = cd /home/juddn/ChickenWire && /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint @/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmllint/appChickenWire_json.rsp
 
 
 #############################################
 # Custom command for CMakeFiles/appChickenWire_qmllint_module
 
-build CMakeFiles/appChickenWire_qmllint_module | ${cmake_ninja_workdir}CMakeFiles/appChickenWire_qmllint_module: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint /home/juddn/ChickenWire/Main.qml .rcc/qmllint/appChickenWire_module.rsp || all_qmltyperegistrations appChickenWire_qmltyperegistration
+build CMakeFiles/appChickenWire_qmllint_module | ${cmake_ninja_workdir}CMakeFiles/appChickenWire_qmllint_module: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint /home/juddn/ChickenWire/Main.qml /home/juddn/ChickenWire/Tonnetz.qml /home/juddn/ChickenWire/ChickenWire.qml .rcc/qmllint/appChickenWire_module.rsp || all_qmltyperegistrations appChickenWire_qmltyperegistration
   COMMAND = cd /home/juddn/ChickenWire && /home/juddn/Qt/6.10.1/gcc_64/bin/qmllint @/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmllint/appChickenWire_module.rsp
 
 
@@ -403,7 +437,7 @@ build CMakeFiles/appChickenWire_copy_qml | ${cmake_ninja_workdir}CMakeFiles/appC
 #############################################
 # Custom command for .qt/appChickenWire_qml.txt
 
-build .qt/appChickenWire_qml.txt | ${cmake_ninja_workdir}.qt/appChickenWire_qml.txt: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6Qml/Qt6QmlCopyFiles.cmake /home/juddn/ChickenWire/Main.qml
+build .qt/appChickenWire_qml.txt | ${cmake_ninja_workdir}.qt/appChickenWire_qml.txt: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6Qml/Qt6QmlCopyFiles.cmake /home/juddn/ChickenWire/Main.qml /home/juddn/ChickenWire/Tonnetz.qml /home/juddn/ChickenWire/ChickenWire.qml
   COMMAND = cd /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug && /home/juddn/Qt/Tools/CMake/bin/cmake -DFILES_INFO_PATH=/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/appChickenWire_qml.cmake -P /home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6Qml/Qt6QmlCopyFiles.cmake
   DESC = Copying appChickenWire qml sources into build dir
   restat = 1
@@ -448,7 +482,7 @@ build CMakeFiles/module_appChickenWire_aotstats_target | ${cmake_ninja_workdir}C
 #############################################
 # Custom command for .rcc/qmlcache/module_appChickenWire.aotstats
 
-build .rcc/qmlcache/module_appChickenWire.aotstats | ${cmake_ninja_workdir}.rcc/qmlcache/module_appChickenWire.aotstats: CUSTOM_COMMAND .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats .rcc/qmlcache/module_appChickenWire.aotstatslist || appChickenWire_qmltyperegistration
+build .rcc/qmlcache/module_appChickenWire.aotstats | ${cmake_ninja_workdir}.rcc/qmlcache/module_appChickenWire.aotstats: CUSTOM_COMMAND .rcc/qmlcache/appChickenWire_Main_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats .rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.aotstats .rcc/qmlcache/module_appChickenWire.aotstatslist || appChickenWire_qmltyperegistration
   COMMAND = cd /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug && /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlaotstats aggregate /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/module_appChickenWire.aotstatslist /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/module_appChickenWire.aotstats
   DESC = Generating .rcc/qmlcache/module_appChickenWire.aotstats
   restat = 1
@@ -479,7 +513,7 @@ build CMakeFiles/appChickenWire_qmlimportscan | ${cmake_ninja_workdir}CMakeFiles
 #############################################
 # Custom command for .qt/qml_imports/appChickenWire_build.cmake
 
-build .qt/qml_imports/appChickenWire_build.cmake | ${cmake_ninja_workdir}.qt/qml_imports/appChickenWire_build.cmake: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlimportscanner .qt/rcc/qmake_ChickenWire.qrc .qt/rcc/appChickenWire_raw_qml_0.qrc /home/juddn/ChickenWire/Main.qml
+build .qt/qml_imports/appChickenWire_build.cmake | ${cmake_ninja_workdir}.qt/qml_imports/appChickenWire_build.cmake: CUSTOM_COMMAND /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlimportscanner .qt/rcc/qmake_ChickenWire.qrc .qt/rcc/appChickenWire_raw_qml_0.qrc /home/juddn/ChickenWire/Main.qml /home/juddn/ChickenWire/Tonnetz.qml /home/juddn/ChickenWire/ChickenWire.qml
   COMMAND = cd /home/juddn/ChickenWire && /home/juddn/Qt/6.10.1/gcc_64/libexec/qmlimportscanner @/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/qml_imports/appChickenWire_build.rsp
   DESC = Running qmlimportscanner for appChickenWire
   restat = 1

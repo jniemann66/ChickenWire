@@ -1,4 +1,5 @@
 #include "TonnetzController.h"
+
 #include <QDebug>
 
 static const char *NOTE_NAMES[] = {

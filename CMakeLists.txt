@@ -12,12 +12,15 @@ qt_add_executable(appChickenWire
     main.cpp
     TonnetzController.h
     TonnetzController.cpp
+    VisualizerSwitcher.h
 )
 
 qt_add_qml_module(appChickenWire
     URI ChickenWire
     QML_FILES
-        Main.qml
+        Main.qml          # top-level shell — switch visualizers here
+        Tonnetz.qml       # Tonnetz triangular lattice (notes = vertices, triads = faces)
+        ChickenWire.qml   # dual honeycomb lattice (triads = vertices, notes = faces)
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
