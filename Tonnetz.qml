@@ -20,6 +20,7 @@ Item {
             canvas.selNodeJ = nj
             canvas.scrollIntoView(canvas.nodePos(ni, nj))
             tonnetzController.selectNote(canvas.noteAt(ni, nj), ni, nj)
+            visualizerSwitcher.setNoteSelection(ni, nj)
             visualizerSwitcher.vpOriginX = canvas.originX
             visualizerSwitcher.vpOriginY = canvas.originY
             canvas.requestPaint()
@@ -40,6 +41,7 @@ Item {
                 fifth = canvas.noteAt(ti+1, tj+1)
             }
             tonnetzController.selectTriad(root, third, fifth, canvas.selTriadMajor)
+            visualizerSwitcher.setTriadSelection(ti, tj, canvas.selTriadMajor)
             visualizerSwitcher.vpOriginX = canvas.originX
             visualizerSwitcher.vpOriginY = canvas.originY
             canvas.requestPaint()
@@ -63,6 +65,31 @@ Item {
                 originX = visualizerSwitcher.vpOriginX
                 originY = visualizerSwitcher.vpOriginY
                 scale   = visualizerSwitcher.vpScale
+            }
+        }
+
+        // Sync selection state from the shared switcher (set by either visualizer).
+        // Guards prevent redundant repaints when the change originated here.
+        Connections {
+            target: visualizerSwitcher
+            function onSelectionChanged() {
+                var t  = visualizerSwitcher.selType
+                var ni = visualizerSwitcher.selI, nj = visualizerSwitcher.selJ
+                var maj = visualizerSwitcher.selIsMajor
+                if (t === 1) {
+                    if (canvas.hasSelNode && canvas.selNodeI === ni && canvas.selNodeJ === nj) return
+                    canvas.hasSelNode = true;  canvas.selNodeI = ni; canvas.selNodeJ = nj
+                    canvas.hasSelTriad = false
+                } else if (t === 2) {
+                    if (canvas.hasSelTriad && canvas.selTriadI === ni && canvas.selTriadJ === nj
+                            && canvas.selTriadMajor === maj) return
+                    canvas.hasSelTriad = true; canvas.selTriadI = ni; canvas.selTriadJ = nj
+                    canvas.selTriadMajor = maj; canvas.hasSelNode = false
+                } else {
+                    if (!canvas.hasSelNode && !canvas.hasSelTriad) return
+                    canvas.hasSelNode = false; canvas.hasSelTriad = false
+                }
+                canvas.requestPaint()
             }
         }
 
@@ -117,6 +144,12 @@ Item {
 
         function noteAt(i, j) {
             return ((startNote + i * 7 + j * 4) % 12 + 12) % 12
+        }
+
+        // Chord label matching ChickenWire's vertex labels: "C", "Am", "F♯m" …
+        function chordLabel(i, j, isMajor) {
+            var root = isMajor ? noteAt(i, j) : noteAt(i, j + 1)
+            return noteNames[root] + (isMajor ? "" : "m")
         }
 
         function visibleRange() {
@@ -235,6 +268,23 @@ Item {
                         drawEdge(ctx, p, nodePos(i,   j+1), "#ff9f43")
                     if (i + 1 <= iMax && j - 1 >= jMin)
                         drawEdge(ctx, p, nodePos(i+1, j-1), "#ff6b9d")
+                }
+            }
+
+            // ── triad labels at triangle centres ──
+            if (r > 10) {
+                var triadFontSize = Math.max(1, 11 * scale)
+                ctx.font         = triadFontSize + "px sans-serif"
+                ctx.textAlign    = "center"
+                ctx.textBaseline = "middle"
+                ctx.fillStyle    = "#8888aa"
+                for (var ti = iMin; ti <= iMax; ti++) {
+                    for (var tj = jMin; tj <= jMax; tj++) {
+                        var cMaj = triadCenter(ti, tj, true)
+                        ctx.fillText(chordLabel(ti, tj, true),  cMaj.x, cMaj.y)
+                        var cMin = triadCenter(ti, tj, false)
+                        ctx.fillText(chordLabel(ti, tj, false), cMin.x, cMin.y)
+                    }
                 }
             }
 
@@ -370,6 +420,7 @@ Item {
                     canvas.selNodeI    = hit.i
                     canvas.selNodeJ    = hit.j
                     tonnetzController.selectNote(hit.semitone, hit.i, hit.j)
+                    visualizerSwitcher.setNoteSelection(hit.i, hit.j)
                 } else {
                     canvas.hasSelNode  = false
                     canvas.hasSelTriad = true
@@ -377,6 +428,7 @@ Item {
                     canvas.selTriadJ   = hit.j
                     canvas.selTriadMajor = hit.isMajor
                     tonnetzController.selectTriad(hit.root, hit.third, hit.fifth, hit.isMajor)
+                    visualizerSwitcher.setTriadSelection(hit.i, hit.j, hit.isMajor)
                 }
 
                 canvas.requestPaint()

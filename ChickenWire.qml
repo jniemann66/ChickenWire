@@ -19,7 +19,7 @@ Item {
     focus: true
 
     Keys.onPressed: (event) => {
-        if (!canvas.hasSel) return
+        if (!canvas.hasSel && !canvas.hasSelNote) return
         var di = 0, dj = 0
         var shift = event.modifiers & Qt.ShiftModifier
         if      (event.key === Qt.Key_Right) { di =  1 }
@@ -29,13 +29,24 @@ Item {
         else return
         event.accepted = true
 
-        var ni = canvas.selI + di
-        var nj = canvas.selJ + dj
-        canvas.selI = ni
-        canvas.selJ = nj
-        canvas.scrollIntoView(canvas.dualPos(ni, nj, canvas.selMajor))
-        var t = canvas.triadNotes(ni, nj, canvas.selMajor)
-        tonnetzController.selectTriad(t.root, t.third, t.fifth, canvas.selMajor)
+        if (canvas.hasSelNote) {
+            var ni = canvas.selNoteI + di
+            var nj = canvas.selNoteJ + dj
+            canvas.selNoteI = ni
+            canvas.selNoteJ = nj
+            canvas.scrollIntoView(canvas.hexCenter(ni, nj))
+            tonnetzController.selectNote(canvas.noteAt(ni, nj), ni, nj)
+            visualizerSwitcher.setNoteSelection(ni, nj)
+        } else {
+            var ni = canvas.selI + di
+            var nj = canvas.selJ + dj
+            canvas.selI = ni
+            canvas.selJ = nj
+            canvas.scrollIntoView(canvas.dualPos(ni, nj, canvas.selMajor))
+            var t = canvas.triadNotes(ni, nj, canvas.selMajor)
+            tonnetzController.selectTriad(t.root, t.third, t.fifth, canvas.selMajor)
+            visualizerSwitcher.setTriadSelection(ni, nj, canvas.selMajor)
+        }
         visualizerSwitcher.vpOriginX = canvas.originX
         visualizerSwitcher.vpOriginY = canvas.originY
         canvas.requestPaint()
@@ -57,6 +68,30 @@ Item {
                 originX = visualizerSwitcher.vpOriginX
                 originY = visualizerSwitcher.vpOriginY
                 scale   = visualizerSwitcher.vpScale
+            }
+        }
+
+        // Sync selection from the shared switcher.
+        Connections {
+            target: visualizerSwitcher
+            function onSelectionChanged() {
+                var t  = visualizerSwitcher.selType
+                var ni = visualizerSwitcher.selI, nj = visualizerSwitcher.selJ
+                var maj = visualizerSwitcher.selIsMajor
+                if (t === 1) {
+                    if (canvas.hasSelNote && canvas.selNoteI === ni && canvas.selNoteJ === nj) return
+                    canvas.hasSelNote = true; canvas.selNoteI = ni; canvas.selNoteJ = nj
+                    canvas.hasSel = false
+                } else if (t === 2) {
+                    if (canvas.hasSel && canvas.selI === ni && canvas.selJ === nj
+                            && canvas.selMajor === maj) return
+                    canvas.hasSel = true; canvas.selI = ni; canvas.selJ = nj; canvas.selMajor = maj
+                    canvas.hasSelNote = false
+                } else {
+                    if (!canvas.hasSel && !canvas.hasSelNote) return
+                    canvas.hasSel = false; canvas.hasSelNote = false
+                }
+                canvas.requestPaint()
             }
         }
 
@@ -92,11 +127,14 @@ Item {
         // versus 72 px in the Tonnetz, so we scale down accordingly.
         readonly property real baseRadius: 15
 
-        // Selection: one dual vertex = one triad
-        property bool hasSel:   false
-        property int  selI:     0
-        property int  selJ:     0
-        property bool selMajor: true
+        // Selection: triad (dual vertex) or note (hex face / Tonnetz node)
+        property bool hasSel:     false
+        property int  selI:       0
+        property int  selJ:       0
+        property bool selMajor:   true
+        property bool hasSelNote: false
+        property int  selNoteI:   0
+        property int  selNoteJ:   0
 
         // ── coordinate helpers ────────────────────────────────────────────────
 
@@ -170,7 +208,8 @@ Item {
 
         // ── hit testing ───────────────────────────────────────────────────────
 
-        // Returns the nearest dual vertex to the screen point (px,py).
+        // Returns { type:"triad", i, j, isMajor } if click is within a node radius
+        // of a dual vertex, or { type:"note", i, j } for the enclosing hex face.
         function hitTest(px, py) {
             var dx  = baseDx * scale
             var dy  = baseDy * scale
@@ -180,7 +219,8 @@ Item {
             var if_ = sx / dx - jf / 2
             var ci  = Math.round(if_)
             var cj  = Math.round(jf)
-            var bestDist = 1e18
+            var r   = Math.max(4, baseRadius * scale)
+            var bestDist2 = 1e18
             var best = null
             for (var di = -2; di <= 2; di++) {
                 for (var dj = -2; dj <= 2; dj++) {
@@ -188,14 +228,17 @@ Item {
                         var isMaj = (m === 0)
                         var p  = dualPos(ci + di, cj + dj, isMaj)
                         var d2 = (px - p.x) * (px - p.x) + (py - p.y) * (py - p.y)
-                        if (d2 < bestDist) {
-                            bestDist = d2
+                        if (d2 < bestDist2) {
+                            bestDist2 = d2
                             best = { i: ci + di, j: cj + dj, isMajor: isMaj }
                         }
                     }
                 }
             }
-            return best
+            if (bestDist2 <= r * r)
+                return { type: "triad", i: best.i, j: best.j, isMajor: best.isMajor }
+            // Click is inside a hex face → select the note at that face's centre
+            return { type: "note", i: ci, j: cj }
         }
 
         function drawEdge(ctx, p1, p2, color) {
@@ -227,6 +270,29 @@ Item {
 
             var r        = Math.max(4, baseRadius * scale)
             var fontSize = Math.max(1, Math.min(r * 0.72, 11 * scale))
+
+            // ── 0. Selected note hex-face highlight ───────────────────────
+            if (hasSelNote) {
+                var h0 = dualPos(selNoteI,     selNoteJ,     true )  // major(I,J)
+                var h1 = dualPos(selNoteI - 1, selNoteJ,     false)  // minor(I-1,J)
+                var h2 = dualPos(selNoteI - 1, selNoteJ,     true )  // major(I-1,J)
+                var h3 = dualPos(selNoteI - 1, selNoteJ - 1, false)  // minor(I-1,J-1)
+                var h4 = dualPos(selNoteI,     selNoteJ - 1, true )  // major(I,J-1)
+                var h5 = dualPos(selNoteI,     selNoteJ - 1, false)  // minor(I,J-1)
+                ctx.beginPath()
+                ctx.moveTo(h0.x, h0.y)
+                ctx.lineTo(h1.x, h1.y)
+                ctx.lineTo(h2.x, h2.y)
+                ctx.lineTo(h3.x, h3.y)
+                ctx.lineTo(h4.x, h4.y)
+                ctx.lineTo(h5.x, h5.y)
+                ctx.closePath()
+                ctx.fillStyle   = "rgba(255,210,60,0.18)"
+                ctx.fill()
+                ctx.strokeStyle = "rgba(255,210,60,0.6)"
+                ctx.lineWidth   = Math.max(1, 2 * scale)
+                ctx.stroke()
+            }
 
             // ── 1. Edges, coloured by neo-Riemannian transformation ───────
             // From each major(I,J) vertex there are exactly three edges:
@@ -344,12 +410,24 @@ Item {
 
                 var hit = canvas.hitTest(mouse.x, mouse.y)
                 if (!hit) return
-                canvas.hasSel   = true
-                canvas.selI     = hit.i
-                canvas.selJ     = hit.j
-                canvas.selMajor = hit.isMajor
-                var t = canvas.triadNotes(hit.i, hit.j, hit.isMajor)
-                tonnetzController.selectTriad(t.root, t.third, t.fifth, hit.isMajor)
+
+                if (hit.type === "triad") {
+                    canvas.hasSel     = true
+                    canvas.selI       = hit.i
+                    canvas.selJ       = hit.j
+                    canvas.selMajor   = hit.isMajor
+                    canvas.hasSelNote = false
+                    var t = canvas.triadNotes(hit.i, hit.j, hit.isMajor)
+                    tonnetzController.selectTriad(t.root, t.third, t.fifth, hit.isMajor)
+                    visualizerSwitcher.setTriadSelection(hit.i, hit.j, hit.isMajor)
+                } else {
+                    canvas.hasSelNote = true
+                    canvas.selNoteI   = hit.i
+                    canvas.selNoteJ   = hit.j
+                    canvas.hasSel     = false
+                    tonnetzController.selectNote(canvas.noteAt(hit.i, hit.j), hit.i, hit.j)
+                    visualizerSwitcher.setNoteSelection(hit.i, hit.j)
+                }
                 canvas.requestPaint()
             }
 
