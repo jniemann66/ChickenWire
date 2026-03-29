@@ -13,15 +13,17 @@ Edges in both views represent neo-Riemannian transformations (P, R, L) between c
 
 | Transformation | Colour | Mnemonic |
 |----------------|--------|----------|
-| **P** (Parallel) | Pink | **P** for **P**ink |
-| **R** (Relative) | Orange | o**R**ange |
-| **L** (Leading-tone exchange) | Blue | b**L**ue |
+| **P** (Parallel) | <u>P</u>ink | **'P'** for **P**ink |
+| **R** (Relative) | o<u>R</u>ange | **'R'** as in o**R**ange |
+| **L** (Leading-tone exchange) | <u>B</u>lue | **'B'** as in b**L**ue |
 
 ## Navigation
 
 | Key | Action |
 |-----|--------|
-| Arrow keys | Pan the view |
+| Left/Right Arrow keys | Navigate along horizontal (perfect 5ths) axis |
+| Up/Down Arrow keys | Navigate along major-3rds axis |
+| Shift + Up/Down Arrow Keys | Navigate along minor-3rds axis | 
 | F4 | Switch between Tonnetz and ChickenWire |
 | D | Toggle neo-Riemannian distance highlighting |
 | Click | Select a note or triad |
