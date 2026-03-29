@@ -15,7 +15,7 @@ Edges in both views represent neo-Riemannian transformations (P, R, L) between c
 |----------------|--------|----------|
 | **P** (Parallel) | pink | **'P'** for **P**ink |
 | **R** (Relative) | orange | **'R'** as in o**R**ange |
-| **L** (Leading-tone exchange) | blue | **'B'** as in b**L**ue |
+| **L** (Leading-tone exchange) | blue | **'L'** as in b**L**ue |
 
 ## Navigation
 
