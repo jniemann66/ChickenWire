@@ -46,6 +46,10 @@ public:
         m_selType = 2; m_selI = i; m_selJ = j; m_selIsMajor = isMajor;
         emit selectionChanged();
     }
+    Q_INVOKABLE void clearSelection() {
+        if (m_selType == 0) return;
+        m_selType = 0; emit selectionChanged();
+    }
 
     void setSource(const QString &s) {
         if (m_source != s) { m_source = s; emit sourceChanged(); }

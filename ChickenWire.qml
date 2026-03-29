@@ -498,24 +498,39 @@ Item {
                 if (!hit) return
 
                 if (hit.type === "triad") {
-                    canvas.hasSel     = true
-                    canvas.selI       = hit.i
-                    canvas.selJ       = hit.j
-                    canvas.selMajor   = hit.isMajor
-                    canvas.hasSelNote = false
-                    var t = canvas.triadNotes(hit.i, hit.j, hit.isMajor)
-                    tonnetzController.selectTriad(t.root, t.third, t.fifth, hit.isMajor)
-                    canvas.nrDists = tonnetzController.nrDistancesEnabled
-                        ? tonnetzController.computeTriadDistances(t.root, hit.isMajor) : []
-                    visualizerSwitcher.setTriadSelection(hit.i, hit.j, hit.isMajor)
+                    if (canvas.hasSel && canvas.selI === hit.i
+                            && canvas.selJ === hit.j && canvas.selMajor === hit.isMajor) {
+                        // toggle off
+                        canvas.hasSel  = false
+                        canvas.nrDists = []
+                        visualizerSwitcher.clearSelection()
+                    } else {
+                        canvas.hasSel     = true
+                        canvas.selI       = hit.i
+                        canvas.selJ       = hit.j
+                        canvas.selMajor   = hit.isMajor
+                        canvas.hasSelNote = false
+                        var t = canvas.triadNotes(hit.i, hit.j, hit.isMajor)
+                        tonnetzController.selectTriad(t.root, t.third, t.fifth, hit.isMajor)
+                        canvas.nrDists = tonnetzController.nrDistancesEnabled
+                            ? tonnetzController.computeTriadDistances(t.root, hit.isMajor) : []
+                        visualizerSwitcher.setTriadSelection(hit.i, hit.j, hit.isMajor)
+                    }
                 } else {
-                    canvas.hasSelNote = true
-                    canvas.selNoteI   = hit.i
-                    canvas.selNoteJ   = hit.j
-                    canvas.hasSel     = false
-                    canvas.nrDists    = []
-                    tonnetzController.selectNote(canvas.noteAt(hit.i, hit.j), hit.i, hit.j)
-                    visualizerSwitcher.setNoteSelection(hit.i, hit.j)
+                    if (canvas.hasSelNote && canvas.selNoteI === hit.i && canvas.selNoteJ === hit.j) {
+                        // toggle off
+                        canvas.hasSelNote = false
+                        canvas.nrDists    = []
+                        visualizerSwitcher.clearSelection()
+                    } else {
+                        canvas.hasSelNote = true
+                        canvas.selNoteI   = hit.i
+                        canvas.selNoteJ   = hit.j
+                        canvas.hasSel     = false
+                        canvas.nrDists    = []
+                        tonnetzController.selectNote(canvas.noteAt(hit.i, hit.j), hit.i, hit.j)
+                        visualizerSwitcher.setNoteSelection(hit.i, hit.j)
+                    }
                 }
                 canvas.requestPaint()
             }

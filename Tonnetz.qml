@@ -542,23 +542,38 @@ Item {
                 var hit = canvas.hitTest(mouse.x, mouse.y)
 
                 if (hit.type === "note") {
-                    canvas.hasSelTriad = false
-                    canvas.hasSelNode  = true
-                    canvas.selNodeI    = hit.i
-                    canvas.selNodeJ    = hit.j
-                    canvas.nrDists = []
-                    tonnetzController.selectNote(hit.semitone, hit.i, hit.j)
-                    visualizerSwitcher.setNoteSelection(hit.i, hit.j)
+                    if (canvas.hasSelNode && canvas.selNodeI === hit.i && canvas.selNodeJ === hit.j) {
+                        // toggle off
+                        canvas.hasSelNode = false
+                        canvas.nrDists = []
+                        visualizerSwitcher.clearSelection()
+                    } else {
+                        canvas.hasSelTriad = false
+                        canvas.hasSelNode  = true
+                        canvas.selNodeI    = hit.i
+                        canvas.selNodeJ    = hit.j
+                        canvas.nrDists = []
+                        tonnetzController.selectNote(hit.semitone, hit.i, hit.j)
+                        visualizerSwitcher.setNoteSelection(hit.i, hit.j)
+                    }
                 } else {
-                    canvas.hasSelNode  = false
-                    canvas.hasSelTriad = true
-                    canvas.selTriadI   = hit.i
-                    canvas.selTriadJ   = hit.j
-                    canvas.selTriadMajor = hit.isMajor
-                    canvas.nrDists = tonnetzController.nrDistancesEnabled
-                        ? tonnetzController.computeTriadDistances(hit.root, hit.isMajor) : []
-                    tonnetzController.selectTriad(hit.root, hit.third, hit.fifth, hit.isMajor)
-                    visualizerSwitcher.setTriadSelection(hit.i, hit.j, hit.isMajor)
+                    if (canvas.hasSelTriad && canvas.selTriadI === hit.i
+                            && canvas.selTriadJ === hit.j && canvas.selTriadMajor === hit.isMajor) {
+                        // toggle off
+                        canvas.hasSelTriad = false
+                        canvas.nrDists = []
+                        visualizerSwitcher.clearSelection()
+                    } else {
+                        canvas.hasSelNode  = false
+                        canvas.hasSelTriad = true
+                        canvas.selTriadI   = hit.i
+                        canvas.selTriadJ   = hit.j
+                        canvas.selTriadMajor = hit.isMajor
+                        canvas.nrDists = tonnetzController.nrDistancesEnabled
+                            ? tonnetzController.computeTriadDistances(hit.root, hit.isMajor) : []
+                        tonnetzController.selectTriad(hit.root, hit.third, hit.fifth, hit.isMajor)
+                        visualizerSwitcher.setTriadSelection(hit.i, hit.j, hit.isMajor)
+                    }
                 }
 
                 canvas.requestPaint()
