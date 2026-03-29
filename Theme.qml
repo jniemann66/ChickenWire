@@ -60,16 +60,19 @@ QtObject {
 
     // ── MIDI playback: currently sounding notes ──────────────────────────────
     // Green (neon)
-    readonly property color playColor:     "#39ff14"
-    readonly property color playFaceFill:  Qt.rgba(0.224, 1.0, 0.078, 0.15)
-    readonly property color playHexStroke: Qt.rgba(0.224, 1.0, 0.078, 0.70)
-    readonly property color playNodeFill:  "#0d1f0a"
-    readonly property color playNodeText:  "#39ff14"
+    // readonly property color playColor:     "#39ff14"
+    // readonly property color playFaceFill:  Qt.rgba(0.224, 1.0, 0.078, 0.15)
+    // readonly property color playHexStroke: Qt.rgba(0.224, 1.0, 0.078, 0.70)
+    // readonly property color playNodeFill:  "#0d1f0a"
+    // readonly property color playNodeText:  "#39ff14"
 
     // White
-    // readonly property color playColor:     "#ffffff"
-    // readonly property color playFaceFill:  Qt.rgba(1, 1, 1, 0.12)
-    // readonly property color playHexStroke: Qt.rgba(1, 1, 1, 0.75)
-    // readonly property color playNodeFill:  "#1e1e30"
-    // readonly property color playNodeText:  "#ffffff"
+    readonly property color playColor:     "#ffff7f"
+    readonly property color playFaceFill:  Qt.rgba(1, 1, 0.5, 0.12)
+    readonly property color playHexStroke: Qt.rgba(1, 1, 0.5, 0.75)
+    readonly property color playNodeFill:  "#1e1e30"
+    readonly property color playNodeText:  "#ffff7f"
+
+
+
 }
