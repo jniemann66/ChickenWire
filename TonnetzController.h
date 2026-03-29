@@ -1,6 +1,7 @@
 #pragma once
 #include <QObject>
 #include <QStringList>
+#include <QVariantList>
 
 class TonnetzController : public QObject
 {
@@ -9,7 +10,10 @@ class TonnetzController : public QObject
     Q_PROPERTY(QStringList majorRootNoteNames READ majorRootNoteNames NOTIFY majorRootNoteNamesChanged)
     Q_PROPERTY(QStringList minorRootNoteNames READ minorRootNoteNames NOTIFY minorRootNoteNamesChanged)
     // 12-bit bitmask: bit N is set when semitone N is in the highlighted set.
-    Q_PROPERTY(int highlightedNotes READ highlightedNotes NOTIFY highlightedNotesChanged)
+    Q_PROPERTY(int  highlightedNotes      READ highlightedNotes      NOTIFY highlightedNotesChanged)
+    // When false, computeTriadDistances() returns an empty list and the views show no distance colours.
+    Q_PROPERTY(bool nrDistancesEnabled    READ nrDistancesEnabled    WRITE setNrDistancesEnabled
+                                                                     NOTIFY nrDistancesEnabledChanged)
 
 public:
     explicit TonnetzController(QObject *parent = nullptr);
@@ -18,6 +22,8 @@ public:
     QStringList majorRootNoteNames() const { return m_majorRootNoteNames; }
     QStringList minorRootNoteNames() const { return m_minorRootNoteNames; }
     int         highlightedNotes()   const { return m_highlightedNotes;   }
+    bool        nrDistancesEnabled() const { return m_nrDistancesEnabled; }
+    void        setNrDistancesEnabled(bool enabled);
 
     // Called by QML after hit-testing
     Q_INVOKABLE void selectNote (int semitone, int i, int j);
@@ -35,6 +41,12 @@ public:
     Q_INVOKABLE void setHighlightedNotes (const QVariantList &semitones);
     Q_INVOKABLE void clearHighlightedNotes();
 
+    // BFS over the 24-triad neo-Riemannian graph (P/R/L transformations).
+    // Returns a list of 24 ints: indices 0–11 are distances to major triads
+    // (root 0–11), indices 12–23 are distances to minor triads (root 0–11).
+    // The starting triad has distance 0; all others are 1–5.
+    Q_INVOKABLE QVariantList computeTriadDistances(int root, bool isMajor) const;
+
 signals:
     // Connect these from C++ to drive application logic
     void noteSelected (int semitone, int i, int j);
@@ -43,6 +55,7 @@ signals:
     void majorRootNoteNamesChanged();
     void minorRootNoteNamesChanged();
     void highlightedNotesChanged();
+    void nrDistancesEnabledChanged();
 
 private:
     static bool validateNames(const QStringList &names, const char *which);
@@ -50,5 +63,6 @@ private:
     QStringList m_noteNames;
     QStringList m_majorRootNoteNames;
     QStringList m_minorRootNoteNames;
-    int         m_highlightedNotes = 0;  // 12-bit bitmask
+    int         m_highlightedNotes    = 0;     // 12-bit bitmask
+    bool        m_nrDistancesEnabled  = false;
 };

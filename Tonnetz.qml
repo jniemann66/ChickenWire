@@ -5,6 +5,11 @@ Item {
     focus: true
 
     Keys.onPressed: (event) => {
+        if (event.key === Qt.Key_D) {
+            tonnetzController.nrDistancesEnabled = !tonnetzController.nrDistancesEnabled
+            event.accepted = true
+            return
+        }
         var di = 0, dj = 0
         var shift = event.modifiers & Qt.ShiftModifier
         if      (event.key === Qt.Key_Right) { di =  1 }
@@ -21,6 +26,7 @@ Item {
             canvas.selNodeJ = nj
             canvas.scrollIntoView(canvas.nodePos(ni, nj))
             tonnetzController.selectNote(canvas.noteAt(ni, nj), ni, nj)
+            canvas.nrDists = []
             visualizerSwitcher.setNoteSelection(ni, nj)
             visualizerSwitcher.vpOriginX = canvas.originX
             visualizerSwitcher.vpOriginY = canvas.originY
@@ -42,6 +48,8 @@ Item {
                 fifth = canvas.noteAt(ti+1, tj+1)
             }
             tonnetzController.selectTriad(root, third, fifth, canvas.selTriadMajor)
+            canvas.nrDists = tonnetzController.nrDistancesEnabled
+                ? tonnetzController.computeTriadDistances(root, canvas.selTriadMajor) : []
             visualizerSwitcher.setTriadSelection(ti, tj, canvas.selTriadMajor)
             visualizerSwitcher.vpOriginX = canvas.originX
             visualizerSwitcher.vpOriginY = canvas.originY
@@ -61,6 +69,10 @@ Item {
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
         onHighlightedNotesChanged:   requestPaint()
+
+        // NR distances from the currently selected triad (empty when none selected).
+        // Layout: indices 0–11 = major(root), 12–23 = minor(root).
+        property var nrDists: []
 
         // Returns true if semitone s is in the highlighted set.
         function isHL(s) { return !!((highlightedNotes >> s) & 1) }
@@ -91,14 +103,19 @@ Item {
                     if (canvas.hasSelNode && canvas.selNodeI === ni && canvas.selNodeJ === nj) return
                     canvas.hasSelNode = true;  canvas.selNodeI = ni; canvas.selNodeJ = nj
                     canvas.hasSelTriad = false
+                    canvas.nrDists = []
                 } else if (t === 2) {
                     if (canvas.hasSelTriad && canvas.selTriadI === ni && canvas.selTriadJ === nj
                             && canvas.selTriadMajor === maj) return
                     canvas.hasSelTriad = true; canvas.selTriadI = ni; canvas.selTriadJ = nj
                     canvas.selTriadMajor = maj; canvas.hasSelNode = false
+                    canvas.nrDists = tonnetzController.nrDistancesEnabled
+                        ? tonnetzController.computeTriadDistances(
+                              maj ? canvas.noteAt(ni, nj) : canvas.noteAt(ni, nj + 1), maj) : []
                 } else {
                     if (!canvas.hasSelNode && !canvas.hasSelTriad) return
                     canvas.hasSelNode = false; canvas.hasSelTriad = false
+                    canvas.nrDists = []
                 }
                 canvas.requestPaint()
             }
@@ -126,6 +143,22 @@ Item {
                     canvas.scale = visualizerSwitcher.vpScale
                     canvas.requestPaint()
                 }
+            }
+        }
+
+        // Recompute / clear NR distances when the enabled flag is toggled live.
+        Connections {
+            target: tonnetzController
+            function onNrDistancesEnabledChanged() {
+                if (!tonnetzController.nrDistancesEnabled) {
+                    canvas.nrDists = []
+                } else if (canvas.hasSelTriad) {
+                    var root = canvas.selTriadMajor
+                        ? canvas.noteAt(canvas.selTriadI, canvas.selTriadJ)
+                        : canvas.noteAt(canvas.selTriadI, canvas.selTriadJ + 1)
+                    canvas.nrDists = tonnetzController.computeTriadDistances(root, canvas.selTriadMajor)
+                }
+                canvas.requestPaint()
             }
         }
 
@@ -338,6 +371,37 @@ Item {
                 }
             }
 
+            // ── NR distance: coloured triangle fills and outlines ──
+            if (nrDists.length > 0) {
+                var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3,
+                           Theme.nrDist4, Theme.nrDist5, Theme.nrDist6]
+                ctx.lineWidth = Math.max(1, 2 * scale)
+                for (var dti = iMin; dti <= iMax; dti++) {
+                    for (var dtj = jMin; dtj <= jMax; dtj++) {
+                        // Major triad at (dti, dtj): root = noteAt(dti, dtj)
+                        var majD = nrDists[noteAt(dti, dtj)]
+                        if (majD >= 0 && majD < nrC.length) {
+                            var mc = nrC[majD]
+                            var dtp0=nodePos(dti,dtj), dtp1=nodePos(dti+1,dtj), dtp2=nodePos(dti,dtj+1)
+                            ctx.beginPath(); ctx.moveTo(dtp0.x, dtp0.y)
+                            ctx.lineTo(dtp1.x, dtp1.y); ctx.lineTo(dtp2.x, dtp2.y); ctx.closePath()
+                            ctx.fillStyle   = Qt.rgba(mc.r, mc.g, mc.b, 0.25); ctx.fill()
+                            ctx.strokeStyle = Qt.rgba(mc.r, mc.g, mc.b, 0.75); ctx.stroke()
+                        }
+                        // Minor triad at (dti, dtj): root = noteAt(dti, dtj+1)
+                        var minD = nrDists[noteAt(dti, dtj + 1) + 12]
+                        if (minD >= 0 && minD < nrC.length) {
+                            var mc = nrC[minD]
+                            var dtp0=nodePos(dti+1,dtj), dtp1=nodePos(dti,dtj+1), dtp2=nodePos(dti+1,dtj+1)
+                            ctx.beginPath(); ctx.moveTo(dtp0.x, dtp0.y)
+                            ctx.lineTo(dtp1.x, dtp1.y); ctx.lineTo(dtp2.x, dtp2.y); ctx.closePath()
+                            ctx.fillStyle   = Qt.rgba(mc.r, mc.g, mc.b, 0.25); ctx.fill()
+                            ctx.strokeStyle = Qt.rgba(mc.r, mc.g, mc.b, 0.75); ctx.stroke()
+                        }
+                    }
+                }
+            }
+
             // ── selected triad highlight (drawn before nodes so they sit below) ──
             if (hasSelTriad) {
                 var p0, p1, p2
@@ -482,6 +546,7 @@ Item {
                     canvas.hasSelNode  = true
                     canvas.selNodeI    = hit.i
                     canvas.selNodeJ    = hit.j
+                    canvas.nrDists = []
                     tonnetzController.selectNote(hit.semitone, hit.i, hit.j)
                     visualizerSwitcher.setNoteSelection(hit.i, hit.j)
                 } else {
@@ -490,6 +555,8 @@ Item {
                     canvas.selTriadI   = hit.i
                     canvas.selTriadJ   = hit.j
                     canvas.selTriadMajor = hit.isMajor
+                    canvas.nrDists = tonnetzController.nrDistancesEnabled
+                        ? tonnetzController.computeTriadDistances(hit.root, hit.isMajor) : []
                     tonnetzController.selectTriad(hit.root, hit.third, hit.fifth, hit.isMajor)
                     visualizerSwitcher.setTriadSelection(hit.i, hit.j, hit.isMajor)
                 }

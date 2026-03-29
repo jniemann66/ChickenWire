@@ -40,6 +40,17 @@ QtObject {
     readonly property color selHexFill:     Qt.rgba(1.000, 0.824, 0.235, 0.18)
     readonly property color selHexStroke:   Qt.rgba(1.000, 0.824, 0.235, 0.60)
 
+    // ── Neo-Riemannian triad distance colours ───────────────────────────────────
+    //    Used when a triad is selected; each colour represents the minimum number
+    //    of P/R/L steps to reach that triad.  Max reachable distance is 5.
+    readonly property color nrDist0: "#ffd700"   // d=0: selected (gold)
+    readonly property color nrDist1: "#22cc55"   // d=1: green
+    readonly property color nrDist2: "#00cccc"   // d=2: cyan
+    readonly property color nrDist3: "#3355ff"   // d=3: blue
+    readonly property color nrDist4: "#9933ff"   // d=4: violet
+    readonly property color nrDist5: "#cc2222"   // d=5: red
+    readonly property color nrDist6: "#885522"   // d=6: brown (unreachable — diameter is 5)
+
     // ── Highlight (white) — arbitrary note-set via setHighlightedNotes() ─────
     readonly property color hlFaceFill:     Qt.rgba(1, 1, 1, 0.12)   // Tonnetz triangle / CW hex face interior
     readonly property color hlEdge:         Qt.rgba(1, 1, 1, 0.85)   // Tonnetz edge overlay

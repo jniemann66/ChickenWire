@@ -24,7 +24,7 @@ TonnetzController::TonnetzController(QObject *parent)
     , m_majorRootNoteNames(DEFAULT_MAJOR_ROOT_NOTE_NAMES)
     , m_minorRootNoteNames(DEFAULT_MINOR_ROOT_NOTE_NAMES)
 {
-     setHighlightedNotes({0, 3, 6, 9});   // C++
+     setHighlightedNotes({0, 1, 5, 7, 10});   // C++
 }
 
 bool TonnetzController::validateNames(const QStringList &names, const char *which)
@@ -81,6 +81,52 @@ void TonnetzController::clearHighlightedNotes()
     if (m_highlightedNotes == 0) return;
     m_highlightedNotes = 0;
     emit highlightedNotesChanged();
+}
+
+void TonnetzController::setNrDistancesEnabled(bool enabled)
+{
+    if (m_nrDistancesEnabled == enabled) return;
+    m_nrDistancesEnabled = enabled;
+    emit nrDistancesEnabledChanged();
+}
+
+QVariantList TonnetzController::computeTriadDistances(int root, bool isMajor) const
+{
+    // Indices 0–11: distance to major triad with that root semitone.
+    // Indices 12–23: distance to minor triad with that root semitone.
+    QList<int> dist(24, -1);
+    const int startIdx = isMajor ? root : root + 12;
+    dist[startIdx] = 0;
+
+    // Simple BFS — 24 nodes, use QList as a queue iterated by index.
+    QList<int> queue;
+    queue.reserve(24);
+    queue.append(startIdx);
+
+    for (int qi = 0; qi < queue.size(); ++qi) {
+        const int cur = queue[qi];
+        const bool maj = (cur < 12);
+        const int  r   = cur % 12;
+        const int  d   = dist[cur];
+
+        if (maj) {
+            // major(r) → minor(r), minor((r+9)%12), minor((r+4)%12)  [P, R, L]
+            for (int nr : { r, (r + 9) % 12, (r + 4) % 12 }) {
+                const int ni = nr + 12;
+                if (dist[ni] < 0) { dist[ni] = d + 1; queue.append(ni); }
+            }
+        } else {
+            // minor(r) → major(r), major((r+3)%12), major((r+8)%12)  [L, R, P]
+            for (int nr : { r, (r + 3) % 12, (r + 8) % 12 }) {
+                if (dist[nr] < 0) { dist[nr] = d + 1; queue.append(nr); }
+            }
+        }
+    }
+
+    QVariantList result;
+    result.reserve(24);
+    for (const int v : dist) result.append(v);
+    return result;
 }
 
 void TonnetzController::selectNote(int semitone, int i, int j)
