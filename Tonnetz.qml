@@ -329,11 +329,11 @@ Item {
                 for (var j = jMin; j <= jMax; j++) {
                     var p = nodePos(i, j)
                     if (i + 1 <= iMax)
-                        drawEdge(ctx, p, nodePos(i+1, j  ), Theme.edgeL)
+                        drawEdge(ctx, p, nodePos(i+1, j  ), Theme.edgeP)
                     if (j + 1 <= jMax)
                         drawEdge(ctx, p, nodePos(i,   j+1), Theme.edgeR)
                     if (i + 1 <= iMax && j - 1 >= jMin)
-                        drawEdge(ctx, p, nodePos(i+1, j-1), Theme.edgeP)
+                        drawEdge(ctx, p, nodePos(i+1, j-1), Theme.edgeL)
                 }
             }
 

@@ -9,7 +9,13 @@ Two dual representations of the same harmonic space, switchable with **F4**:
 - **Tonnetz** — triangular lattice where *vertices* are notes and *triangular faces* are triads
 - **ChickenWire** — hexagonal lattice where *vertices* are triads and *hexagonal faces* are notes
 
-Edges in both views represent neo-Riemannian transformations (P, R, L) between chords.
+Edges in both views represent neo-Riemannian transformations (P, R, L) between chords, colour-coded consistently across both views:
+
+| Transformation | Colour | Mnemonic |
+|----------------|--------|----------|
+| **P** (Parallel) | Pink | **P** for **P**ink |
+| **R** (Relative) | Orange | o**R**ange |
+| **L** (Leading-tone exchange) | Blue | b**L**ue |
 
 ## Navigation
 
@@ -17,6 +23,7 @@ Edges in both views represent neo-Riemannian transformations (P, R, L) between c
 |-----|--------|
 | Arrow keys | Pan the view |
 | F4 | Switch between Tonnetz and ChickenWire |
+| D | Toggle neo-Riemannian distance highlighting |
 | Click | Select a note or triad |
 
 ## Building

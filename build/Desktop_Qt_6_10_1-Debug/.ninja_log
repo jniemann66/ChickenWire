@@ -107,3 +107,16 @@
 189	952	1774750666413235903	CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o	f99dc4d1f7901237
 189	1222	1774750666412758701	CMakeFiles/appChickenWire.dir/main.cpp.o	d244d3b7964e0267
 1222	1451	1774750667445112412	appChickenWire	e87e2cd22a4d293e
+2	4	1774751445275285585	.qt/appChickenWire_qml.txt	edaeab75ece0f5f8
+2	4	1774751445275285585	/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/appChickenWire_qml.txt	edaeab75ece0f5f8
+2	21	1774751445291341553	.qt/qml_imports/appChickenWire_build.cmake	304b9154e3b29e5b
+2	21	1774751445291341553	/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/qml_imports/appChickenWire_build.cmake	304b9154e3b29e5b
+21	36	1774751445306105386	.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp	626b121b7f0cc000
+21	36	1774751445306105386	/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp	626b121b7f0cc000
+21	89	1774751445353104348	.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp	2db1e2f57a1ce4f6
+21	89	1774751445353104348	.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats	2db1e2f57a1ce4f6
+21	89	1774751445353104348	/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp	2db1e2f57a1ce4f6
+21	89	1774751445353104348	/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.aotstats	2db1e2f57a1ce4f6
+90	102	1774751445360104194	CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o	b645d041fc86b9b0
+89	723	1774751445359104216	CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o	cbfbd2c890f59c8b
+723	945	1774751445993090216	appChickenWire	e87e2cd22a4d293e
