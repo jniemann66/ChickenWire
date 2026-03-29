@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_appChickenWire: phony || .qt/rcc/qrc_app
 build CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/appChickenWire_autogen
@@ -60,7 +60,7 @@ build CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.
 build CMakeFiles/appChickenWire.dir/main.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/main.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/main.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
@@ -68,7 +68,47 @@ build CMakeFiles/appChickenWire.dir/main.cpp.o: CXX_COMPILER__appChickenWire_uns
 build CMakeFiles/appChickenWire.dir/TonnetzController.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/TonnetzController.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/TonnetzController.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
+  OBJECT_DIR = CMakeFiles/appChickenWire.dir
+  OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
+
+build CMakeFiles/appChickenWire.dir/MidiFile.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/MidiFile.cpp || cmake_object_order_depends_target_appChickenWire
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/appChickenWire.dir/MidiFile.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
+  OBJECT_DIR = CMakeFiles/appChickenWire.dir
+  OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
+
+build CMakeFiles/appChickenWire.dir/MidiAudio.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/MidiAudio.cpp || cmake_object_order_depends_target_appChickenWire
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/appChickenWire.dir/MidiAudio.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
+  OBJECT_DIR = CMakeFiles/appChickenWire.dir
+  OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
+
+build CMakeFiles/appChickenWire.dir/MidiPlayer.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/MidiPlayer.cpp || cmake_object_order_depends_target_appChickenWire
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/appChickenWire.dir/MidiPlayer.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
+  OBJECT_DIR = CMakeFiles/appChickenWire.dir
+  OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
+
+build CMakeFiles/appChickenWire.dir/TransportWidget.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/TransportWidget.cpp || cmake_object_order_depends_target_appChickenWire
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/appChickenWire.dir/TransportWidget.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
+  OBJECT_DIR = CMakeFiles/appChickenWire.dir
+  OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
+
+build CMakeFiles/appChickenWire.dir/MidiAudioProcess.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/MidiAudioProcess.cpp || cmake_object_order_depends_target_appChickenWire
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/appChickenWire.dir/MidiAudioProcess.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
@@ -76,7 +116,7 @@ build CMakeFiles/appChickenWire.dir/TonnetzController.cpp.o: CXX_COMPILER__appCh
 build CMakeFiles/appChickenWire.dir/appchickenwire_qmltyperegistrations.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appchickenwire_qmltyperegistrations.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/appchickenwire_qmltyperegistrations.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir
@@ -84,7 +124,7 @@ build CMakeFiles/appChickenWire.dir/appchickenwire_qmltyperegistrations.cpp.o: C
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qmake_ChickenWire.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qmake_ChickenWire.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qmake_ChickenWire.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc
@@ -92,7 +132,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qm
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_qmlcache_loader.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_qmlcache_loader.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_qmlcache_loader.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
@@ -100,7 +140,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Theme_qml.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Theme_qml.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Theme_qml.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
@@ -108,7 +148,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
@@ -116,7 +156,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
@@ -124,7 +164,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache
@@ -132,7 +172,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/
 build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o: CXX_COMPILER__appChickenWire_unscanned_Debug /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp || cmake_object_order_depends_target_appChickenWire
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -fdiagnostics-color=always -fPIC
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
   INCLUDES = -I/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire_autogen/include -I/home/juddn/ChickenWire -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQml -isystem /home/juddn/Qt/6.10.1/gcc_64/include -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtCore -isystem /home/juddn/Qt/6.10.1/gcc_64/mkspecs/linux-g++ -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQmlIntegration -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtNetwork -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuick -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtGui -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtOpenGL -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtWidgets -isystem /home/juddn/Qt/6.10.1/gcc_64/include/QtQuickWidgets
   OBJECT_DIR = CMakeFiles/appChickenWire.dir
   OBJECT_FILE_DIR = CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc
@@ -145,7 +185,7 @@ build CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_ap
 #############################################
 # Link the executable appChickenWire
 
-build appChickenWire: CXX_EXECUTABLE_LINKER__appChickenWire_Debug CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.o CMakeFiles/appChickenWire.dir/main.cpp.o CMakeFiles/appChickenWire.dir/TonnetzController.cpp.o CMakeFiles/appChickenWire.dir/appchickenwire_qmltyperegistrations.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qmake_ChickenWire.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_qmlcache_loader.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Theme_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o | /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6QuickWidgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Quick.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6OpenGL.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Qml.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Network.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Widgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Gui.so.6.10.1 /usr/lib64/libGLX.so /usr/lib64/libOpenGL.so /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Core.so.6.10.1 || appChickenWire_autogen appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan generate_qmlls_build_ini_file
+build appChickenWire: CXX_EXECUTABLE_LINKER__appChickenWire_Debug CMakeFiles/appChickenWire.dir/appChickenWire_autogen/mocs_compilation.cpp.o CMakeFiles/appChickenWire.dir/main.cpp.o CMakeFiles/appChickenWire.dir/TonnetzController.cpp.o CMakeFiles/appChickenWire.dir/MidiFile.cpp.o CMakeFiles/appChickenWire.dir/MidiAudio.cpp.o CMakeFiles/appChickenWire.dir/MidiPlayer.cpp.o CMakeFiles/appChickenWire.dir/TransportWidget.cpp.o CMakeFiles/appChickenWire.dir/MidiAudioProcess.cpp.o CMakeFiles/appChickenWire.dir/appchickenwire_qmltyperegistrations.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_qmake_ChickenWire.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_qmlcache_loader.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Theme_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Main_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_Tonnetz_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.rcc/qmlcache/appChickenWire_ChickenWire_qml.cpp.o CMakeFiles/appChickenWire.dir/build/Desktop_Qt_6_10_1-Debug/.qt/rcc/qrc_appChickenWire_raw_qml_0.cpp.o | /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6QuickWidgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Quick.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6OpenGL.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Qml.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Network.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Widgets.so.6.10.1 /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Gui.so.6.10.1 /usr/lib64/libGLX.so /usr/lib64/libOpenGL.so /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Core.so.6.10.1 || appChickenWire_autogen appChickenWire_autogen_timestamp_deps appChickenWire_copy_qml appChickenWire_copy_res appChickenWire_qmlimportscan generate_qmlls_build_ini_file
   FLAGS = -DQT_QML_DEBUG -g
   LINK_LIBRARIES = -Wl,-rpath,/home/juddn/Qt/6.10.1/gcc_64/lib:  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6QuickWidgets.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Quick.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6OpenGL.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Qml.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Network.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Widgets.so.6.10.1  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Gui.so.6.10.1  /usr/lib64/libGLX.so  /usr/lib64/libOpenGL.so  /home/juddn/Qt/6.10.1/gcc_64/lib/libQt6Core.so.6.10.1  -Wl,-rpath-link,/home/juddn/Qt/6.10.1/gcc_64/lib
   OBJECT_DIR = CMakeFiles/appChickenWire.dir

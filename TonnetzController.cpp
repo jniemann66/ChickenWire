@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QVariantList>
+#include <algorithm>
 
 // default names
 static const QStringList DEFAULT_NOTE_NAMES = {
@@ -145,4 +146,37 @@ void TonnetzController::selectTriad(int root, int third, int fifth, bool isMajor
              << m_noteNames.value(third & 0xF)
              << m_noteNames.value(fifth & 0xF) << "]";
     emit triadSelected(root, third, fifth, isMajor);
+}
+
+void TonnetzController::handleNoteOn(int semitone)
+{
+    if (semitone < 0 || semitone >= 12) return;
+    ++m_playingNoteCounts[semitone];
+    const int newMask = m_playingNotes | (1 << semitone);
+    if (newMask != m_playingNotes) {
+        m_playingNotes = newMask;
+        emit playingNotesChanged();
+    }
+}
+
+void TonnetzController::handleNoteOff(int semitone)
+{
+    if (semitone < 0 || semitone >= 12) return;
+    if (--m_playingNoteCounts[semitone] <= 0) {
+        m_playingNoteCounts[semitone] = 0;
+        const int newMask = m_playingNotes & ~(1 << semitone);
+        if (newMask != m_playingNotes) {
+            m_playingNotes = newMask;
+            emit playingNotesChanged();
+        }
+    }
+}
+
+void TonnetzController::clearPlayingNotes()
+{
+    std::fill(std::begin(m_playingNoteCounts), std::end(m_playingNoteCounts), 0);
+    if (m_playingNotes != 0) {
+        m_playingNotes = 0;
+        emit playingNotesChanged();
+    }
 }

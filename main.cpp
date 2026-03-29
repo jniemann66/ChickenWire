@@ -1,5 +1,7 @@
 #include "TonnetzController.h"
 #include "VisualizerSwitcher.h"
+#include "MidiPlayer.h"
+#include "TransportWidget.h"
 
 #include <QApplication>
 #include <QMainWindow>
@@ -14,22 +16,26 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    TonnetzController  controller;
+    TonnetzController controller;
     VisualizerSwitcher switcher;
+    MidiPlayer midiPlayer;
 
-    // Wire up C++ signal handlers here — add real logic as the app grows
-    QObject::connect(&controller, &TonnetzController::noteSelected,
-        [](int semitone, int i, int j) {
-            Q_UNUSED(semitone) Q_UNUSED(i) Q_UNUSED(j)
-            // TODO: drive application logic
+    // Handler for sending MIDI note-on events to TonnetzController
+    QObject::connect(&midiPlayer, &MidiPlayer::noteOn,
+        [&controller](int semitone, int /*channel*/, int /*velocity*/) {
+            controller.handleNoteOn(semitone);
         });
 
-    QObject::connect(&controller, &TonnetzController::triadSelected,
-        [](int root, int third, int fifth, bool isMajor) {
-            Q_UNUSED(root) Q_UNUSED(third) Q_UNUSED(fifth) Q_UNUSED(isMajor)
-            // TODO: drive application logic
+    // Handler for sending MIDI note-on events to TonnetzController
+    QObject::connect(&midiPlayer, &MidiPlayer::noteOff,
+        [&controller](int semitone, int /*channel*/) {
+            controller.handleNoteOff(semitone);
         });
 
+    // Handler for clearing all displayed notes from TonnetzController
+    QObject::connect(&midiPlayer, &MidiPlayer::allNotesCleared, &controller, &TonnetzController::clearPlayingNotes);
+
+    // QML view
     auto *view = new QQuickWidget;
     view->rootContext()->setContextProperty("tonnetzController", &controller);
     view->rootContext()->setContextProperty("visualizerSwitcher", &switcher);
@@ -41,13 +47,21 @@ int main(int argc, char *argv[])
             qCritical() << "QML error:" << err;
     }
 
-    QMainWindow win;
-    win.setWindowTitle("ChickenWire");
+    // Main window
+    QMainWindow mw;
+    mw.setWindowTitle("ChickenWire");
+    mw.setCentralWidget(view);
+    mw.resize(1000, 700);
 
-    // Set up "View" menu
-    auto *viewMenu = win.menuBar()->addMenu(QStringLiteral("&View"));
-    auto *group    = new QActionGroup(&win);
+    // Transport dock
+    auto *transport = new TransportWidget(&midiPlayer, &mw);
+    mw.addDockWidget(Qt::BottomDockWidgetArea, transport);
 
+    // View menu
+    auto *viewMenu = mw.menuBar()->addMenu(QStringLiteral("&View"));
+    auto *group = new QActionGroup(&mw);
+
+    // convenience function for adding menu actions
     auto makeAction = [&](const QString &label, const QString &source) {
         auto *a = viewMenu->addAction(label);
         a->setCheckable(true);
@@ -59,29 +73,26 @@ int main(int argc, char *argv[])
         return a;
     };
 
-    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"),      QStringLiteral("Tonnetz.qml"));
-    auto *cwAction      = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("ChickenWire.qml"));
+    // set-up View Menu
+    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"), QStringLiteral("Tonnetz.qml"));
+    auto *cwAction = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("ChickenWire.qml"));
+    viewMenu->addSeparator();
+    viewMenu->addAction(transport->toggleViewAction());
 
-    // F4 toggles between the two visualizers
-    auto *f4 = new QShortcut(QKeySequence(Qt::Key_F4), &win);
+    // set up keyboard shortcut : F4 toggles between the two visualizers
+    auto *f4 = new QShortcut(QKeySequence(Qt::Key_F4), &mw);
     QObject::connect(f4, &QShortcut::activated, [&switcher]() {
         switcher.setSource(
             switcher.source() == QStringLiteral("Tonnetz.qml")
                 ? QStringLiteral("ChickenWire.qml")
-                : QStringLiteral("Tonnetz.qml")
-        );
+                : QStringLiteral("Tonnetz.qml"));
     });
 
-    // Keep menu checkmarks in sync when the source changes via F4 (not via menu click)
     QObject::connect(&switcher, &VisualizerSwitcher::sourceChanged, [&]() {
         tonnetzAction->setChecked(switcher.source() == QStringLiteral("Tonnetz.qml"));
         cwAction->setChecked(switcher.source() == QStringLiteral("ChickenWire.qml"));
     });
-    // ---
 
-    win.setCentralWidget(view);
-    win.resize(1000, 640);
-    win.show();
-
+    mw.show();
     return app.exec();
 }

@@ -57,10 +57,33 @@ CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 CMAKE_CXX_OUTPUT_EXTENSION:STRING=.o
 
-//No help, variable specified on the command line.
-CMAKE_C_COMPILER:FILEPATH=/bin/gcc
+//C compiler
+CMAKE_C_COMPILER:STRING=/bin/gcc
 
-CMAKE_C_OUTPUT_EXTENSION:STRING=
+//A wrapper around 'ar' adding the appropriate '--plugin' option
+// for the GCC compiler
+CMAKE_C_COMPILER_AR:FILEPATH=/bin/gcc-ar-15
+
+//A wrapper around 'ranlib' adding the appropriate '--plugin' option
+// for the GCC compiler
+CMAKE_C_COMPILER_RANLIB:FILEPATH=/bin/gcc-ranlib-15
+
+//Flags used by the C compiler during all build types.
+CMAKE_C_FLAGS:STRING=
+
+//Flags used by the C compiler during DEBUG builds.
+CMAKE_C_FLAGS_DEBUG:STRING=-g
+
+//Flags used by the C compiler during MINSIZEREL builds.
+CMAKE_C_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG
+
+//Flags used by the C compiler during RELEASE builds.
+CMAKE_C_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
+
+//Flags used by the C compiler during RELWITHDEBINFO builds.
+CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
+
+CMAKE_C_OUTPUT_EXTENSION:STRING=.o
 
 //Path to a program.
 CMAKE_DLLTOOL:FILEPATH=CMAKE_DLLTOOL-NOTFOUND
@@ -279,6 +302,29 @@ ChickenWire_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 ChickenWire_SOURCE_DIR:STATIC=/home/juddn/ChickenWire
 
+//Directory under which to collect all populated content
+FETCHCONTENT_BASE_DIR:PATH=/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/_deps
+
+//Disables all attempts to download or update content and assumes
+// source dirs already exist
+FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
+
+//Enables QUIET option for all content population
+FETCHCONTENT_QUIET:BOOL=ON
+
+//When not empty, overrides where to find pre-populated content
+// for qmidi
+FETCHCONTENT_SOURCE_DIR_QMIDI:PATH=
+
+//Enables UPDATE_DISCONNECTED behavior for all content population
+FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of qmidi
+FETCHCONTENT_UPDATES_DISCONNECTED_QMIDI:BOOL=OFF
+
+//Git command line client
+GIT_EXECUTABLE:FILEPATH=/usr/bin/git
+
 //Path to a file.
 OPENGL_EGL_INCLUDE_DIR:PATH=/usr/include
 
@@ -318,6 +364,15 @@ OPENGL_opengl_LIBRARY:FILEPATH=/usr/lib64/libOpenGL.so
 //Path to a file.
 OPENGL_xmesa_INCLUDE_DIR:PATH=OPENGL_xmesa_INCLUDE_DIR-NOTFOUND
 
+//Value Computed by CMake
+QMidi_BINARY_DIR:STATIC=/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/_deps/qmidi-build
+
+//Value Computed by CMake
+QMidi_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+QMidi_SOURCE_DIR:STATIC=/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/_deps/qmidi-src
+
 //Additional directories where find(Qt6 ...) host Qt components
 // are searched
 QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH:STRING=
@@ -336,6 +391,9 @@ QT_CREATOR_SKIP_PACKAGE_MANAGER_SETUP:BOOL=OFF
 
 //Qt Creator source groups extensions
 QT_CREATOR_SOURCE_GROUPS:BOOL=ON
+
+//The directory containing a CMake configuration file for QT.
+QT_DIR:PATH=/home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6
 
 //No help, variable specified on the command line.
 QT_MAINTENANCE_TOOL:FILEPATH=/home/juddn/Qt/MaintenanceTool
@@ -466,6 +524,22 @@ CMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_RELWITHDEBINFO
 CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER
+CMAKE_C_COMPILER-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER_AR
+CMAKE_C_COMPILER_AR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER_RANLIB
+CMAKE_C_COMPILER_RANLIB-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS
+CMAKE_C_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_DEBUG
+CMAKE_C_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_MINSIZEREL
+CMAKE_C_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELEASE
+CMAKE_C_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELWITHDEBINFO
+CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_DLLTOOL
 CMAKE_DLLTOOL-ADVANCED:INTERNAL=1
 //Path to cache edit program executable.
@@ -593,6 +667,8 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/usr/lib64/libOpenGL.so][/usr/lib64/libGLX.so][/usr/include][c ][v()]
+//ADVANCED property for variable: GIT_EXECUTABLE
+GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //Test HAVE_STDATOMIC
 HAVE_STDATOMIC:INTERNAL=1
 //ADVANCED property for variable: OPENGL_EGL_INCLUDE_DIR

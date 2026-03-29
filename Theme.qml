@@ -57,4 +57,11 @@ QtObject {
     readonly property color hlHexStroke:    Qt.rgba(1, 1, 1, 0.75)   // ChickenWire hex face border
     readonly property color hlNodeFill:     "#1e1e30"                 // node / vertex background
     readonly property color hlColor:        "#ffffff"                 // node ring and label text
+
+    // ── MIDI playback: currently sounding notes (bright green) ──────────────
+    readonly property color playColor:     "#39ff14"
+    readonly property color playFaceFill:  Qt.rgba(0.224, 1.0, 0.078, 0.15)
+    readonly property color playHexStroke: Qt.rgba(0.224, 1.0, 0.078, 0.70)
+    readonly property color playNodeFill:  "#0d1f0a"
+    readonly property color playNodeText:  "#39ff14"
 }

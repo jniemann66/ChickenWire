@@ -69,10 +69,12 @@ Item {
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
         property int highlightedNotes:   tonnetzController.highlightedNotes
+        property int playingNotes:       tonnetzController.playingNotes
         onNoteNamesChanged:          requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
         onHighlightedNotesChanged:   requestPaint()
+        onPlayingNotesChanged:       requestPaint()
 
         // NR distances from the currently selected triad (empty when none selected).
         // Layout: indices 0–11 = major(root), 12–23 = minor(root).
@@ -80,6 +82,7 @@ Item {
 
         // Returns true if semitone s is in the highlighted set.
         function isHL(s) { return !!((highlightedNotes >> s) & 1) }
+        function isPL(s) { return !!((playingNotes >> s) & 1) }
 
         // Viewport — same coordinate system as Tonnetz.qml; restored from / saved to visualizerSwitcher
         property real originX: width  / 2
@@ -339,6 +342,31 @@ Item {
                 }
             }
 
+            // ── playing notes: hex face fills ──
+            if (playingNotes !== 0) {
+                for (var fi = iMin; fi <= iMax; fi++) {
+                    for (var fj = jMin; fj <= jMax; fj++) {
+                        if (!isPL(noteAt(fi, fj))) continue
+                        var ph0 = dualPos(fi,     fj,     true )
+                        var ph1 = dualPos(fi - 1, fj,     false)
+                        var ph2 = dualPos(fi - 1, fj,     true )
+                        var ph3 = dualPos(fi - 1, fj - 1, false)
+                        var ph4 = dualPos(fi,     fj - 1, true )
+                        var ph5 = dualPos(fi,     fj - 1, false)
+                        ctx.beginPath()
+                        ctx.moveTo(ph0.x, ph0.y); ctx.lineTo(ph1.x, ph1.y)
+                        ctx.lineTo(ph2.x, ph2.y); ctx.lineTo(ph3.x, ph3.y)
+                        ctx.lineTo(ph4.x, ph4.y); ctx.lineTo(ph5.x, ph5.y)
+                        ctx.closePath()
+                        ctx.fillStyle   = Theme.playFaceFill
+                        ctx.fill()
+                        ctx.strokeStyle = Theme.playHexStroke
+                        ctx.lineWidth   = Math.max(1, 2 * scale)
+                        ctx.stroke()
+                    }
+                }
+            }
+
             // ── 0. Selected note hex-face highlight ───────────────────────
             if (hasSelNote) {
                 var h0 = dualPos(selNoteI,     selNoteJ,     true )  // major(I,J)
@@ -411,6 +439,9 @@ Item {
                         var isTriadHL = isMaj
                             ? (isHL(noteAt(ni,nj)) && isHL(noteAt(ni,nj+1)) && isHL(noteAt(ni+1,nj)))
                             : (isHL(noteAt(ni,nj+1)) && isHL(noteAt(ni+1,nj)) && isHL(noteAt(ni+1,nj+1)))
+                        var isTriadPlaying = isMaj
+                            ? (isPL(noteAt(ni,nj)) && isPL(noteAt(ni,nj+1)) && isPL(noteAt(ni+1,nj)))
+                            : (isPL(noteAt(ni,nj+1)) && isPL(noteAt(ni+1,nj)) && isPL(noteAt(ni+1,nj+1)))
                         var nrRt = rootNote(ni, nj, isMaj)
                         var nrD  = nrDists.length > 0 ? (isMaj ? nrDists[nrRt] : nrDists[nrRt + 12]) : -1
 
@@ -426,6 +457,10 @@ Item {
                                          Theme.nrDist4, Theme.nrDist5, Theme.nrDist6][nrD]
                             ctx.fillStyle   = Qt.rgba(nrClr.r, nrClr.g, nrClr.b, 0.35)
                             ctx.strokeStyle = nrClr
+                            ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                        } else if (isTriadPlaying) {
+                            ctx.fillStyle   = Theme.playNodeFill
+                            ctx.strokeStyle = Theme.playColor
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                         } else if (isTriadHL) {
                             ctx.fillStyle   = Theme.hlNodeFill
@@ -447,10 +482,11 @@ Item {
                         ctx.stroke()
 
                         if (r > 7) {
-                            ctx.fillStyle = isSel    ? Theme.selText
-                                          : nrD >= 0 ? Theme.triadText
-                                          : isTriadHL? Theme.hlColor
-                                          :             Theme.triadText
+                            ctx.fillStyle = isSel          ? Theme.selText
+                                          : nrD >= 0       ? Theme.triadText
+                                          : isTriadPlaying ? Theme.playNodeText
+                                          : isTriadHL      ? Theme.hlColor
+                                          :                   Theme.triadText
                             ctx.fillText(chordLabel(ni, nj, isMaj), np.x, np.y)
                         }
                     }

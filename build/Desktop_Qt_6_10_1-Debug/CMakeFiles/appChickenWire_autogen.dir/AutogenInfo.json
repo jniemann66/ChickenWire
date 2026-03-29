@@ -997,9 +997,39 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/juddn/ChickenWire/MidiAudio.h",
+			"MU",
+			"EWIEGA46WW/moc_MidiAudio.cpp",
+			null
+		],
+		[
+			"/home/juddn/ChickenWire/MidiAudioProcess.h",
+			"MU",
+			"EWIEGA46WW/moc_MidiAudioProcess.cpp",
+			null
+		],
+		[
+			"/home/juddn/ChickenWire/MidiFile.h",
+			"MU",
+			"EWIEGA46WW/moc_MidiFile.cpp",
+			null
+		],
+		[
+			"/home/juddn/ChickenWire/MidiPlayer.h",
+			"MU",
+			"EWIEGA46WW/moc_MidiPlayer.cpp",
+			null
+		],
+		[
 			"/home/juddn/ChickenWire/TonnetzController.h",
 			"MU",
 			"EWIEGA46WW/moc_TonnetzController.cpp",
+			null
+		],
+		[
+			"/home/juddn/ChickenWire/TransportWidget.h",
+			"MU",
+			"EWIEGA46WW/moc_TransportWidget.cpp",
 			null
 		],
 		[
@@ -1068,6 +1098,7 @@
 	"MOC_PREDEFS_CMD" : 
 	[
 		"/bin/g++",
+		"-std=gnu++17",
 		"-dM",
 		"-E",
 		"-c",
@@ -1096,7 +1127,12 @@
 	"SETTINGS_FILE" : "/home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/CMakeFiles/appChickenWire_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "/home/juddn/ChickenWire/MidiAudio.cpp", "MU", null ],
+		[ "/home/juddn/ChickenWire/MidiAudioProcess.cpp", "MU", null ],
+		[ "/home/juddn/ChickenWire/MidiFile.cpp", "MU", null ],
+		[ "/home/juddn/ChickenWire/MidiPlayer.cpp", "MU", null ],
 		[ "/home/juddn/ChickenWire/TonnetzController.cpp", "MU", null ],
+		[ "/home/juddn/ChickenWire/TransportWidget.cpp", "MU", null ],
 		[ "/home/juddn/ChickenWire/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

@@ -65,10 +65,12 @@ Item {
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
         property int highlightedNotes:   tonnetzController.highlightedNotes
+        property int playingNotes:       tonnetzController.playingNotes
         onNoteNamesChanged:          requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
         onHighlightedNotesChanged:   requestPaint()
+        onPlayingNotesChanged:       requestPaint()
 
         // NR distances from the currently selected triad (empty when none selected).
         // Layout: indices 0–11 = major(root), 12–23 = minor(root).
@@ -76,6 +78,7 @@ Item {
 
         // Returns true if semitone s is in the highlighted set.
         function isHL(s) { return !!((highlightedNotes >> s) & 1) }
+        function isPL(s) { return !!((playingNotes >> s) & 1) }
         readonly property int startNote: 0
 
         // Viewport state — restored from / saved to visualizerSwitcher on each change
@@ -323,6 +326,27 @@ Item {
                 }
             }
 
+            // ── playing notes: filled triangles ──
+            if (playingNotes !== 0) {
+                ctx.fillStyle = Theme.playFaceFill
+                for (var i = iMin; i <= iMax; i++) {
+                    for (var j = jMin; j <= jMax; j++) {
+                        if (isPL(noteAt(i,j)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1))) {
+                            var pp0=nodePos(i,j), pp1=nodePos(i+1,j), pp2=nodePos(i,j+1)
+                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
+                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
+                            ctx.closePath(); ctx.fill()
+                        }
+                        if (isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j+1))) {
+                            var pp0=nodePos(i+1,j), pp1=nodePos(i,j+1), pp2=nodePos(i+1,j+1)
+                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
+                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
+                            ctx.closePath(); ctx.fill()
+                        }
+                    }
+                }
+            }
+
             // ── edges ──
             ctx.lineWidth = Math.max(0.5, 1.5 * scale)
             for (var i = iMin; i <= iMax; i++) {
@@ -441,12 +465,17 @@ Item {
 
                     var isSelected    = hasSelNode && ni === selNodeI && nj === selNodeJ
                     var isHighlighted = isHL(noteAt(ni, nj))
+                    var isPlaying     = isPL(noteAt(ni, nj))
 
                     ctx.beginPath()
                     ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
                     if (isSelected) {
                         ctx.fillStyle   = Theme.selFill
                         ctx.strokeStyle = Theme.selStroke
+                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                    } else if (isPlaying) {
+                        ctx.fillStyle   = Theme.playNodeFill
+                        ctx.strokeStyle = Theme.playColor
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                     } else if (isHighlighted) {
                         ctx.fillStyle   = Theme.hlNodeFill
@@ -462,6 +491,7 @@ Item {
 
                     if (r > 10) {
                         ctx.fillStyle = isSelected    ? Theme.selText
+                                      : isPlaying     ? Theme.playNodeText
                                       : isHighlighted ? Theme.hlColor
                                       :                 Theme.nodeText
                         ctx.fillText(noteNames[noteAt(ni, nj)], np.x, np.y)
