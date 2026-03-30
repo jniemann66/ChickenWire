@@ -180,7 +180,7 @@ Item {
         property int  selTriadJ:    0
         property bool selTriadMajor: true
 
-        // ── coordinate helpers ──────────────────────────────────
+        // coordinate helpers
 
         function nodePos(i, j) {
             var dx = baseDx * scale
@@ -230,7 +230,7 @@ Item {
             }
         }
 
-        // ── hit testing ─────────────────────────────────────────
+        // hit testing
 
         // Convert screen (px,py) → fractional lattice coords
         function toLattice(px, py) {
@@ -267,9 +267,9 @@ Item {
 
             // 2. Triangle hit — oblique floor + diagonal test
             // u + v ≤ 1  →  lower-left "major" triangle at (fi, fj)
-            //                 vertices (fi,fj), (fi+1,fj), (fi,fj+1)
+            //                vertices (fi,fj), (fi+1,fj), (fi,fj+1)
             // u + v > 1  →  upper-right "minor" triangle at (fi, fj)
-            //                 vertices (fi+1,fj), (fi,fj+1), (fi+1,fj+1)
+            //                vertices (fi+1,fj), (fi,fj+1), (fi+1,fj+1)
             var fi = Math.floor(if_)
             var fj = Math.floor(jf)
             var u  = if_ - fi
@@ -292,7 +292,7 @@ Item {
             }
         }
 
-        // ── paint ───────────────────────────────────────────────
+        // paint
 
         onPaint: {
             var ctx = getContext("2d")
@@ -305,7 +305,7 @@ Item {
             var r        = Math.max(5, baseRadius * scale)
             var fontSize = Math.max(1, 13 * scale)
 
-            // ── highlighted note-set: filled triangles (drawn first, behind everything) ──
+            // highlighted note-set: filled triangles (drawn first, behind everything)
             if (highlightedNotes !== 0) {
                 ctx.fillStyle = Theme.hlFaceFill
                 for (var i = iMin; i <= iMax; i++) {
@@ -326,7 +326,7 @@ Item {
                 }
             }
 
-            // ── playing notes: filled triangles ──
+            // playing notes: filled triangles
             if (playingNotes !== 0) {
                 ctx.fillStyle = Theme.playFaceFill
                 for (var i = iMin; i <= iMax; i++) {
@@ -347,7 +347,7 @@ Item {
                 }
             }
 
-            // ── edges ──
+            // edges
             ctx.lineWidth = Math.max(0.5, 1.5 * scale)
             for (var i = iMin; i <= iMax; i++) {
                 for (var j = jMin; j <= jMax; j++) {
@@ -361,7 +361,7 @@ Item {
                 }
             }
 
-            // ── highlighted note-set: edge overlay ──
+            // highlighted note-set: edge overlay
             if (highlightedNotes !== 0) {
                 ctx.lineWidth = Math.max(1, 3 * scale)
                 for (var i = iMin; i <= iMax; i++) {
@@ -378,7 +378,7 @@ Item {
                 }
             }
 
-            // ── triad labels at triangle centres ──
+            // triad labels at triangle centres
             if (r > 10) {
                 var triadFontSize = Math.max(1, 11 * scale)
                 ctx.font         = triadFontSize + "px sans-serif"
@@ -395,7 +395,7 @@ Item {
                 }
             }
 
-            // ── NR distance: coloured triangle fills and outlines ──
+            // NR distance: coloured triangle fills and outlines
             if (nrDists.length > 0) {
                 var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3,
                            Theme.nrDist4, Theme.nrDist5, Theme.nrDist6]
@@ -426,7 +426,7 @@ Item {
                 }
             }
 
-            // ── selected triad highlight (drawn before nodes so they sit below) ──
+            // selected triad highlight (drawn before nodes so they sit below)
             if (hasSelTriad) {
                 var p0, p1, p2
                 var si = selTriadI, sj = selTriadJ
@@ -441,7 +441,7 @@ Item {
                 }
                 ctx.beginPath()
                 ctx.moveTo(p0.x, p0.y)
-                ctx.lineTo(p1.x, p1.y)
+                ctx.lineTo(p1.x, p1.y)//
                 ctx.lineTo(p2.x, p2.y)
                 ctx.closePath()
                 ctx.fillStyle = Theme.selTriadFill
@@ -451,7 +451,7 @@ Item {
                 ctx.stroke()
             }
 
-            // ── nodes ──
+            // nodes
             ctx.font = "bold " + fontSize + "px sans-serif"
             ctx.textAlign    = "center"
             ctx.textBaseline = "middle"
@@ -471,7 +471,7 @@ Item {
                     ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
                     if (isSelected) {
                         ctx.fillStyle   = Theme.selFill
-                        ctx.strokeStyle = Theme.selStroke
+                        ctx.strokeStyle = Theme.selStroke//
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                     } else if (isPlaying) {
                         ctx.fillStyle   = Theme.playNodeFill
@@ -532,7 +532,7 @@ Item {
             ctx.stroke()
         }
 
-        // ── input ───────────────────────────────────────────────
+        // input
 
         MouseArea {
             anchors.fill: parent

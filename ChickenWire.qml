@@ -181,7 +181,7 @@ Item {
         property int  selNoteI:   0
         property int  selNoteJ:   0
 
-        // ── coordinate helpers ────────────────────────────────────────────────
+        //  coordinate helpers
 
         // Screen position of Tonnetz node (I,J) — the centre of a hexagonal face.
         function hexCenter(I, J) {
@@ -252,7 +252,7 @@ Item {
             }
         }
 
-        // ── hit testing ───────────────────────────────────────────────────────
+        //  hit testing
 
         // Returns { type:"triad", i, j, isMajor } if click is within a node radius
         // of a dual vertex, or { type:"note", i, j } for the enclosing hex face.
@@ -304,7 +304,7 @@ Item {
             else if (screenPt.y > height - margin)      originY -= screenPt.y - (height - margin)
         }
 
-        // ── paint ─────────────────────────────────────────────────────────────
+        //  paint
 
         onPaint: {
             var ctx = getContext("2d")
@@ -317,7 +317,7 @@ Item {
             var r        = Math.max(4, baseRadius * scale)
             var fontSize = Math.max(1, Math.min(r * 0.72, 11 * scale))
 
-            // ── highlighted note-set: hex face fills ──────────────────────
+            //  highlighted note-set: hex face fills
             if (highlightedNotes !== 0) {
                 for (var fi = iMin; fi <= iMax; fi++) {
                     for (var fj = jMin; fj <= jMax; fj++) {
@@ -342,7 +342,7 @@ Item {
                 }
             }
 
-            // ── playing notes: hex face fills ──
+            //  playing notes: hex face fills
             if (playingNotes !== 0) {
                 for (var fi = iMin; fi <= iMax; fi++) {
                     for (var fj = jMin; fj <= jMax; fj++) {
@@ -367,7 +367,7 @@ Item {
                 }
             }
 
-            // ── 0. Selected note hex-face highlight ───────────────────────
+            //  0. Selected note hex-face highlight
             if (hasSelNote) {
                 var h0 = dualPos(selNoteI,     selNoteJ,     true )  // major(I,J)
                 var h1 = dualPos(selNoteI - 1, selNoteJ,     false)  // minor(I-1,J)
@@ -390,7 +390,7 @@ Item {
                 ctx.stroke()
             }
 
-            // ── 1. Edges, coloured by neo-Riemannian transformation ───────
+            //  1. Edges, coloured by neo-Riemannian transformation
             // From each major(I,J) vertex there are exactly three edges:
             //   L  (leading-tone exchange)  major(I,J) → minor(I,J)    blue
             //   R  (relative)               major(I,J) → minor(I-1,J)  orange
@@ -406,7 +406,7 @@ Item {
                 }
             }
 
-            // ── 2. Note names at hex face centres ─────────────────────────
+            //  2. Note names at hex face centres
             if (r > 9) {
                 var faceFontSize = Math.max(1, 11 * scale)
                 ctx.font         = faceFontSize + "px sans-serif"
@@ -421,7 +421,7 @@ Item {
                 }
             }
 
-            // ── 3. Triad nodes ─────────────────────────────────────────────
+            //  3. Triad nodes
             ctx.font         = "bold " + fontSize + "px sans-serif"
             ctx.textAlign    = "center"
             ctx.textBaseline = "middle"
@@ -494,7 +494,7 @@ Item {
             }
         }
 
-        // ── input ────────────────────────────────────────────────────────────
+        //  input
 
         MouseArea {
             anchors.fill: parent
