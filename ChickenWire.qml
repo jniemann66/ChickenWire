@@ -358,9 +358,9 @@ Item {
                         ctx.lineTo(ph2.x, ph2.y); ctx.lineTo(ph3.x, ph3.y)
                         ctx.lineTo(ph4.x, ph4.y); ctx.lineTo(ph5.x, ph5.y)
                         ctx.closePath()
-                        ctx.fillStyle   = Theme.playFaceFill
+                        ctx.fillStyle   = Theme.selHexFill
                         ctx.fill()
-                        ctx.strokeStyle = Theme.playHexStroke
+                        ctx.strokeStyle = Theme.selHexStroke
                         ctx.lineWidth   = Math.max(1, 2 * scale)
                         ctx.stroke()
                     }
@@ -452,7 +452,7 @@ Item {
                         ctx.beginPath()
                         ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
 
-                        if (isSel) {
+                        if (isSel || isTriadPlaying) {
                             ctx.fillStyle   = Theme.selFill
                             ctx.strokeStyle = Theme.selStroke
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
@@ -461,10 +461,6 @@ Item {
                                          Theme.nrDist4, Theme.nrDist5, Theme.nrDist6][nrD]
                             ctx.fillStyle   = Qt.rgba(nrClr.r, nrClr.g, nrClr.b, 0.35)
                             ctx.strokeStyle = nrClr
-                            ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
-                        } else if (isTriadPlaying) {
-                            ctx.fillStyle   = Theme.playNodeFill
-                            ctx.strokeStyle = Theme.playColor
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                         } else if (isTriadHL) {
                             ctx.fillStyle   = Theme.hlNodeFill
@@ -486,11 +482,10 @@ Item {
                         ctx.stroke()
 
                         if (r > 7) {
-                            ctx.fillStyle = isSel          ? Theme.selText
-                                          : nrD >= 0       ? Theme.triadText
-                                          : isTriadPlaying ? Theme.playNodeText
-                                          : isTriadHL      ? Theme.hlColor
-                                          :                   Theme.triadText
+                            ctx.fillStyle = (isSel || isTriadPlaying) ? Theme.selText
+                                          : nrD >= 0                 ? Theme.triadText
+                                          : isTriadHL                ? Theme.hlColor
+                                          :                            Theme.triadText
                             ctx.fillText(chordLabel(ni, nj, isMaj), np.x, np.y)
                         }
                     }

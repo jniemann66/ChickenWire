@@ -326,22 +326,24 @@ Item {
                 }
             }
 
-            // playing notes: filled triangles
+            // playing notes: filled triangles — same style as selected triad
             if (playingNotes !== 0) {
-                ctx.fillStyle = Theme.playFaceFill
+                ctx.fillStyle   = Theme.selTriadFill
+                ctx.strokeStyle = Theme.selTriadStroke
+                ctx.lineWidth   = Math.max(1, 2 * scale)
                 for (var i = iMin; i <= iMax; i++) {
                     for (var j = jMin; j <= jMax; j++) {
                         if (isPL(noteAt(i,j)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1))) {
                             var pp0=nodePos(i,j), pp1=nodePos(i+1,j), pp2=nodePos(i,j+1)
                             ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
                             ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
-                            ctx.closePath(); ctx.fill()
+                            ctx.closePath(); ctx.fill(); ctx.stroke()
                         }
                         if (isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j+1))) {
                             var pp0=nodePos(i+1,j), pp1=nodePos(i,j+1), pp2=nodePos(i+1,j+1)
                             ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
                             ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
-                            ctx.closePath(); ctx.fill()
+                            ctx.closePath(); ctx.fill(); ctx.stroke()
                         }
                     }
                 }
@@ -476,13 +478,9 @@ Item {
 
                     ctx.beginPath()
                     ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
-                    if (isSelected) {
+                    if (isSelected || isPlaying) {
                         ctx.fillStyle   = Theme.selFill
-                        ctx.strokeStyle = Theme.selStroke//
-                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
-                    } else if (isPlaying) {
-                        ctx.fillStyle   = Theme.playNodeFill
-                        ctx.strokeStyle = Theme.playColor
+                        ctx.strokeStyle = Theme.selStroke
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                     } else if (isHighlighted) {
                         ctx.fillStyle   = Theme.hlNodeFill
@@ -497,10 +495,9 @@ Item {
                     ctx.stroke()
 
                     if (r > 10) {
-                        ctx.fillStyle = isSelected    ? Theme.selText
-                                      : isPlaying     ? Theme.playNodeText
-                                      : isHighlighted ? Theme.hlColor
-                                      :                 Theme.nodeText
+                        ctx.fillStyle = (isSelected || isPlaying) ? Theme.selText
+                                      : isHighlighted             ? Theme.hlColor
+                                      :                             Theme.nodeText
                         ctx.fillText(noteNames[noteAt(ni, nj)], np.x, np.y)
                     }
                 }
