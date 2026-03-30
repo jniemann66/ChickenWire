@@ -33,9 +33,11 @@ QtObject {
     readonly property color selFill:        "#b8860b"
     readonly property color selStroke:      "#ffd700"
     readonly property color selText:        "#fff8dc"
+
     // Tonnetz: filled triangle when a triad is selected
     readonly property color selTriadFill:   Qt.rgba(1.000, 0.824, 0.235, 0.28)
     readonly property color selTriadStroke: Qt.rgba(1.000, 0.824, 0.235, 0.70)
+
     // ChickenWire: filled hexagon when a note is selected
     readonly property color selHexFill:     Qt.rgba(1.000, 0.824, 0.235, 0.18)
     readonly property color selHexStroke:   Qt.rgba(1.000, 0.824, 0.235, 0.60)
@@ -59,12 +61,6 @@ QtObject {
     readonly property color hlColor:        "#ffffff"                 // node ring and label text
 
     // MIDI playback: currently sounding notes
-    // Green (neon) — kept for future re-evaluation:
-    // readonly property color playColor:     "#39ff14"
-    // readonly property color playFaceFill:  Qt.rgba(0.224, 1.0, 0.078, 0.15)
-    // readonly property color playHexStroke: Qt.rgba(0.224, 1.0, 0.078, 0.70)
-    // readonly property color playNodeFill:  "#0d1f0a"
-    // readonly property color playNodeText:  "#39ff14"
     readonly property color playColor:     "#ffffff"
     readonly property color playFaceFill:  Qt.rgba(1, 1, 1, 0.12)
     readonly property color playHexStroke: Qt.rgba(1, 1, 1, 0.75)
