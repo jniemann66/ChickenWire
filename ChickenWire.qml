@@ -499,7 +499,7 @@ Item {
 
             // active note labels — drawn last so hex fills don't paint over them
             if (activeNoteLabels.length > 0) {
-                ctx.font         = Math.max(1, 11 * scale) + "px sans-serif"
+                ctx.font         = "bold " + Math.max(1, 11 * scale) + "px sans-serif"
                 ctx.textAlign    = "center"
                 ctx.textBaseline = "middle"
                 ctx.fillStyle    = Theme.labelActive

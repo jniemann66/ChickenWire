@@ -508,7 +508,7 @@ Item {
 
             // active triad labels — drawn last so opaque fills don't paint over them
             if (activeLabels.length > 0) {
-                ctx.font         = Math.max(1, 11 * scale) + "px sans-serif"
+                ctx.font         = "bold " + Math.max(1, 11 * scale) + "px sans-serif"
                 ctx.textAlign    = "center"
                 ctx.textBaseline = "middle"
                 ctx.fillStyle    = Theme.labelActive
