@@ -326,29 +326,6 @@ Item {
                 }
             }
 
-            // playing notes: filled triangles — same style as selected triad
-            if (playingNotes !== 0) {
-                ctx.fillStyle   = Theme.selTriadFill
-                ctx.strokeStyle = Theme.selTriadStroke
-                ctx.lineWidth   = Math.max(1, 2 * scale)
-                for (var i = iMin; i <= iMax; i++) {
-                    for (var j = jMin; j <= jMax; j++) {
-                        if (isPL(noteAt(i,j)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1))) {
-                            var pp0=nodePos(i,j), pp1=nodePos(i+1,j), pp2=nodePos(i,j+1)
-                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
-                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
-                            ctx.closePath(); ctx.fill(); ctx.stroke()
-                        }
-                        if (isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j+1))) {
-                            var pp0=nodePos(i+1,j), pp1=nodePos(i,j+1), pp2=nodePos(i+1,j+1)
-                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
-                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
-                            ctx.closePath(); ctx.fill(); ctx.stroke()
-                        }
-                    }
-                }
-            }
-
             // edges
             ctx.lineWidth = Math.max(0.5, 1.5 * scale)
             for (var i = iMin; i <= iMax; i++) {
@@ -435,7 +412,28 @@ Item {
                 }
             }
 
-            // selected triad highlight (drawn before nodes so they sit below)
+            // playing triads and selected triad — drawn after edges so stroke is visible
+            if (playingNotes !== 0) {
+                ctx.fillStyle   = Theme.selTriadFill
+                ctx.strokeStyle = Theme.selTriadStroke
+                ctx.lineWidth   = Math.max(1, 2 * scale)
+                for (var i = iMin; i <= iMax; i++) {
+                    for (var j = jMin; j <= jMax; j++) {
+                        if (isPL(noteAt(i,j)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1))) {
+                            var pp0=nodePos(i,j), pp1=nodePos(i+1,j), pp2=nodePos(i,j+1)
+                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
+                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
+                            ctx.closePath(); ctx.fill(); ctx.stroke()
+                        }
+                        if (isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j+1))) {
+                            var pp0=nodePos(i+1,j), pp1=nodePos(i,j+1), pp2=nodePos(i+1,j+1)
+                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
+                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
+                            ctx.closePath(); ctx.fill(); ctx.stroke()
+                        }
+                    }
+                }
+            }
             if (hasSelTriad) {
                 var p0, p1, p2
                 var si = selTriadI, sj = selTriadJ
