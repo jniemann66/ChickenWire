@@ -19,8 +19,9 @@ QtObject {
     readonly property color edgeR:          "#ff9f43"   // orange
     readonly property color edgeP:          "#ff6b9d"   // pink
 
-    // Faint labels (triad names in Tonnetz triangles; note names in ChickenWire faces)
+    // Labels: faint when idle, active (full opaque white) when selected or playing
     readonly property color labelFaint:     "#8888aa"
+    readonly property color labelActive:    "#ffffff"
 
     // ChickenWire: default triad-vertex styles
     readonly property color majorFill:      "#221830"

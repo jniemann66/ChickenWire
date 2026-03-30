@@ -378,7 +378,8 @@ Item {
                 }
             }
 
-            // triad labels at triangle centres
+            // triad labels: faint drawn now; active collected and deferred to after nodes
+            var activeLabels = []
             if (r > 10) {
                 var triadFontSize = Math.max(1, 11 * scale)
                 ctx.font         = triadFontSize + "px sans-serif"
@@ -387,10 +388,16 @@ Item {
                 ctx.fillStyle    = Theme.labelFaint
                 for (var ti = iMin; ti <= iMax; ti++) {
                     for (var tj = jMin; tj <= jMax; tj++) {
+                        var majActive = (hasSelTriad && ti === selTriadI && tj === selTriadJ && selTriadMajor)
+                                     || (isPL(noteAt(ti,tj)) && isPL(noteAt(ti+1,tj)) && isPL(noteAt(ti,tj+1)))
                         var cMaj = triadCenter(ti, tj, true)
-                        ctx.fillText(chordLabel(ti, tj, true),  cMaj.x, cMaj.y)
+                        if (majActive) activeLabels.push({text: chordLabel(ti, tj, true),  x: cMaj.x, y: cMaj.y})
+                        else           ctx.fillText(chordLabel(ti, tj, true),  cMaj.x, cMaj.y)
+                        var minActive = (hasSelTriad && ti === selTriadI && tj === selTriadJ && !selTriadMajor)
+                                     || (isPL(noteAt(ti+1,tj)) && isPL(noteAt(ti,tj+1)) && isPL(noteAt(ti+1,tj+1)))
                         var cMin = triadCenter(ti, tj, false)
-                        ctx.fillText(chordLabel(ti, tj, false), cMin.x, cMin.y)
+                        if (minActive) activeLabels.push({text: chordLabel(ti, tj, false), x: cMin.x, y: cMin.y})
+                        else           ctx.fillText(chordLabel(ti, tj, false), cMin.x, cMin.y)
                     }
                 }
             }
@@ -497,6 +504,16 @@ Item {
                         ctx.fillText(noteNames[noteAt(ni, nj)], np.x, np.y)
                     }
                 }
+            }
+
+            // active triad labels — drawn last so opaque fills don't paint over them
+            if (activeLabels.length > 0) {
+                ctx.font         = Math.max(1, 11 * scale) + "px sans-serif"
+                ctx.textAlign    = "center"
+                ctx.textBaseline = "middle"
+                ctx.fillStyle    = Theme.labelActive
+                for (var al = 0; al < activeLabels.length; al++)
+                    ctx.fillText(activeLabels[al].text, activeLabels[al].x, activeLabels[al].y)
             }
         }
 

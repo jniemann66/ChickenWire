@@ -406,7 +406,8 @@ Item {
                 }
             }
 
-            //  2. Note names at hex face centres
+            //  2. Note names at hex face centres: faint now, active deferred to end
+            var activeNoteLabels = []
             if (r > 9) {
                 var faceFontSize = Math.max(1, 11 * scale)
                 ctx.font         = faceFontSize + "px sans-serif"
@@ -416,7 +417,10 @@ Item {
                 for (var fi = iMin; fi <= iMax; fi++) {
                     for (var fj = jMin; fj <= jMax; fj++) {
                         var hc = hexCenter(fi, fj)
-                        ctx.fillText(noteNames[noteAt(fi, fj)], hc.x, hc.y)
+                        var noteActive = (hasSelNote && fi === selNoteI && fj === selNoteJ)
+                                      || isPL(noteAt(fi, fj))
+                        if (noteActive) activeNoteLabels.push({text: noteNames[noteAt(fi, fj)], x: hc.x, y: hc.y})
+                        else            ctx.fillText(noteNames[noteAt(fi, fj)], hc.x, hc.y)
                     }
                 }
             }
@@ -491,6 +495,16 @@ Item {
                         }
                     }
                 }
+            }
+
+            // active note labels — drawn last so hex fills don't paint over them
+            if (activeNoteLabels.length > 0) {
+                ctx.font         = Math.max(1, 11 * scale) + "px sans-serif"
+                ctx.textAlign    = "center"
+                ctx.textBaseline = "middle"
+                ctx.fillStyle    = Theme.labelActive
+                for (var al = 0; al < activeNoteLabels.length; al++)
+                    ctx.fillText(activeNoteLabels[al].text, activeNoteLabels[al].x, activeNoteLabels[al].y)
             }
         }
 
