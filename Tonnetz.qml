@@ -168,7 +168,7 @@ Item {
         // Base geometry (at scale = 1)
         readonly property real baseDx:     72
         readonly property real baseDy:     baseDx * Math.sqrt(3) / 2
-        readonly property real baseRadius: 22
+        readonly property real baseRadius: 15
 
         // Selection state
         property bool hasSelNode:   false
