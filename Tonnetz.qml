@@ -414,7 +414,7 @@ Item {
 
             // playing triads and selected triad — drawn after edges so stroke is visible
             if (playingNotes !== 0) {
-                ctx.fillStyle   = Theme.selTriadFill
+                ctx.fillStyle   = Theme.selFill
                 ctx.strokeStyle = Theme.selTriadStroke
                 ctx.lineWidth   = Math.max(1, 2 * scale)
                 for (var i = iMin; i <= iMax; i++) {
@@ -451,7 +451,7 @@ Item {
                 ctx.lineTo(p1.x, p1.y)//
                 ctx.lineTo(p2.x, p2.y)
                 ctx.closePath()
-                ctx.fillStyle = Theme.selTriadFill
+                ctx.fillStyle = Theme.selFill
                 ctx.fill()
                 ctx.strokeStyle = Theme.selTriadStroke
                 ctx.lineWidth   = Math.max(1, 2 * scale)
@@ -477,7 +477,7 @@ Item {
                     ctx.beginPath()
                     ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
                     if (isSelected || isPlaying) {
-                        ctx.fillStyle   = Theme.selFill
+                        ctx.fillStyle   = Theme.nodeFill
                         ctx.strokeStyle = Theme.selStroke
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                     } else if (isHighlighted) {
@@ -493,9 +493,8 @@ Item {
                     ctx.stroke()
 
                     if (r > 10) {
-                        ctx.fillStyle = (isSelected || isPlaying) ? Theme.selText
-                                      : isHighlighted             ? Theme.hlColor
-                                      :                             Theme.nodeText
+                        ctx.fillStyle = isHighlighted ? Theme.hlColor
+                                      :                Theme.nodeText
                         ctx.fillText(noteNames[noteAt(ni, nj)], np.x, np.y)
                     }
                 }
