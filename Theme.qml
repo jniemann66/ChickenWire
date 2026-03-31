@@ -15,9 +15,9 @@ QtObject {
 
     // Neo-Riemannian edges (Tonnetz edges / ChickenWire edges)
     //    L = leading-tone exchange   R = relative   P = parallel
-    readonly property color edgeL:          "#4a9eff"   // blue
-    readonly property color edgeR:          "#ff9f43"   // orange
-    readonly property color edgeP:          "#ff6b9d"   // pink
+    readonly property color edgeL:          "#6a9fd4"   // blue   (was "#4a9eff")
+    readonly property color edgeR:          "#d4964a"   // orange (was "#ff9f43")
+    readonly property color edgeP:          "#d47a9b"   // pink   (was "#ff6b9d")
 
     // Labels: faint and active (ie when selected)
     readonly property color labelFaint:     "#8888aa"
