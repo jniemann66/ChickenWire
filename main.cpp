@@ -93,6 +93,17 @@ int main(int argc, char *argv[])
         cwAction->setChecked(switcher.source() == QStringLiteral("ChickenWire.qml"));
     });
 
+    // Color Scheme menu
+    auto *colorMenu = mw.menuBar()->addMenu(QStringLiteral("&Color Scheme"));
+    auto *negativeAction = colorMenu->addAction(QStringLiteral("&Negative"));
+    negativeAction->setCheckable(true);
+    negativeAction->setChecked(switcher.invertColors());
+    QObject::connect(negativeAction, &QAction::toggled,
+        [&switcher](bool on) { switcher.setInvertColors(on); });
+    QObject::connect(&switcher, &VisualizerSwitcher::invertColorsChanged, [&]() {
+        negativeAction->setChecked(switcher.invertColors());
+    });
+
     mw.show();
     return app.exec();
 }

@@ -5,7 +5,7 @@ project(ChickenWire VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick Widgets QuickWidgets)
+find_package(Qt6 REQUIRED COMPONENTS Quick Widgets QuickWidgets ShaderTools)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -33,6 +33,13 @@ else()
 endif()
 
 set_source_files_properties(Theme.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
+qt6_add_shaders(appChickenWire "shaders"
+    PRECOMPILE
+    OPTIMIZED
+    PREFIX "/shaders"
+    FILES invert.frag
+)
 
 qt_add_qml_module(appChickenWire
     URI ChickenWire

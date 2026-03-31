@@ -464,6 +464,12 @@ Qt6QuickWidgets_DIR:PATH=/home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6QuickWidgets
 //The directory containing a CMake configuration file for Qt6Quick.
 Qt6Quick_DIR:PATH=/home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6Quick
 
+//The directory containing a CMake configuration file for Qt6ShaderToolsTools.
+Qt6ShaderToolsTools_DIR:PATH=/home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6ShaderToolsTools
+
+//The directory containing a CMake configuration file for Qt6ShaderTools.
+Qt6ShaderTools_DIR:PATH=/home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6ShaderTools
+
 //The directory containing a CMake configuration file for Qt6WidgetsTools.
 Qt6WidgetsTools_DIR:PATH=/home/juddn/Qt/6.10.1/gcc_64/lib/cmake/Qt6WidgetsTools
 

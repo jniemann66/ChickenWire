@@ -4,6 +4,11 @@ import ChickenWire
 Item {
     anchors.fill: parent
 
+    layer.enabled: visualizerSwitcher.invertColors
+    layer.effect: ShaderEffect {
+        fragmentShader: "qrc:/shaders/invert.frag.qsb"
+    }
+
     // Shared background — lives here so neither canvas bleeds its own fill
     // through at partial opacity during the cross-fade.
     Rectangle {

@@ -20,6 +20,8 @@ class VisualizerSwitcher : public QObject
     Q_PROPERTY(qreal vpOriginY   READ vpOriginY WRITE setVpOriginY NOTIFY vpOriginYChanged)
     Q_PROPERTY(qreal vpScale     READ vpScale   WRITE setVpScale   NOTIFY vpScaleChanged)
 
+    Q_PROPERTY(bool invertColors READ invertColors WRITE setInvertColors NOTIFY invertColorsChanged)
+
     // Shared selection state.  selType: 0=none  1=note  2=triad
     Q_PROPERTY(int  selType    READ selType    NOTIFY selectionChanged)
     Q_PROPERTY(int  selI       READ selI       NOTIFY selectionChanged)
@@ -31,6 +33,11 @@ public:
         : QObject(parent), m_source(u"Tonnetz.qml"), m_vpScale(0)
     {
 
+    }
+
+    bool invertColors() const { return m_invertColors; }
+    void setInvertColors(bool v) {
+        if (m_invertColors != v) { m_invertColors = v; emit invertColorsChanged(); }
     }
 
     QString source() const { return m_source; }
@@ -79,8 +86,10 @@ signals:
     void vpOriginYChanged();
     void vpScaleChanged();
     void selectionChanged();
+    void invertColorsChanged();
 
 private:
+    bool m_invertColors = false;
     QString m_source;
     qreal m_vpOriginX = 0;
     qreal m_vpOriginY = 0;
