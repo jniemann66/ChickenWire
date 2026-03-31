@@ -24,7 +24,7 @@ qt_add_executable(appChickenWire
     TransportWidget.cpp
 )
 
-# ── Platform-specific audio backend ──────────────────────────────────────────
+# Platform-specific MIDI audio backend
 if(WIN32)
     target_sources(appChickenWire PRIVATE MidiAudioWin.h MidiAudioWin.cpp)
     target_link_libraries(appChickenWire PRIVATE winmm)

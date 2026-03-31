@@ -21,14 +21,16 @@ class TonnetzController : public QObject
 public:
     explicit TonnetzController(QObject *parent = nullptr);
 
-    QStringList noteNames() const { return m_noteNames;          }
+    // getters
+    QStringList noteNames() const { return m_noteNames; }
     QStringList majorRootNoteNames() const { return m_majorRootNoteNames; }
     QStringList minorRootNoteNames() const { return m_minorRootNoteNames; }
-    int highlightedNotes() const { return m_highlightedNotes;   }
-    int playingNotes() const { return m_playingNotes;       }
+    int highlightedNotes() const { return m_highlightedNotes; }
+    int playingNotes() const { return m_playingNotes; }
     bool nrDistancesEnabled() const { return m_nrDistancesEnabled; }
     void setNrDistancesEnabled(bool enabled);
 
+    // invokables
     // Called by QML after hit-testing
     Q_INVOKABLE void selectNote (int semitone, int i, int j);
     Q_INVOKABLE void selectTriad(int root, int third, int fifth, bool isMajor);
@@ -36,9 +38,9 @@ public:
     // Replace a note-name set.  Each list must contain exactly 12 entries
     // (one per semitone, starting at C).  Returns false without changing
     // anything if the list is invalid.
-    Q_INVOKABLE bool setNoteNames          (const QStringList &names);
-    Q_INVOKABLE bool setMajorRootNoteNames (const QStringList &names);
-    Q_INVOKABLE bool setMinorRootNoteNames (const QStringList &names);
+    Q_INVOKABLE bool setNoteNames(const QStringList &names);
+    Q_INVOKABLE bool setMajorRootNoteNames(const QStringList &names);
+    Q_INVOKABLE bool setMinorRootNoteNames(const QStringList &names);
 
     // Set the highlighted note set from a list of semitone values (0–11).
     // Pass an empty list (or call clearHighlightedNotes) to clear.
@@ -70,11 +72,11 @@ signals:
 private:
     static bool validateNames(const QStringList &names, const char *which);
 
-    QStringList m_noteNames;
-    QStringList m_majorRootNoteNames;
-    QStringList m_minorRootNoteNames;
-    int m_highlightedNotes = 0;     // 12-bit bitmask
-    bool m_nrDistancesEnabled = false;
+    QStringList m_noteNames; // note names of all 12 notes
+    QStringList m_majorRootNoteNames; // names of all 12 root notes for Major Chords
+    QStringList m_minorRootNoteNames; // names of all 12 root notes for Minor Chords
+    int m_highlightedNotes = 0; // 12-bit bitmask
+    bool m_nrDistancesEnabled = false; // when true, show relative ditance from selected triad to other triads using color code
     int m_playingNotes = 0;
     int m_playingNoteCounts[12] = {};
 };

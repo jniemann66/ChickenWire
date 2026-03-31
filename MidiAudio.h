@@ -1,7 +1,7 @@
 #pragma once
 #include <QString>
 
-// MIDI Audio playback interface
+// MIDI Audio playback wrapper interface
 
 class MidiAudio
 {

@@ -1,14 +1,14 @@
 #include "TransportWidget.h"
 #include "MidiPlayer.h"
 
-#include <QWidget>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QSlider>
-#include <QLabel>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QSlider>
+#include <QVBoxLayout>
+#include <QWidget>
 
 TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     : QDockWidget(tr("MIDI Transport"), parent)
@@ -81,8 +81,10 @@ void TransportWidget::openFile()
     const QString path = QFileDialog::getOpenFileName(
         this, tr("Open MIDI File"), {},
         tr("MIDI Files (*.mid *.midi);;All Files (*)"));
-    if (!path.isEmpty())
+
+    if (!path.isEmpty()) {
         m_player->load(path);
+    }
 }
 
 void TransportWidget::onStateChanged()
@@ -94,8 +96,9 @@ void TransportWidget::onStateChanged()
 
 void TransportWidget::onPositionChanged()
 {
-    if (!m_dragging)
+    if (!m_dragging) {
         m_slider->setValue(int(m_player->position() * 1000));
+    }
 
     const int dur = m_player->durationMs();
     const int pos = int(m_player->position() * dur);

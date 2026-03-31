@@ -18,7 +18,9 @@ static QString findPlayerExe()
 
 MidiAudioProcess::MidiAudioProcess()
     : m_playerExe(findPlayerExe())
-{}
+{
+
+}
 
 MidiAudioProcess::~MidiAudioProcess()
 {

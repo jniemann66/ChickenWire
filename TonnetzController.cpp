@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QVariantList>
+
 #include <algorithm>
 
 // default names
@@ -39,8 +40,12 @@ bool TonnetzController::validateNames(const QStringList &names, const char *whic
 
 bool TonnetzController::setNoteNames(const QStringList &names)
 {
-    if (!validateNames(names, "setNoteNames")) return false;
-    if (m_noteNames == names) return true;
+    if (!validateNames(names, "setNoteNames"))
+        return false;
+
+    if (m_noteNames == names)
+        return true;
+
     m_noteNames = names;
     emit noteNamesChanged();
     return true;
@@ -48,8 +53,12 @@ bool TonnetzController::setNoteNames(const QStringList &names)
 
 bool TonnetzController::setMajorRootNoteNames(const QStringList &names)
 {
-    if (!validateNames(names, "setMajorNoteNames")) return false;
-    if (m_majorRootNoteNames == names) return true;
+    if (!validateNames(names, "setMajorNoteNames"))
+        return false;
+
+    if (m_majorRootNoteNames == names)
+        return true;
+
     m_majorRootNoteNames = names;
     emit majorRootNoteNamesChanged();
     return true;
@@ -57,8 +66,12 @@ bool TonnetzController::setMajorRootNoteNames(const QStringList &names)
 
 bool TonnetzController::setMinorRootNoteNames(const QStringList &names)
 {
-    if (!validateNames(names, "setMinorNoteNames")) return false;
-    if (m_minorRootNoteNames == names) return true;
+    if (!validateNames(names, "setMinorNoteNames"))
+        return false;
+
+    if (m_minorRootNoteNames == names)
+        return true;
+
     m_minorRootNoteNames = names;
     emit minorRootNoteNamesChanged();
     return true;
@@ -72,21 +85,28 @@ void TonnetzController::setHighlightedNotes(const QVariantList &semitones)
         if (s >= 0 && s < 12)
             mask |= (1 << s);
     }
-    if (m_highlightedNotes == mask) return;
+
+    if (m_highlightedNotes == mask)
+        return;
+
     m_highlightedNotes = mask;
     emit highlightedNotesChanged();
 }
 
 void TonnetzController::clearHighlightedNotes()
 {
-    if (m_highlightedNotes == 0) return;
+    if (m_highlightedNotes == 0)
+        return;
+
     m_highlightedNotes = 0;
     emit highlightedNotesChanged();
 }
 
 void TonnetzController::setNrDistancesEnabled(bool enabled)
 {
-    if (m_nrDistancesEnabled == enabled) return;
+    if (m_nrDistancesEnabled == enabled)
+        return;
+
     m_nrDistancesEnabled = enabled;
     emit nrDistancesEnabledChanged();
 }
@@ -150,7 +170,9 @@ void TonnetzController::selectTriad(int root, int third, int fifth, bool isMajor
 
 void TonnetzController::handleNoteOn(int semitone)
 {
-    if (semitone < 0 || semitone >= 12) return;
+    if (semitone < 0 || semitone >= 12)
+        return;
+
     ++m_playingNoteCounts[semitone];
     const int newMask = m_playingNotes | (1 << semitone);
     if (newMask != m_playingNotes) {
@@ -161,7 +183,9 @@ void TonnetzController::handleNoteOn(int semitone)
 
 void TonnetzController::handleNoteOff(int semitone)
 {
-    if (semitone < 0 || semitone >= 12) return;
+    if (semitone < 0 || semitone >= 12)
+        return;
+
     if (--m_playingNoteCounts[semitone] <= 0) {
         m_playingNoteCounts[semitone] = 0;
         const int newMask = m_playingNotes & ~(1 << semitone);
