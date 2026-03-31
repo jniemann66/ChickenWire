@@ -357,6 +357,23 @@ Item {
                 }
             }
 
+            // playing notes (MIDI playback): edge overlay in gold
+            if (playingNotes !== 0) {
+                ctx.lineWidth = Math.max(1, 3 * scale)
+                for (var i = iMin; i <= iMax; i++) {
+                    for (var j = jMin; j <= jMax; j++) {
+                        if (!isPL(noteAt(i, j))) continue
+                        var p = nodePos(i, j)
+                        if (i+1 <= iMax && isPL(noteAt(i+1, j)))
+                            drawEdge(ctx, p, nodePos(i+1, j  ), "#ffd700")
+                        if (j+1 <= jMax && isPL(noteAt(i, j+1)))
+                            drawEdge(ctx, p, nodePos(i,   j+1), "#ffd700")
+                        if (i+1 <= iMax && j-1 >= jMin && isPL(noteAt(i+1, j-1)))
+                            drawEdge(ctx, p, nodePos(i+1, j-1), "#ffd700")
+                    }
+                }
+            }
+
             // triad labels: faint drawn now; active collected and deferred to after nodes
             var activeLabels = []
             if (r > 10) {

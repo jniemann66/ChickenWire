@@ -19,7 +19,7 @@ QtObject {
     readonly property color edgeR:          "#ff9f43"   // orange
     readonly property color edgeP:          "#ff6b9d"   // pink
 
-    // Labels: faint and active (ie when seleccted)
+    // Labels: faint and active (ie when selected)
     readonly property color labelFaint:     "#8888aa"
     readonly property color labelActive:    "#ffffff"
 
