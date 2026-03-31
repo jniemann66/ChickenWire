@@ -54,17 +54,11 @@ QtObject {
     readonly property color nrDist5: "#cc2222"   // d=5: red
     readonly property color nrDist6: "#885522"   // d=6: brown (unreachable — diameter is 5)
 
-    // Highlight — arbitrary note-set via setHighlightedNotes() — matches selection gold
+    // Highlight — arbitrary note-set via setHighlightedNotes()
     readonly property color hlFaceFill:     selTriadFill    // Tonnetz triangle / CW hex face interior
     readonly property color hlEdge:         selTriadStroke  // Tonnetz edge overlay
     readonly property color hlHexStroke:    selHexStroke    // ChickenWire hex face border
     readonly property color hlNodeFill:     selFill         // node / vertex background
     readonly property color hlColor:        selStroke       // node ring and label text
 
-    // MIDI playback: currently sounding notes — matches selection gold
-    readonly property color playColor:     selStroke
-    readonly property color playFaceFill:  selTriadFill
-    readonly property color playHexStroke: selHexStroke
-    readonly property color playNodeFill:  selFill
-    readonly property color playNodeText:  selText
 }

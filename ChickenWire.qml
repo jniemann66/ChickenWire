@@ -287,6 +287,38 @@ Item {
             return { type: "note", i: ci, j: cj }
         }
 
+        function drawHexFace(ctx, I, J, fillColor, strokeColor) {
+            var h0 = dualPos(I,     J,     true )
+            var h1 = dualPos(I - 1, J,     false)
+            var h2 = dualPos(I - 1, J,     true )
+            var h3 = dualPos(I - 1, J - 1, false)
+            var h4 = dualPos(I,     J - 1, true )
+            var h5 = dualPos(I,     J - 1, false)
+            ctx.beginPath()
+            ctx.moveTo(h0.x, h0.y); ctx.lineTo(h1.x, h1.y)
+            ctx.lineTo(h2.x, h2.y); ctx.lineTo(h3.x, h3.y)
+            ctx.lineTo(h4.x, h4.y); ctx.lineTo(h5.x, h5.y)
+            ctx.closePath()
+            ctx.fillStyle   = fillColor
+            ctx.fill()
+            ctx.strokeStyle = strokeColor
+            ctx.lineWidth   = Math.max(1, 2 * scale)
+            ctx.stroke()
+        }
+
+        function isTriadActive(i, j, isMaj) {
+            if (hasSel && i === selI && j === selJ && isMaj === selMajor) return true
+            return isMaj
+                ? (isPL(noteAt(i,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j)))
+                : (isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i+1,j+1)))
+        }
+
+        function isTriadHighlighted(i, j, isMaj) {
+            return isMaj
+                ? (isHL(noteAt(i,j)) && isHL(noteAt(i,j+1)) && isHL(noteAt(i+1,j)))
+                : (isHL(noteAt(i,j+1)) && isHL(noteAt(i+1,j)) && isHL(noteAt(i+1,j+1)))
+        }
+
         function drawEdge(ctx, p1, p2, color) {
             ctx.strokeStyle = color
             ctx.beginPath()
@@ -317,77 +349,20 @@ Item {
             var r        = Math.max(4, baseRadius * scale)
             var fontSize = Math.max(1, Math.min(r * 0.72, 11 * scale))
 
-            //  highlighted note-set: hex face fills
+            //  highlighted hex faces
             if (highlightedNotes !== 0) {
-                for (var fi = iMin; fi <= iMax; fi++) {
-                    for (var fj = jMin; fj <= jMax; fj++) {
-                        if (!isHL(noteAt(fi, fj))) continue
-                        var hh0 = dualPos(fi,     fj,     true )
-                        var hh1 = dualPos(fi - 1, fj,     false)
-                        var hh2 = dualPos(fi - 1, fj,     true )
-                        var hh3 = dualPos(fi - 1, fj - 1, false)
-                        var hh4 = dualPos(fi,     fj - 1, true )
-                        var hh5 = dualPos(fi,     fj - 1, false)
-                        ctx.beginPath()
-                        ctx.moveTo(hh0.x, hh0.y); ctx.lineTo(hh1.x, hh1.y)
-                        ctx.lineTo(hh2.x, hh2.y); ctx.lineTo(hh3.x, hh3.y)
-                        ctx.lineTo(hh4.x, hh4.y); ctx.lineTo(hh5.x, hh5.y)
-                        ctx.closePath()
-                        ctx.fillStyle   = Theme.hlFaceFill
-                        ctx.fill()
-                        ctx.strokeStyle = Theme.hlHexStroke
-                        ctx.lineWidth   = Math.max(1, 2 * scale)
-                        ctx.stroke()
-                    }
-                }
+                for (var fi = iMin; fi <= iMax; fi++)
+                    for (var fj = jMin; fj <= jMax; fj++)
+                        if (isHL(noteAt(fi, fj)))
+                            drawHexFace(ctx, fi, fj, Theme.hlFaceFill, Theme.hlHexStroke)
             }
 
-            //  playing notes: hex face fills
-            if (playingNotes !== 0) {
-                for (var fi = iMin; fi <= iMax; fi++) {
-                    for (var fj = jMin; fj <= jMax; fj++) {
-                        if (!isPL(noteAt(fi, fj))) continue
-                        var ph0 = dualPos(fi,     fj,     true )
-                        var ph1 = dualPos(fi - 1, fj,     false)
-                        var ph2 = dualPos(fi - 1, fj,     true )
-                        var ph3 = dualPos(fi - 1, fj - 1, false)
-                        var ph4 = dualPos(fi,     fj - 1, true )
-                        var ph5 = dualPos(fi,     fj - 1, false)
-                        ctx.beginPath()
-                        ctx.moveTo(ph0.x, ph0.y); ctx.lineTo(ph1.x, ph1.y)
-                        ctx.lineTo(ph2.x, ph2.y); ctx.lineTo(ph3.x, ph3.y)
-                        ctx.lineTo(ph4.x, ph4.y); ctx.lineTo(ph5.x, ph5.y)
-                        ctx.closePath()
-                        ctx.fillStyle   = Theme.selHexFill
-                        ctx.fill()
-                        ctx.strokeStyle = Theme.selHexStroke
-                        ctx.lineWidth   = Math.max(1, 2 * scale)
-                        ctx.stroke()
-                    }
-                }
-            }
-
-            //  0. Selected note hex-face highlight
-            if (hasSelNote) {
-                var h0 = dualPos(selNoteI,     selNoteJ,     true )  // major(I,J)
-                var h1 = dualPos(selNoteI - 1, selNoteJ,     false)  // minor(I-1,J)
-                var h2 = dualPos(selNoteI - 1, selNoteJ,     true )  // major(I-1,J)
-                var h3 = dualPos(selNoteI - 1, selNoteJ - 1, false)  // minor(I-1,J-1)
-                var h4 = dualPos(selNoteI,     selNoteJ - 1, true )  // major(I,J-1)
-                var h5 = dualPos(selNoteI,     selNoteJ - 1, false)  // minor(I,J-1)
-                ctx.beginPath()
-                ctx.moveTo(h0.x, h0.y)
-                ctx.lineTo(h1.x, h1.y)
-                ctx.lineTo(h2.x, h2.y)
-                ctx.lineTo(h3.x, h3.y)
-                ctx.lineTo(h4.x, h4.y)
-                ctx.lineTo(h5.x, h5.y)
-                ctx.closePath()
-                ctx.fillStyle   = Theme.selHexFill
-                ctx.fill()
-                ctx.strokeStyle = Theme.selHexStroke
-                ctx.lineWidth   = Math.max(1, 2 * scale)
-                ctx.stroke()
+            //  selected / playing hex faces (drawn on top of highlighted if both apply)
+            if (playingNotes !== 0 || hasSelNote) {
+                for (var fi = iMin; fi <= iMax; fi++)
+                    for (var fj = jMin; fj <= jMax; fj++)
+                        if (isPL(noteAt(fi, fj)) || (hasSelNote && fi === selNoteI && fj === selNoteJ))
+                            drawHexFace(ctx, fi, fj, Theme.selHexFill, Theme.selHexStroke)
             }
 
             //  1. Edges, coloured by neo-Riemannian transformation
@@ -439,20 +414,15 @@ Item {
                         if (np.x < -r || np.x > width  + r ||
                             np.y < -r || np.y > height + r) continue
 
-                        var isSel = hasSel && ni === selI && nj === selJ && isMaj === selMajor
-                        var isTriadHL = isMaj
-                            ? (isHL(noteAt(ni,nj)) && isHL(noteAt(ni,nj+1)) && isHL(noteAt(ni+1,nj)))
-                            : (isHL(noteAt(ni,nj+1)) && isHL(noteAt(ni+1,nj)) && isHL(noteAt(ni+1,nj+1)))
-                        var isTriadPlaying = isMaj
-                            ? (isPL(noteAt(ni,nj)) && isPL(noteAt(ni,nj+1)) && isPL(noteAt(ni+1,nj)))
-                            : (isPL(noteAt(ni,nj+1)) && isPL(noteAt(ni+1,nj)) && isPL(noteAt(ni+1,nj+1)))
+                        var active      = isTriadActive(ni, nj, isMaj)
+                        var highlighted = isTriadHighlighted(ni, nj, isMaj)
                         var nrRt = rootNote(ni, nj, isMaj)
                         var nrD  = nrDists.length > 0 ? (isMaj ? nrDists[nrRt] : nrDists[nrRt + 12]) : -1
 
                         ctx.beginPath()
                         ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
 
-                        if (isSel || isTriadPlaying) {
+                        if (active) {
                             ctx.fillStyle   = Theme.selFill
                             ctx.strokeStyle = Theme.selStroke
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
@@ -462,7 +432,7 @@ Item {
                             ctx.fillStyle   = Qt.rgba(nrClr.r, nrClr.g, nrClr.b, 0.35)
                             ctx.strokeStyle = nrClr
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
-                        } else if (isTriadHL) {
+                        } else if (highlighted) {
                             ctx.fillStyle   = Theme.hlNodeFill
                             ctx.strokeStyle = Theme.hlColor
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
@@ -482,10 +452,10 @@ Item {
                         ctx.stroke()
 
                         if (r > 7) {
-                            ctx.fillStyle = (isSel || isTriadPlaying) ? Theme.selText
-                                          : nrD >= 0                 ? Theme.triadText
-                                          : isTriadHL                ? Theme.hlColor
-                                          :                            Theme.triadText
+                            ctx.fillStyle = active      ? Theme.selText
+                                          : nrD >= 0    ? Theme.triadText
+                                          : highlighted ? Theme.hlColor
+                                          :               Theme.triadText
                             ctx.fillText(chordLabel(ni, nj, isMaj), np.x, np.y)
                         }
                     }

@@ -340,39 +340,10 @@ Item {
                 }
             }
 
-            // highlighted note-set: edge overlay
-            if (highlightedNotes !== 0) {
-                ctx.lineWidth = Math.max(1, 3 * scale)
-                for (var i = iMin; i <= iMax; i++) {
-                    for (var j = jMin; j <= jMax; j++) {
-                        if (!isHL(noteAt(i, j))) continue
-                        var p = nodePos(i, j)
-                        if (i+1 <= iMax && isHL(noteAt(i+1, j)))
-                            drawEdge(ctx, p, nodePos(i+1, j  ), Theme.hlEdge)
-                        if (j+1 <= jMax && isHL(noteAt(i, j+1)))
-                            drawEdge(ctx, p, nodePos(i,   j+1), Theme.hlEdge)
-                        if (i+1 <= iMax && j-1 >= jMin && isHL(noteAt(i+1, j-1)))
-                            drawEdge(ctx, p, nodePos(i+1, j-1), Theme.hlEdge)
-                    }
-                }
-            }
-
-            // playing notes (MIDI playback): edge overlay in gold
-            if (playingNotes !== 0) {
-                ctx.lineWidth = Math.max(1, 3 * scale)
-                for (var i = iMin; i <= iMax; i++) {
-                    for (var j = jMin; j <= jMax; j++) {
-                        if (!isPL(noteAt(i, j))) continue
-                        var p = nodePos(i, j)
-                        if (i+1 <= iMax && isPL(noteAt(i+1, j)))
-                            drawEdge(ctx, p, nodePos(i+1, j  ), "#ffd700")
-                        if (j+1 <= jMax && isPL(noteAt(i, j+1)))
-                            drawEdge(ctx, p, nodePos(i,   j+1), "#ffd700")
-                        if (i+1 <= iMax && j-1 >= jMin && isPL(noteAt(i+1, j-1)))
-                            drawEdge(ctx, p, nodePos(i+1, j-1), "#ffd700")
-                    }
-                }
-            }
+            if (highlightedNotes !== 0)
+                drawActiveEdgeOverlay(ctx, range, isHL, Theme.hlEdge)
+            if (playingNotes !== 0)
+                drawActiveEdgeOverlay(ctx, range, isPL, "#ffd700")
 
             // triad labels: faint drawn now; active collected and deferred to after nodes
             var activeLabels = []
@@ -384,13 +355,11 @@ Item {
                 ctx.fillStyle    = Theme.labelFaint
                 for (var ti = iMin; ti <= iMax; ti++) {
                     for (var tj = jMin; tj <= jMax; tj++) {
-                        var majActive = (hasSelTriad && ti === selTriadI && tj === selTriadJ && selTriadMajor)
-                                     || (isPL(noteAt(ti,tj)) && isPL(noteAt(ti+1,tj)) && isPL(noteAt(ti,tj+1)))
+                        var majActive = isActiveTriad(ti, tj, true)
                         var cMaj = triadCenter(ti, tj, true)
                         if (majActive) activeLabels.push({text: chordLabel(ti, tj, true),  x: cMaj.x, y: cMaj.y})
                         else           ctx.fillText(chordLabel(ti, tj, true),  cMaj.x, cMaj.y)
-                        var minActive = (hasSelTriad && ti === selTriadI && tj === selTriadJ && !selTriadMajor)
-                                     || (isPL(noteAt(ti+1,tj)) && isPL(noteAt(ti,tj+1)) && isPL(noteAt(ti+1,tj+1)))
+                        var minActive = isActiveTriad(ti, tj, false)
                         var cMin = triadCenter(ti, tj, false)
                         if (minActive) activeLabels.push({text: chordLabel(ti, tj, false), x: cMin.x, y: cMin.y})
                         else           ctx.fillText(chordLabel(ti, tj, false), cMin.x, cMin.y)
@@ -429,50 +398,28 @@ Item {
                 }
             }
 
-            // playing triads and selected triad — drawn after edges so stroke is visible
-            if (playingNotes !== 0) {
+            // active triads (playing or selected) — drawn after edges so stroke is visible
+            if (hasSelTriad || playingNotes !== 0) {
                 ctx.fillStyle   = Theme.selFill
                 ctx.strokeStyle = Theme.selTriadStroke
                 ctx.lineWidth   = Math.max(1, 2 * scale)
                 for (var i = iMin; i <= iMax; i++) {
                     for (var j = jMin; j <= jMax; j++) {
-                        if (isPL(noteAt(i,j)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1))) {
-                            var pp0=nodePos(i,j), pp1=nodePos(i+1,j), pp2=nodePos(i,j+1)
-                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
-                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
-                            ctx.closePath(); ctx.fill(); ctx.stroke()
-                        }
-                        if (isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j+1))) {
-                            var pp0=nodePos(i+1,j), pp1=nodePos(i,j+1), pp2=nodePos(i+1,j+1)
-                            ctx.beginPath(); ctx.moveTo(pp0.x,pp0.y)
-                            ctx.lineTo(pp1.x,pp1.y); ctx.lineTo(pp2.x,pp2.y)
+                        for (var m = 0; m < 2; m++) {
+                            var isMaj = (m === 0)
+                            if (!isActiveTriad(i, j, isMaj)) continue
+                            var p0, p1, p2
+                            if (isMaj) {
+                                p0 = nodePos(i,   j  ); p1 = nodePos(i+1, j  ); p2 = nodePos(i,   j+1)
+                            } else {
+                                p0 = nodePos(i+1, j  ); p1 = nodePos(i,   j+1); p2 = nodePos(i+1, j+1)
+                            }
+                            ctx.beginPath(); ctx.moveTo(p0.x, p0.y)
+                            ctx.lineTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y)
                             ctx.closePath(); ctx.fill(); ctx.stroke()
                         }
                     }
                 }
-            }
-            if (hasSelTriad) {
-                var p0, p1, p2
-                var si = selTriadI, sj = selTriadJ
-                if (selTriadMajor) {
-                    p0 = nodePos(si,   sj  )
-                    p1 = nodePos(si+1, sj  )
-                    p2 = nodePos(si,   sj+1)
-                } else {
-                    p0 = nodePos(si+1, sj  )
-                    p1 = nodePos(si,   sj+1)
-                    p2 = nodePos(si+1, sj+1)
-                }
-                ctx.beginPath()
-                ctx.moveTo(p0.x, p0.y)
-                ctx.lineTo(p1.x, p1.y)//
-                ctx.lineTo(p2.x, p2.y)
-                ctx.closePath()
-                ctx.fillStyle = Theme.selFill
-                ctx.fill()
-                ctx.strokeStyle = Theme.selTriadStroke
-                ctx.lineWidth   = Math.max(1, 2 * scale)
-                ctx.stroke()
             }
 
             // nodes
@@ -487,13 +434,13 @@ Item {
                         np.y < -r || np.y > height + r)
                         continue
 
-                    var isSelected    = hasSelNode && ni === selNodeI && nj === selNodeJ
+                    var isActive      = (hasSelNode && ni === selNodeI && nj === selNodeJ)
+                                     || isPL(noteAt(ni, nj))
                     var isHighlighted = isHL(noteAt(ni, nj))
-                    var isPlaying     = isPL(noteAt(ni, nj))
 
                     ctx.beginPath()
                     ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
-                    if (isSelected || isPlaying) {
+                    if (isActive) {
                         ctx.fillStyle   = Theme.nodeFill
                         ctx.strokeStyle = Theme.selStroke
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
@@ -550,6 +497,31 @@ Item {
             else if (screenPt.x > width  - margin) originX -= screenPt.x - (width  - margin)
             if (screenPt.y < margin)               originY += margin - screenPt.y
             else if (screenPt.y > height - margin) originY -= screenPt.y - (height - margin)
+        }
+
+        function drawActiveEdgeOverlay(ctx, rng, fn, color) {
+            ctx.lineWidth = Math.max(1, 3 * scale)
+            for (var i = rng.iMin; i <= rng.iMax; i++) {
+                for (var j = rng.jMin; j <= rng.jMax; j++) {
+                    if (!fn(noteAt(i, j))) continue
+                    var p = nodePos(i, j)
+                    if (i+1 <= rng.iMax && fn(noteAt(i+1, j)))
+                        drawEdge(ctx, p, nodePos(i+1, j  ), color)
+                    if (j+1 <= rng.jMax && fn(noteAt(i, j+1)))
+                        drawEdge(ctx, p, nodePos(i,   j+1), color)
+                    if (i+1 <= rng.iMax && j-1 >= rng.jMin && fn(noteAt(i+1, j-1)))
+                        drawEdge(ctx, p, nodePos(i+1, j-1), color)
+                }
+            }
+        }
+
+        function isActiveTriad(i, j, isMajor) {
+            if (isMajor)
+                return (hasSelTriad && i === selTriadI && j === selTriadJ && selTriadMajor)
+                    || (isPL(noteAt(i,j)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)))
+            else
+                return (hasSelTriad && i === selTriadI && j === selTriadJ && !selTriadMajor)
+                    || (isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j+1)))
         }
 
         function drawEdge(ctx, p1, p2, color) {
