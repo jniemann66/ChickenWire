@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_appChickenWire_FILE /home/juddn/ChickenWire/build/Desktop_Qt_6_10_1-Debug/appChickenWire)
-set(__QT_DEPLOY_TARGET_appChickenWire_TYPE EXECUTABLE)

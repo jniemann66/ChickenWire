@@ -1,9 +1,0 @@
-module ChickenWire
-typeinfo appChickenWire.qmltypes
-prefer :/qt/qml/ChickenWire/
-singleton Theme 254.0 Theme.qml
-Main 254.0 Main.qml
-Tonnetz 254.0 Tonnetz.qml
-ChickenWire 254.0 ChickenWire.qml
-depends QtQuick
-
