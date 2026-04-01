@@ -1,0 +1,95 @@
+name: Windows
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Installs Qt + the MinGW toolchain that was used to build it.
+      # The tools_mingw* name tracks the MinGW version Qt ships with — check
+      # https://aqtinstall.readthedocs.io/en/latest/cli-usage.html if the
+      # version changes with a future Qt upgrade.
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.10.1'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_mingw'
+          modules: 'qtshadertools'
+          tools: 'tools_mingw1310'
+
+      # The action adds Qt's bin to PATH but not the MinGW toolchain itself.
+      - name: Add MinGW to PATH
+        shell: pwsh
+        run: |
+          $mingw = "$env:IQTA_TOOLS\mingw1310_64\bin"
+          if (-not (Test-Path $mingw)) {
+            $mingw = (Get-ChildItem "$env:IQTA_TOOLS" -Filter "mingw*_64" -Directory | Select-Object -First 1).FullName + "\bin"
+          }
+          echo $mingw | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          echo "MinGW bin: $mingw"
+
+      - name: Configure
+        run: cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Deploy
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path package | Out-Null
+          Copy-Item build\appChickenWire.exe package\ChickenWire.exe
+          # --qmldir lets windeployqt scan source for QML imports
+          windeployqt --release --qmldir . package\ChickenWire.exe
+
+      - name: Package (zip)
+        run: 7z a ChickenWire-windows-x64.zip .\package\*
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          $ver = if ($env:GITHUB_REF -match '^refs/tags/v(.+)$') { $Matches[1] } else { "0.0.0" }
+          echo "value=$ver" | Out-File -Append -FilePath $env:GITHUB_OUTPUT -Encoding utf8
+          echo "Version: $ver"
+
+      - name: Package (installer)
+        shell: pwsh
+        run: |
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          & $iscc /DMyAppVersion=${{ steps.version.outputs.value }} installer.iss
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChickenWire-windows-x64-zip
+          path: ChickenWire-windows-x64.zip
+          retention-days: 30
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChickenWire-windows-x64-installer
+          path: Output\ChickenWire-*-windows-x64-setup.exe
+          retention-days: 30
+
+      # On tagged releases, attach both to the GitHub release.
+      - name: Upload to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ChickenWire-windows-x64.zip
+            Output\ChickenWire-*-windows-x64-setup.exe
