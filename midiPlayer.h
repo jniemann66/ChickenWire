@@ -1,7 +1,7 @@
 #pragma once
-#include "MidiFile.h"
-#include <QObject>
+#include "midiFile.h"
 #include <QElapsedTimer>
+#include <QObject>
 #include <QString>
 
 class MidiAudio;

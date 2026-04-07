@@ -1,7 +1,7 @@
-#include "MidiPlayer.h"
-#include "TonnetzController.h"
-#include "TransportWidget.h"
-#include "VisualizerSwitcher.h"
+#include "midiPlayer.h"
+#include "tonnetzController.h"
+#include "transportWidget.h"
+#include "visualizerSwitcher.h"
 
 #include <QActionGroup>
 #include <QApplication>
@@ -15,6 +15,7 @@
 #include <QPushButton>
 #include <QQmlContext>
 #include <QQuickWidget>
+#include <QSettings>
 #include <QShortcut>
 #include <QSlider>
 
@@ -47,6 +48,9 @@ private:
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QApplication::setOrganizationName(QStringLiteral("ChickenWire"));
+    QApplication::setApplicationName(QStringLiteral("ChickenWire"));
+    QSettings settings;
 
     TonnetzController controller;
     VisualizerSwitcher switcher;
@@ -69,7 +73,7 @@ int main(int argc, char *argv[])
     auto *view = new QQuickWidget;
     view->rootContext()->setContextProperty("tonnetzController", &controller);
     view->rootContext()->setContextProperty("visualizerSwitcher", &switcher);
-    view->setSource(QUrl("qrc:/qt/qml/ChickenWire/Main.qml"));
+    view->setSource(QUrl("qrc:/qt/qml/ChickenWire/main.qml"));
     view->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
     if (view->status() == QQuickWidget::Error) {
@@ -104,8 +108,8 @@ int main(int argc, char *argv[])
     };
 
     // set-up View Menu
-    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"), QStringLiteral("Tonnetz.qml"));
-    auto *cwAction = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("ChickenWire.qml"));
+    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"), QStringLiteral("tonnetz.qml"));
+    auto *cwAction = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("chickenWire.qml"));
     viewMenu->addSeparator();
     viewMenu->addAction(transport->toggleViewAction());
 
@@ -113,14 +117,14 @@ int main(int argc, char *argv[])
     auto *f4 = new QShortcut(QKeySequence(Qt::Key_F4), &mw);
     QObject::connect(f4, &QShortcut::activated, [&switcher]() {
         switcher.setSource(
-            switcher.source() == QStringLiteral("Tonnetz.qml")
-                ? QStringLiteral("ChickenWire.qml")
-                : QStringLiteral("Tonnetz.qml"));
+            switcher.source() == QStringLiteral("tonnetz.qml")
+                ? QStringLiteral("chickenWire.qml")
+                : QStringLiteral("tonnetz.qml"));
     });
 
     QObject::connect(&switcher, &VisualizerSwitcher::sourceChanged, [&]() {
-        tonnetzAction->setChecked(switcher.source() == QStringLiteral("Tonnetz.qml"));
-        cwAction->setChecked(switcher.source() == QStringLiteral("ChickenWire.qml"));
+        tonnetzAction->setChecked(switcher.source() == QStringLiteral("tonnetz.qml"));
+        cwAction->setChecked(switcher.source() == QStringLiteral("chickenWire.qml"));
     });
 
     // Color Scheme menu
@@ -128,8 +132,9 @@ int main(int argc, char *argv[])
     auto *negativeAction = colorMenu->addAction(QStringLiteral("&Negative"));
     negativeAction->setCheckable(true);
     negativeAction->setChecked(switcher.invertColors());
-    QObject::connect(negativeAction, &QAction::toggled, [&switcher](bool on) {
+    QObject::connect(negativeAction, &QAction::toggled, [&switcher, &settings](bool on) {
         switcher.setInvertColors(on);
+        settings.setValue(QStringLiteral("color/invertColors"), on);
     });
 
     QObject::connect(&switcher, &VisualizerSwitcher::invertColorsChanged, [&]() {
@@ -138,7 +143,7 @@ int main(int argc, char *argv[])
 
     // Color controls dock
     auto *colorDock = new QDockWidget(QStringLiteral("Adjust Color"), &mw);
-    colorDock->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
+    colorDock->setAllowedAreas(Qt::AllDockWidgetAreas);
     colorDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
     auto *colorWidget = new QWidget;
     auto *colorLayout = new QFormLayout(colorWidget);
@@ -190,20 +195,24 @@ int main(int argc, char *argv[])
     adjustColorAction->setText(QStringLiteral("Adjust Color..."));
     colorMenu->addAction(adjustColorAction);
 
-    QObject::connect(satSlider, &QSlider::valueChanged, [&switcher](int v) {
+    QObject::connect(satSlider, &QSlider::valueChanged, [&switcher, &settings](int v) {
         switcher.setSaturation(v / 100.0);
+        settings.setValue(QStringLiteral("color/saturation"), v);
     });
 
-    QObject::connect(hueSlider, &QSlider::valueChanged, [&switcher](int v) {
+    QObject::connect(hueSlider, &QSlider::valueChanged, [&switcher, &settings](int v) {
         switcher.setHue(v - 180.0);          // degrees; centre == 0
+        settings.setValue(QStringLiteral("color/hue"), v);
     });
 
-    QObject::connect(briSlider, &QSlider::valueChanged, [&switcher](int v) {
+    QObject::connect(briSlider, &QSlider::valueChanged, [&switcher, &settings](int v) {
         switcher.setBrightness(v / 100.0);
+        settings.setValue(QStringLiteral("color/brightness"), v);
     });
 
-    QObject::connect(conSlider, &QSlider::valueChanged, [&switcher](int v) {
+    QObject::connect(conSlider, &QSlider::valueChanged, [&switcher, &settings](int v) {
         switcher.setContrast(v / 100.0);
+        settings.setValue(QStringLiteral("color/contrast"), v);
     });
 
     // Keep sliders in sync if switcher state is ever changed programmatically.
@@ -222,6 +231,14 @@ int main(int argc, char *argv[])
     QObject::connect(&switcher, &VisualizerSwitcher::contrastChanged, [&]() {
         conSlider->setValue(qRound(switcher.contrast() * 100));
     });
+
+    // Restore saved settings — done last so all connections are live and the
+    // switcher and sliders stay in sync from the first setValue/setChecked call.
+    negativeAction->setChecked(settings.value(QStringLiteral("color/invertColors"), false).toBool());
+    satSlider->setValue(settings.value(QStringLiteral("color/saturation"), 100).toInt());
+    hueSlider->setValue(settings.value(QStringLiteral("color/hue"),        180).toInt());
+    briSlider->setValue(settings.value(QStringLiteral("color/brightness"), 100).toInt());
+    conSlider->setValue(settings.value(QStringLiteral("color/contrast"),   100).toInt());
 
     mw.show();
     return app.exec();

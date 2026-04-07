@@ -1,4 +1,4 @@
-#include "MidiFile.h"
+#include "midiFile.h"
 
 #include <QFile>
 #include <algorithm>

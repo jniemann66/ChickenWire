@@ -11,17 +11,17 @@ qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(appChickenWire
     main.cpp
-    TonnetzController.h
-    TonnetzController.cpp
-    VisualizerSwitcher.h
-    MidiFile.h
-    MidiFile.cpp
-    MidiAudio.h
-    MidiAudio.cpp
-    MidiPlayer.h
-    MidiPlayer.cpp
-    TransportWidget.h
-    TransportWidget.cpp
+    tonnetzController.h
+    tonnetzController.cpp
+    visualizerSwitcher.h
+    midiFile.h
+    midiFile.cpp
+    midiAudio.h
+    midiAudio.cpp
+    midiPlayer.h
+    midiPlayer.cpp
+    transportWidget.h
+    transportWidget.cpp
 )
 
 # Platform-specific MIDI audio backend
@@ -29,10 +29,13 @@ if(WIN32)
     target_sources(appChickenWire PRIVATE MidiAudioWin.h MidiAudioWin.cpp)
     target_link_libraries(appChickenWire PRIVATE winmm)
 else()
-    target_sources(appChickenWire PRIVATE MidiAudioProcess.h MidiAudioProcess.cpp)
+    target_sources(appChickenWire PRIVATE midiAudioProcess.h midiAudioProcess.cpp)
 endif()
 
-set_source_files_properties(Theme.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+set_source_files_properties(theme.qml PROPERTIES
+    QT_QML_SINGLETON_TYPE TRUE
+    QT_QML_SOURCE_TYPENAME Theme
+)
 
 qt6_add_shaders(appChickenWire "shaders"
     PRECOMPILE
@@ -44,10 +47,10 @@ qt6_add_shaders(appChickenWire "shaders"
 qt_add_qml_module(appChickenWire
     URI ChickenWire
     QML_FILES
-        Theme.qml
-        Main.qml
-        Tonnetz.qml
-        ChickenWire.qml
+    theme.qml
+    main.qml
+    tonnetz.qml
+    chickenWire.qml
 )
 
 set_target_properties(appChickenWire PROPERTIES

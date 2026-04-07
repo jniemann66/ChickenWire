@@ -1,5 +1,5 @@
-#include "MidiPlayer.h"
-#include "MidiAudio.h"
+#include "midiPlayer.h"
+#include "midiAudio.h"
 
 #include <QTimer>
 #include <algorithm>

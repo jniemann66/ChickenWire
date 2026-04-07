@@ -5,7 +5,7 @@
 // Exposed to QML as "visualizerSwitcher".
 // Holds the active visualizer filename and the shared viewport state.
 //
-// Both Tonnetz.qml and ChickenWire.qml use the same underlying lattice
+// Both tonnetz.qml and chickenWire.qml use the same underlying lattice
 // coordinate system, so a single (originX, originY, scale) triple keeps
 // them visually aligned — which is also the foundation for future compositing.
 //
@@ -34,7 +34,7 @@ class VisualizerSwitcher : public QObject
 
 public:
     explicit VisualizerSwitcher(QObject *parent = nullptr)
-        : QObject(parent), m_source(u"Tonnetz.qml"), m_vpScale(0)
+        : QObject(parent), m_source(u"tonnetz.qml"), m_vpScale(0)
     {
 
     }

@@ -1,9 +1,9 @@
-#include "MidiAudio.h"
+#include "midiAudio.h"
 
 #ifdef Q_OS_WIN
-#  include "MidiAudioWin.h"
+	#include "MidiAudioWin.h"
 MidiAudio *MidiAudio::create() { return new MidiAudioWin; }
 #else
-#  include "MidiAudioProcess.h"
+	#include "midiAudioProcess.h"
 MidiAudio *MidiAudio::create() { return new MidiAudioProcess; }
 #endif

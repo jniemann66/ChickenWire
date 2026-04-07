@@ -32,30 +32,30 @@ Item {
     Loader {
         id: tonnetzLoader
         anchors.fill: parent
-        source: "Tonnetz.qml"
-        opacity: visualizerSwitcher.source === "Tonnetz.qml" ? 1.0 : 0.0
-        enabled: visualizerSwitcher.source === "Tonnetz.qml"
+        source: "tonnetz.qml"
+        opacity: visualizerSwitcher.source === "tonnetz.qml" ? 1.0 : 0.0
+        enabled: visualizerSwitcher.source === "tonnetz.qml"
         layer.enabled: true
         Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-        onLoaded: if (visualizerSwitcher.source === "Tonnetz.qml") item.forceActiveFocus()
+        onLoaded: if (visualizerSwitcher.source === "tonnetz.qml") item.forceActiveFocus()
     }
 
     Loader {
         id: cwLoader
         anchors.fill: parent
-        source: "ChickenWire.qml"
-        opacity: visualizerSwitcher.source === "ChickenWire.qml" ? 1.0 : 0.0
-        enabled: visualizerSwitcher.source === "ChickenWire.qml"
+        source: "chickenWire.qml"
+        opacity: visualizerSwitcher.source === "chickenWire.qml" ? 1.0 : 0.0
+        enabled: visualizerSwitcher.source === "chickenWire.qml"
         layer.enabled: true
         Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-        onLoaded: if (visualizerSwitcher.source === "ChickenWire.qml") item.forceActiveFocus()
+        onLoaded: if (visualizerSwitcher.source === "chickenWire.qml") item.forceActiveFocus()
     }
 
     // Transfer keyboard focus to whichever view is becoming active.
     Connections {
         target: visualizerSwitcher
         function onSourceChanged() {
-            var loader = visualizerSwitcher.source === "Tonnetz.qml" ? tonnetzLoader : cwLoader
+            var loader = visualizerSwitcher.source === "tonnetz.qml" ? tonnetzLoader : cwLoader
             if (loader.item) loader.item.forceActiveFocus()
         }
     }

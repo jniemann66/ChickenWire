@@ -1,5 +1,5 @@
 #pragma once
-#include "MidiAudio.h"
+#include "midiAudio.h"
 
 class QProcess;
 

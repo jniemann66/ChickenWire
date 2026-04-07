@@ -1,4 +1,4 @@
-#include "MidiAudioProcess.h"
+#include "midiAudioProcess.h"
 
 #include <QProcess>
 #include <QStandardPaths>

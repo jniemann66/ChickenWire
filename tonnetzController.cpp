@@ -1,4 +1,4 @@
-#include "TonnetzController.h"
+#include "tonnetzController.h"
 
 #include <QDebug>
 #include <QVariantList>

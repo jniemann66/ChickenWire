@@ -1,5 +1,5 @@
-#include "TransportWidget.h"
-#include "MidiPlayer.h"
+#include "transportWidget.h"
+#include "midiPlayer.h"
 
 #include <QFileDialog>
 #include <QFileInfo>
