@@ -20,7 +20,11 @@ class VisualizerSwitcher : public QObject
     Q_PROPERTY(qreal vpOriginY   READ vpOriginY WRITE setVpOriginY NOTIFY vpOriginYChanged)
     Q_PROPERTY(qreal vpScale     READ vpScale   WRITE setVpScale   NOTIFY vpScaleChanged)
 
-    Q_PROPERTY(bool invertColors READ invertColors WRITE setInvertColors NOTIFY invertColorsChanged)
+    Q_PROPERTY(bool  invertColors READ invertColors WRITE setInvertColors NOTIFY invertColorsChanged)
+    Q_PROPERTY(qreal saturation   READ saturation   WRITE setSaturation   NOTIFY saturationChanged)
+    Q_PROPERTY(qreal hue          READ hue          WRITE setHue          NOTIFY hueChanged)
+    Q_PROPERTY(qreal brightness   READ brightness   WRITE setBrightness   NOTIFY brightnessChanged)
+    Q_PROPERTY(qreal contrast     READ contrast     WRITE setContrast     NOTIFY contrastChanged)
 
     // Shared selection state.  selType: 0=none  1=note  2=triad
     Q_PROPERTY(int  selType    READ selType    NOTIFY selectionChanged)
@@ -38,6 +42,26 @@ public:
     bool invertColors() const { return m_invertColors; }
     void setInvertColors(bool v) {
         if (m_invertColors != v) { m_invertColors = v; emit invertColorsChanged(); }
+    }
+
+    qreal saturation() const { return m_saturation; }
+    void setSaturation(qreal v) {
+        if (m_saturation != v) { m_saturation = v; emit saturationChanged(); }
+    }
+
+    qreal hue() const { return m_hue; }
+    void setHue(qreal v) {
+        if (m_hue != v) { m_hue = v; emit hueChanged(); }
+    }
+
+    qreal brightness() const { return m_brightness; }
+    void setBrightness(qreal v) {
+        if (m_brightness != v) { m_brightness = v; emit brightnessChanged(); }
+    }
+
+    qreal contrast() const { return m_contrast; }
+    void setContrast(qreal v) {
+        if (m_contrast != v) { m_contrast = v; emit contrastChanged(); }
     }
 
     QString source() const { return m_source; }
@@ -87,9 +111,17 @@ signals:
     void vpScaleChanged();
     void selectionChanged();
     void invertColorsChanged();
+    void saturationChanged();
+    void hueChanged();
+    void brightnessChanged();
+    void contrastChanged();
 
 private:
-    bool m_invertColors = false;
+    bool  m_invertColors = false;
+    qreal m_saturation   = 1.0;
+    qreal m_hue          = 0.0;   // degrees
+    qreal m_brightness   = 1.0;
+    qreal m_contrast     = 1.0;
     QString m_source;
     qreal m_vpOriginX = 0;
     qreal m_vpOriginY = 0;

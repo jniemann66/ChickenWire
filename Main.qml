@@ -5,8 +5,17 @@ Item {
     anchors.fill: parent
 
     layer.enabled: visualizerSwitcher.invertColors
+                || visualizerSwitcher.saturation  !== 1.0
+                || visualizerSwitcher.hue         !== 0.0
+                || visualizerSwitcher.brightness  !== 1.0
+                || visualizerSwitcher.contrast    !== 1.0
     layer.effect: ShaderEffect {
-        fragmentShader: "qrc:/shaders/invert.frag.qsb"
+        property real saturation:   visualizerSwitcher.saturation
+        property real invertColors: visualizerSwitcher.invertColors ? 1.0 : 0.0
+        property real hue:          visualizerSwitcher.hue
+        property real brightness:   visualizerSwitcher.brightness
+        property real contrast:     visualizerSwitcher.contrast
+        fragmentShader: "qrc:/shaders/coloreffect.frag.qsb"
     }
 
     // Shared background — lives here so neither canvas bleeds its own fill
