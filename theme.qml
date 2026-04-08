@@ -60,5 +60,4 @@ QtObject {
     readonly property color hlHexStroke:    selHexStroke    // ChickenWire hex face border
     readonly property color hlNodeFill:     selFill         // node / vertex background
     readonly property color hlColor:        selStroke       // node ring and label text
-
 }

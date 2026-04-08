@@ -9,7 +9,7 @@
 //   major(I,J) → offset 1/3 in both lattice axes
 //   minor(I,J) → offset 2/3 in both lattice axes
 //
-// The three edges from each major vertex lead to: minor(I,J), minor(I-1,J), minor(I,J-1).
+// The three edges from each major vertex lead to: minor(I, J), minor(I-1, J), minor(I, J-1).
 // These correspond to the three neo-Riemannian transformations P, R, L.
 
 import QtQuick
@@ -68,21 +68,20 @@ Item {
         property var noteNames:          tonnetzController.noteNames
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
-        property int highlightedNotes:   tonnetzController.highlightedNotes
-        property int playingNotes:       tonnetzController.playingNotes
+        property int  activeNotes:    tonnetzController.activeNotes
+        property bool showAugmented: visualizerSwitcher.showAugmented
         onNoteNamesChanged:          requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
-        onHighlightedNotesChanged:   requestPaint()
-        onPlayingNotesChanged:       requestPaint()
+        onActiveNotesChanged:        requestPaint()
+        onShowAugmentedChanged:      requestPaint()
 
         // NR distances from the currently selected triad (empty when none selected).
         // Layout: indices 0–11 = major(root), 12–23 = minor(root).
         property var nrDists: []
 
-        // Returns true if semitone s is in the highlighted set.
-        function isHL(s) { return !!((highlightedNotes >> s) & 1) }
-        function isPL(s) { return !!((playingNotes >> s) & 1) }
+        function isAct(s) { return !!((activeNotes >> s) & 1) }
+        function isAug(s) { return showAugmented && isAct(s) && isAct((s + 4) % 12) && isAct((s + 8) % 12) }
 
         // Viewport — same coordinate system as Tonnetz.qml; restored from / saved to visualizerSwitcher
         property real originX: width  / 2
@@ -309,14 +308,8 @@ Item {
         function isTriadActive(i, j, isMaj) {
             if (hasSel && i === selI && j === selJ && isMaj === selMajor) return true
             return isMaj
-                ? (isPL(noteAt(i,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j)))
-                : (isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i+1,j+1)))
-        }
-
-        function isTriadHighlighted(i, j, isMaj) {
-            return isMaj
-                ? (isHL(noteAt(i,j)) && isHL(noteAt(i,j+1)) && isHL(noteAt(i+1,j)))
-                : (isHL(noteAt(i,j+1)) && isHL(noteAt(i+1,j)) && isHL(noteAt(i+1,j+1)))
+                ? (isAct(noteAt(i,j)) && isAct(noteAt(i,j+1)) && isAct(noteAt(i+1,j)))
+                : (isAct(noteAt(i,j+1)) && isAct(noteAt(i+1,j)) && isAct(noteAt(i+1,j+1)))
         }
 
         function drawEdge(ctx, p1, p2, color) {
@@ -349,20 +342,16 @@ Item {
             var r        = Math.max(4, baseRadius * scale)
             var fontSize = Math.max(1, Math.min(r * 0.72, 11 * scale))
 
-            //  highlighted hex faces
-            if (highlightedNotes !== 0) {
-                for (var fi = iMin; fi <= iMax; fi++)
-                    for (var fj = jMin; fj <= jMax; fj++)
-                        if (isHL(noteAt(fi, fj)))
+            //  active hex faces; selected note drawn on top if applicable
+            if (activeNotes !== 0 || hasSelNote) {
+                for (var fi = iMin; fi <= iMax; fi++) {
+                    for (var fj = jMin; fj <= jMax; fj++) {
+                        if (isAct(noteAt(fi, fj)))
                             drawHexFace(ctx, fi, fj, Theme.hlFaceFill, Theme.hlHexStroke)
-            }
-
-            //  selected / playing hex faces (drawn on top of highlighted if both apply)
-            if (playingNotes !== 0 || hasSelNote) {
-                for (var fi = iMin; fi <= iMax; fi++)
-                    for (var fj = jMin; fj <= jMax; fj++)
-                        if (isPL(noteAt(fi, fj)) || (hasSelNote && fi === selNoteI && fj === selNoteJ))
+                        if (hasSelNote && fi === selNoteI && fj === selNoteJ)
                             drawHexFace(ctx, fi, fj, Theme.selHexFill, Theme.selHexStroke)
+                    }
+                }
             }
 
             //  1. Edges, coloured by neo-Riemannian transformation
@@ -391,11 +380,24 @@ Item {
                 ctx.fillStyle    = Theme.labelFaint
                 for (var fi = iMin; fi <= iMax; fi++) {
                     for (var fj = jMin; fj <= jMax; fj++) {
-                        var hc = hexCenter(fi, fj)
+                        var hc        = hexCenter(fi, fj)
+                        var s         = noteAt(fi, fj)
+                        var augmented = isAug(s)
                         var noteActive = (hasSelNote && fi === selNoteI && fj === selNoteJ)
-                                      || isPL(noteAt(fi, fj))
-                        if (noteActive) activeNoteLabels.push({text: noteNames[noteAt(fi, fj)], x: hc.x, y: hc.y})
-                        else            ctx.fillText(noteNames[noteAt(fi, fj)], hc.x, hc.y)
+                                      || isAct(s)
+                        if (augmented) {
+                            ctx.beginPath()
+                            ctx.arc(hc.x, hc.y, r, 0, Math.PI * 2)
+                            ctx.fillStyle   = Theme.selFill
+                            ctx.strokeStyle = Theme.selStroke
+                            ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                            ctx.fill()
+                            ctx.stroke()
+                            ctx.fillStyle = Theme.labelFaint
+                        }
+                        var label = noteNames[s] + (augmented ? "+" : "")
+                        if (noteActive) activeNoteLabels.push({text: label, x: hc.x, y: hc.y})
+                        else            ctx.fillText(label, hc.x, hc.y)
                     }
                 }
             }
@@ -414,8 +416,7 @@ Item {
                         if (np.x < -r || np.x > width  + r ||
                             np.y < -r || np.y > height + r) continue
 
-                        var active      = isTriadActive(ni, nj, isMaj)
-                        var highlighted = isTriadHighlighted(ni, nj, isMaj)
+                        var active = isTriadActive(ni, nj, isMaj)
                         var nrRt = rootNote(ni, nj, isMaj)
                         var nrD  = nrDists.length > 0 ? (isMaj ? nrDists[nrRt] : nrDists[nrRt + 12]) : -1
 
@@ -431,10 +432,6 @@ Item {
                                          Theme.nrDist4, Theme.nrDist5, Theme.nrDist6][nrD]
                             ctx.fillStyle   = Qt.rgba(nrClr.r, nrClr.g, nrClr.b, 0.35)
                             ctx.strokeStyle = nrClr
-                            ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
-                        } else if (highlighted) {
-                            ctx.fillStyle   = Theme.hlNodeFill
-                            ctx.strokeStyle = Theme.hlColor
                             ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                         } else if (isMaj) {
                             // Major triads: warm amber border
@@ -452,10 +449,7 @@ Item {
                         ctx.stroke()
 
                         if (r > 7) {
-                            ctx.fillStyle = active      ? Theme.selText
-                                          : nrD >= 0    ? Theme.triadText
-                                          : highlighted ? Theme.hlColor
-                                          :               Theme.triadText
+                            ctx.fillStyle = active ? Theme.selText : Theme.triadText
                             ctx.fillText(chordLabel(ni, nj, isMaj), np.x, np.y)
                         }
                     }

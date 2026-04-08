@@ -7,17 +7,22 @@ class TonnetzController : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QStringList noteNames          READ noteNames          NOTIFY noteNamesChanged)
+    // note names; may be redefined dynamically to re-spell enharmonics based on context
+    Q_PROPERTY(QStringList noteNames READ noteNames NOTIFY noteNamesChanged)
+
+    // note names for roots of major triads
     Q_PROPERTY(QStringList majorRootNoteNames READ majorRootNoteNames NOTIFY majorRootNoteNamesChanged)
+
+    // note names for roots of minor triads
     Q_PROPERTY(QStringList minorRootNoteNames READ minorRootNoteNames NOTIFY minorRootNoteNamesChanged)
 
-    // 12-bit bitmask: bit N is set when semitone N is in the highlighted set.
-    Q_PROPERTY(int  highlightedNotes      READ highlightedNotes      NOTIFY highlightedNotesChanged)
-    Q_PROPERTY(int  playingNotes          READ playingNotes          NOTIFY playingNotesChanged)
+    // 12-bit bitmask: each bit represents one of the 12 pitch classes. If bit is set, that note is considered to be active.
+    // (Bit 0 = C, 1 = C♯/D♭, ... 11 = B )
+    Q_PROPERTY(int  activeNotes READ activeNotes NOTIFY activeNotesChanged)
 
     // When false, computeTriadDistances() returns an empty list and the views show no distance colours.
-    Q_PROPERTY(bool nrDistancesEnabled    READ nrDistancesEnabled    WRITE setNrDistancesEnabled
-                                                                     NOTIFY nrDistancesEnabledChanged)
+    Q_PROPERTY(bool nrDistancesEnabled READ nrDistancesEnabled WRITE setNrDistancesEnabled NOTIFY nrDistancesEnabledChanged)
+
 public:
     explicit TonnetzController(QObject *parent = nullptr);
 
@@ -25,8 +30,7 @@ public:
     QStringList noteNames() const { return m_noteNames; }
     QStringList majorRootNoteNames() const { return m_majorRootNoteNames; }
     QStringList minorRootNoteNames() const { return m_minorRootNoteNames; }
-    int highlightedNotes() const { return m_highlightedNotes; }
-    int playingNotes() const { return m_playingNotes; }
+    int activeNotes() const { return m_playingNotes | m_highlightedNotes; }
     bool nrDistancesEnabled() const { return m_nrDistancesEnabled; }
     void setNrDistancesEnabled(bool enabled);
 
@@ -65,8 +69,7 @@ signals:
     void noteNamesChanged();
     void majorRootNoteNamesChanged();
     void minorRootNoteNamesChanged();
-    void highlightedNotesChanged();
-    void playingNotesChanged();
+    void activeNotesChanged();
     void nrDistancesEnabledChanged();
 
 private:

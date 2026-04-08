@@ -20,8 +20,9 @@ class VisualizerSwitcher : public QObject
     Q_PROPERTY(qreal vpOriginY   READ vpOriginY WRITE setVpOriginY NOTIFY vpOriginYChanged)
     Q_PROPERTY(qreal vpScale     READ vpScale   WRITE setVpScale   NOTIFY vpScaleChanged)
 
-    Q_PROPERTY(bool  invertColors READ invertColors WRITE setInvertColors NOTIFY invertColorsChanged)
-    Q_PROPERTY(qreal saturation   READ saturation   WRITE setSaturation   NOTIFY saturationChanged)
+    Q_PROPERTY(bool  invertColors  READ invertColors  WRITE setInvertColors  NOTIFY invertColorsChanged)
+    Q_PROPERTY(bool  showAugmented READ showAugmented WRITE setShowAugmented NOTIFY showAugmentedChanged)
+    Q_PROPERTY(qreal saturation    READ saturation    WRITE setSaturation    NOTIFY saturationChanged)
     Q_PROPERTY(qreal hue          READ hue          WRITE setHue          NOTIFY hueChanged)
     Q_PROPERTY(qreal brightness   READ brightness   WRITE setBrightness   NOTIFY brightnessChanged)
     Q_PROPERTY(qreal contrast     READ contrast     WRITE setContrast     NOTIFY contrastChanged)
@@ -39,29 +40,56 @@ public:
 
     }
 
+    // getters and setters
     bool invertColors() const { return m_invertColors; }
-    void setInvertColors(bool v) {
-        if (m_invertColors != v) { m_invertColors = v; emit invertColorsChanged(); }
+    void setInvertColors(bool v)
+    {
+        if (m_invertColors != v) {
+            m_invertColors = v;
+            emit invertColorsChanged();
+        }
+    }
+
+    bool showAugmented() const { return m_showAugmented; }
+    void setShowAugmented(bool v)
+    {
+        if (m_showAugmented != v) {
+            m_showAugmented = v;
+            emit showAugmentedChanged();
+        }
     }
 
     qreal saturation() const { return m_saturation; }
-    void setSaturation(qreal v) {
+    void setSaturation(qreal v)
+    {
         if (m_saturation != v) { m_saturation = v; emit saturationChanged(); }
     }
 
     qreal hue() const { return m_hue; }
-    void setHue(qreal v) {
-        if (m_hue != v) { m_hue = v; emit hueChanged(); }
+    void setHue(qreal v)
+    {
+        if (m_hue != v) {
+            m_hue = v;
+            emit hueChanged();
+        }
     }
 
     qreal brightness() const { return m_brightness; }
-    void setBrightness(qreal v) {
-        if (m_brightness != v) { m_brightness = v; emit brightnessChanged(); }
+    void setBrightness(qreal v)
+    {
+        if (m_brightness != v) {
+            m_brightness = v;
+            emit brightnessChanged();
+        }
     }
 
     qreal contrast() const { return m_contrast; }
-    void setContrast(qreal v) {
-        if (m_contrast != v) { m_contrast = v; emit contrastChanged(); }
+    void setContrast(qreal v)
+    {
+        if (m_contrast != v) {
+            m_contrast = v;
+            emit contrastChanged();
+        }
     }
 
     QString source() const { return m_source; }
@@ -73,35 +101,62 @@ public:
     int selJ() const { return m_selJ; }
     bool selIsMajor() const { return m_selIsMajor; }
 
-    Q_INVOKABLE void setNoteSelection(int i, int j) {
-        m_selType = 1; m_selI = i; m_selJ = j; m_selIsMajor = false;
+    Q_INVOKABLE void setNoteSelection(int i, int j)
+    {
+        m_selType = 1;
+        m_selI = i;
+        m_selJ = j;
+        m_selIsMajor = false;
         emit selectionChanged();
     }
 
-    Q_INVOKABLE void setTriadSelection(int i, int j, bool isMajor) {
-        m_selType = 2; m_selI = i; m_selJ = j; m_selIsMajor = isMajor;
+    Q_INVOKABLE void setTriadSelection(int i, int j, bool isMajor)
+    {
+        m_selType = 2;
+        m_selI = i;
+        m_selJ = j;
+        m_selIsMajor = isMajor;
         emit selectionChanged();
     }
 
-    Q_INVOKABLE void clearSelection() {
-        if (m_selType == 0) return;
-        m_selType = 0; emit selectionChanged();
+    Q_INVOKABLE void clearSelection()
+    {
+        if (m_selType == 0)
+            return;
+
+        m_selType = 0;
+        emit selectionChanged();
     }
 
-    void setSource(const QString &s) {
-        if (m_source != s) { m_source = s; emit sourceChanged(); }
+    void setSource(const QString &s)
+    {
+        if (m_source != s) {
+            m_source = s;
+            emit sourceChanged();
+        }
     }
 
-    void setVpOriginX(qreal v) {
-        if (m_vpOriginX != v) { m_vpOriginX = v; emit vpOriginXChanged(); }
+    void setVpOriginX(qreal v)
+    {
+        if (m_vpOriginX != v) {
+            m_vpOriginX = v;
+            emit vpOriginXChanged();
+        }
     }
 
     void setVpOriginY(qreal v) {
-        if (m_vpOriginY != v) { m_vpOriginY = v; emit vpOriginYChanged(); }
+        if (m_vpOriginY != v) {
+            m_vpOriginY = v;
+            emit vpOriginYChanged();
+        }
     }
 
-    void setVpScale(qreal v) {
-        if (m_vpScale != v) { m_vpScale = v; emit vpScaleChanged(); }
+    void setVpScale(qreal v)
+    {
+        if (m_vpScale != v) {
+            m_vpScale = v;
+            emit vpScaleChanged();
+        }
     }
 
 signals:
@@ -111,17 +166,19 @@ signals:
     void vpScaleChanged();
     void selectionChanged();
     void invertColorsChanged();
+    void showAugmentedChanged();
     void saturationChanged();
     void hueChanged();
     void brightnessChanged();
     void contrastChanged();
 
 private:
-    bool  m_invertColors = false;
-    qreal m_saturation   = 1.0;
-    qreal m_hue          = 0.0;   // degrees
-    qreal m_brightness   = 1.0;
-    qreal m_contrast     = 1.0;
+    bool m_invertColors = false;
+    bool m_showAugmented = false;
+    qreal m_saturation = 1.0;
+    qreal m_hue = 0.0;   // degrees
+    qreal m_brightness = 1.0;
+    qreal m_contrast = 1.0;
     QString m_source;
     qreal m_vpOriginX = 0;
     qreal m_vpOriginY = 0;

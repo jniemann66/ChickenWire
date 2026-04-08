@@ -111,6 +111,20 @@ int main(int argc, char *argv[])
     auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"), QStringLiteral("tonnetz.qml"));
     auto *cwAction = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("chickenWire.qml"));
     viewMenu->addSeparator();
+    auto *augAction = viewMenu->addAction(QStringLiteral("Show &Augmented Chords"));
+    augAction->setCheckable(true);
+    augAction->setChecked(switcher.showAugmented());
+
+    QObject::connect(augAction, &QAction::toggled, [&switcher, &settings](bool on) {
+        switcher.setShowAugmented(on);
+        settings.setValue(QStringLiteral("display/showAugmented"), on);
+    });
+
+    QObject::connect(&switcher, &VisualizerSwitcher::showAugmentedChanged, [&]() {
+        augAction->setChecked(switcher.showAugmented());
+    });
+
+    viewMenu->addSeparator();
     viewMenu->addAction(transport->toggleViewAction());
 
     // set up keyboard shortcut : F4 toggles between the two visualizers
@@ -160,10 +174,13 @@ int main(int argc, char *argv[])
 
     // Saturation: slider 0-200, 100 = 1.0 (normal)
     auto *satSlider = makeSlider(0, 200, 100, 50);
+
     // Hue: slider 0-360, 180 = 0° rotation (maps to -180..+180 degrees)
     auto *hueSlider = makeSlider(0, 360, 180, 60);
+
     // Brightness: slider 0-200, 100 = 1.0 (normal)
     auto *briSlider = makeSlider(0, 200, 100, 50);
+
     // Contrast: slider 0-300, 100 = 1.0 (normal)
     auto *conSlider = makeSlider(0, 300, 100, 50);
 
@@ -173,9 +190,9 @@ int main(int argc, char *argv[])
     new SliderResetter(conSlider, 100);
 
     colorLayout->addRow(QStringLiteral("Saturation"), satSlider);
-    colorLayout->addRow(QStringLiteral("Hue"),        hueSlider);
+    colorLayout->addRow(QStringLiteral("Hue"), hueSlider);
     colorLayout->addRow(QStringLiteral("Brightness"), briSlider);
-    colorLayout->addRow(QStringLiteral("Contrast"),   conSlider);
+    colorLayout->addRow(QStringLiteral("Contrast"), conSlider);
 
     auto *resetButton = new QPushButton(QStringLiteral("Reset to Defaults"));
     colorLayout->addRow(resetButton);
@@ -235,6 +252,7 @@ int main(int argc, char *argv[])
     // Restore saved settings — done last so all connections are live and the
     // switcher and sliders stay in sync from the first setValue/setChecked call.
     negativeAction->setChecked(settings.value(QStringLiteral("color/invertColors"), false).toBool());
+    augAction->setChecked(settings.value(QStringLiteral("display/showAugmented"), false).toBool());
     satSlider->setValue(settings.value(QStringLiteral("color/saturation"), 100).toInt());
     hueSlider->setValue(settings.value(QStringLiteral("color/hue"),        180).toInt());
     briSlider->setValue(settings.value(QStringLiteral("color/brightness"), 100).toInt());

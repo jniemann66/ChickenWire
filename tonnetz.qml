@@ -64,21 +64,20 @@ Item {
         property var noteNames:          tonnetzController.noteNames
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
-        property int highlightedNotes:   tonnetzController.highlightedNotes
-        property int playingNotes:       tonnetzController.playingNotes
+        property int  activeNotes:    tonnetzController.activeNotes
+        property bool showAugmented: visualizerSwitcher.showAugmented
         onNoteNamesChanged:          requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
-        onHighlightedNotesChanged:   requestPaint()
-        onPlayingNotesChanged:       requestPaint()
+        onActiveNotesChanged:        requestPaint()
+        onShowAugmentedChanged:      requestPaint()
 
         // NR distances from the currently selected triad (empty when none selected).
         // Layout: indices 0–11 = major(root), 12–23 = minor(root).
         property var nrDists: []
 
-        // Returns true if semitone s is in the highlighted set.
-        function isHL(s) { return !!((highlightedNotes >> s) & 1) }
-        function isPL(s) { return !!((playingNotes >> s) & 1) }
+        function isAct(s) { return !!((activeNotes >> s) & 1) }
+        function isAug(s) { return showAugmented && isAct(s) && isAct((s + 4) % 12) && isAct((s + 8) % 12) }
         readonly property int startNote: 0
 
         // Viewport state — restored from / saved to visualizerSwitcher on each change
@@ -305,19 +304,19 @@ Item {
             var r        = Math.max(5, baseRadius * scale)
             var fontSize = Math.max(1, 13 * scale)
 
-            // highlighted note-set: filled triangles (drawn first, behind everything)
-            if (highlightedNotes !== 0) {
+            // active note-set: filled triangles (drawn first, behind everything)
+            if (activeNotes !== 0) {
                 ctx.fillStyle = Theme.hlFaceFill
                 for (var i = iMin; i <= iMax; i++) {
                     for (var j = jMin; j <= jMax; j++) {
                         // Major triangle: (i,j)–(i+1,j)–(i,j+1)
-                        if (isHL(noteAt(i,j)) && isHL(noteAt(i+1,j)) && isHL(noteAt(i,j+1))) {
+                        if (isAct(noteAt(i,j)) && isAct(noteAt(i+1,j)) && isAct(noteAt(i,j+1))) {
                             var tp0=nodePos(i,j), tp1=nodePos(i+1,j), tp2=nodePos(i,j+1)
                             ctx.beginPath(); ctx.moveTo(tp0.x,tp0.y)
                             ctx.lineTo(tp1.x,tp1.y); ctx.lineTo(tp2.x,tp2.y); ctx.closePath(); ctx.fill()
                         }
                         // Minor triangle: (i+1,j)–(i,j+1)–(i+1,j+1)
-                        if (isHL(noteAt(i+1,j)) && isHL(noteAt(i,j+1)) && isHL(noteAt(i+1,j+1))) {
+                        if (isAct(noteAt(i+1,j)) && isAct(noteAt(i,j+1)) && isAct(noteAt(i+1,j+1))) {
                             var tp0=nodePos(i+1,j), tp1=nodePos(i,j+1), tp2=nodePos(i+1,j+1)
                             ctx.beginPath(); ctx.moveTo(tp0.x,tp0.y)
                             ctx.lineTo(tp1.x,tp1.y); ctx.lineTo(tp2.x,tp2.y); ctx.closePath(); ctx.fill()
@@ -340,10 +339,8 @@ Item {
                 }
             }
 
-            if (highlightedNotes !== 0)
-                drawActiveEdgeOverlay(ctx, range, isHL, Theme.hlEdge)
-            if (playingNotes !== 0)
-                drawActiveEdgeOverlay(ctx, range, isPL, "#ffd700")
+            if (activeNotes !== 0)
+                drawActiveEdgeOverlay(ctx, range, isAct, Theme.hlEdge)
 
             // triad labels: faint drawn now; active collected and deferred to after nodes
             var activeLabels = []
@@ -399,7 +396,7 @@ Item {
             }
 
             // active triads (playing or selected) — drawn after edges so stroke is visible
-            if (hasSelTriad || playingNotes !== 0) {
+            if (hasSelTriad || activeNotes !== 0) {
                 ctx.fillStyle   = Theme.selFill
                 ctx.strokeStyle = Theme.selTriadStroke
                 ctx.lineWidth   = Math.max(1, 2 * scale)
@@ -434,17 +431,17 @@ Item {
                         np.y < -r || np.y > height + r)
                         continue
 
-                    var isActive      = (hasSelNode && ni === selNodeI && nj === selNodeJ)
-                                     || isPL(noteAt(ni, nj))
-                    var isHighlighted = isHL(noteAt(ni, nj))
+                    var isActive    = (hasSelNode && ni === selNodeI && nj === selNodeJ)
+                                   || isAct(noteAt(ni, nj))
+                    var isAugmented = isAug(noteAt(ni, nj))
 
                     ctx.beginPath()
                     ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
-                    if (isActive) {
-                        ctx.fillStyle   = Theme.nodeFill
+                    if (isAugmented) {
+                        ctx.fillStyle   = Theme.selFill
                         ctx.strokeStyle = Theme.selStroke
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
-                    } else if (isHighlighted) {
+                    } else if (isActive) {
                         ctx.fillStyle   = Theme.hlNodeFill
                         ctx.strokeStyle = Theme.hlColor
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
@@ -457,9 +454,8 @@ Item {
                     ctx.stroke()
 
                     if (r > 10) {
-                        ctx.fillStyle = isHighlighted ? Theme.hlColor
-                                      :                Theme.nodeText
-                        ctx.fillText(noteNames[noteAt(ni, nj)], np.x, np.y)
+                        ctx.fillStyle = isActive ? Theme.hlColor : Theme.nodeText
+                        ctx.fillText(noteNames[noteAt(ni, nj)] + (isAugmented ? "+" : ""), np.x, np.y)
                     }
                 }
             }
@@ -518,10 +514,10 @@ Item {
         function isActiveTriad(i, j, isMajor) {
             if (isMajor)
                 return (hasSelTriad && i === selTriadI && j === selTriadJ && selTriadMajor)
-                    || (isPL(noteAt(i,j)) && isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)))
+                    || (isAct(noteAt(i,j)) && isAct(noteAt(i+1,j)) && isAct(noteAt(i,j+1)))
             else
                 return (hasSelTriad && i === selTriadI && j === selTriadJ && !selTriadMajor)
-                    || (isPL(noteAt(i+1,j)) && isPL(noteAt(i,j+1)) && isPL(noteAt(i+1,j+1)))
+                    || (isAct(noteAt(i+1,j)) && isAct(noteAt(i,j+1)) && isAct(noteAt(i+1,j+1)))
         }
 
         function drawEdge(ctx, p1, p2, color) {

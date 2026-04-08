@@ -26,7 +26,7 @@ TonnetzController::TonnetzController(QObject *parent)
     , m_majorRootNoteNames(DEFAULT_MAJOR_ROOT_NOTE_NAMES)
     , m_minorRootNoteNames(DEFAULT_MINOR_ROOT_NOTE_NAMES)
 {
-    // setHighlightedNotes({0, 4, 7, 11}); // Cmaj7
+    // setHighlightedNotes({0, 3, 6, 9}); // Cdim
 }
 
 bool TonnetzController::validateNames(const QStringList &names, const char *which)
@@ -90,7 +90,7 @@ void TonnetzController::setHighlightedNotes(const QVariantList &semitones)
         return;
 
     m_highlightedNotes = mask;
-    emit highlightedNotesChanged();
+    emit activeNotesChanged();
 }
 
 void TonnetzController::clearHighlightedNotes()
@@ -99,7 +99,7 @@ void TonnetzController::clearHighlightedNotes()
         return;
 
     m_highlightedNotes = 0;
-    emit highlightedNotesChanged();
+    emit activeNotesChanged();
 }
 
 void TonnetzController::setNrDistancesEnabled(bool enabled)
@@ -177,7 +177,7 @@ void TonnetzController::handleNoteOn(int semitone)
     const int newMask = m_playingNotes | (1 << semitone);
     if (newMask != m_playingNotes) {
         m_playingNotes = newMask;
-        emit playingNotesChanged();
+        emit activeNotesChanged();
     }
 }
 
@@ -191,7 +191,7 @@ void TonnetzController::handleNoteOff(int semitone)
         const int newMask = m_playingNotes & ~(1 << semitone);
         if (newMask != m_playingNotes) {
             m_playingNotes = newMask;
-            emit playingNotesChanged();
+            emit activeNotesChanged();
         }
     }
 }
@@ -201,6 +201,6 @@ void TonnetzController::clearPlayingNotes()
     std::fill(std::begin(m_playingNoteCounts), std::end(m_playingNoteCounts), 0);
     if (m_playingNotes != 0) {
         m_playingNotes = 0;
-        emit playingNotesChanged();
+        emit activeNotesChanged();
     }
 }
