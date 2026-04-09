@@ -1,0 +1,1 @@
+g++ -std=c++17 -O2 -o enumNotes enumNotes.cpp && ./enumNotes > 2048_chords.csv
