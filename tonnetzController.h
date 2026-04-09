@@ -79,7 +79,7 @@ private:
     QStringList m_majorRootNoteNames; // names of all 12 root notes for Major Chords
     QStringList m_minorRootNoteNames; // names of all 12 root notes for Minor Chords
     int m_highlightedNotes = 0; // 12-bit bitmask
-    bool m_nrDistancesEnabled = false; // when true, show relative ditance from selected triad to other triads using color code
+    bool m_nrDistancesEnabled = false; // when true, show relative distance from selected triad to other triads using colour code
     int m_playingNotes = 0;
     int m_playingNoteCounts[12] = {};
 };

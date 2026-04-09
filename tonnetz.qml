@@ -78,7 +78,6 @@ Item {
 
         function isAct(s) { return !!((activeNotes >> s) & 1) }
         function isAug(s) { return showAugmented && isAct(s) && isAct((s + 4) % 12) && isAct((s + 8) % 12) }
-        readonly property int startNote: 0
 
         // Viewport state — restored from / saved to visualizerSwitcher on each change
         property real originX: width  / 2
@@ -189,7 +188,7 @@ Item {
         }
 
         function noteAt(i, j) {
-            return ((startNote + i * 7 + j * 4) % 12 + 12) % 12
+            return ((i * 7 + j * 4) % 12 + 12) % 12
         }
 
         // Chord label matching ChickenWire's vertex labels: "C", "Am", "F♯m" …
