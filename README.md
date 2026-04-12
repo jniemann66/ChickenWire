@@ -1,6 +1,6 @@
 # ChickenWire
 
-An interactive music theory visualizer built with C++ and Qt 6/QML. Displays harmonic relationships as two synchronized geometric lattices, driven by MIDI file playback or manual exploration.
+An interactive music theory visualizer which displays harmonic relationships on geometric lattices, driven by MIDI file playback or manual exploration.
 
 ## What It Shows
 
@@ -8,6 +8,8 @@ Two dual representations of the same harmonic space, switchable with **F4**:
 
 - **Tonnetz** — triangular lattice where *vertices* are notes and *triangular faces* are triads
 - **ChickenWire** — hexagonal lattice where *vertices* are triads and *hexagonal faces* are notes
+
+(The ChickenWire Tonnetz is the geometric dual of the regular Tonnetz, meaning that the vertices of the Tonnetz correspond to the faces of the ChickenWire Tonnetz and vice versa)
 
 The two views share a common coordinate system and stay in sync: panning, zooming, and selections in one view are immediately reflected in the other.
 
