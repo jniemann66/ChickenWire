@@ -94,77 +94,61 @@ Item {
             // 3  D+
             { lx:  0.00, ly: -5.0, type: "aug",   s0:  2, s1:  6, s2: 10, root:  2 },
 
-            // ── Db+ hexatonic cycle (upper-left) ─────────────────────────
-            // Grid (row 1 = top, nearest C+; row 3 = bottom, nearest Db+):
-            //   F    Am    ← row 1  (F –L– Am)
-            //   Fm   A     ← row 2
-            //   Db   C#m   ← row 3  (Db –P– C#m)
+            // ── Db+ hexatonic cycle (upper-left, rotated +45°) ───────────
             // 4  F
-            { lx: -2.65, ly:  3.2, type: "major", s0:  5, s1:  9, s2:  0, root:  5 },
+            { lx: -3.31, ly:  2.39, type: "major", s0:  5, s1:  9, s2:  0, root:  5 },
             // 5  Am
-            { lx: -1.35, ly:  3.2, type: "minor", s0:  9, s1:  0, s2:  4, root:  9 },
+            { lx: -1.54, ly:  2.46, type: "minor", s0:  9, s1:  0, s2:  4, root:  9 },
             // 6  Fm
-            { lx: -2.65, ly:  2.0, type: "minor", s0:  5, s1:  8, s2:  0, root:  5 },
+            { lx: -2.39, ly:  3.31, type: "minor", s0:  5, s1:  8, s2:  0, root:  5 },
             // 7  A
-            { lx: -1.35, ly:  2.0, type: "major", s0:  9, s1:  1, s2:  4, root:  9 },
+            { lx: -1.61, ly:  0.69, type: "major", s0:  9, s1:  1, s2:  4, root:  9 },
             // 8  Db
-            { lx: -2.65, ly:  0.8, type: "major", s0:  1, s1:  5, s2:  8, root:  1 },
+            { lx: -2.46, ly:  1.54, type: "major", s0:  1, s1:  5, s2:  8, root:  1 },
             // 9  C#m
-            { lx: -1.35, ly:  0.8, type: "minor", s0:  1, s1:  4, s2:  8, root:  1 },
+            { lx: -0.69, ly:  1.61, type: "minor", s0:  1, s1:  4, s2:  8, root:  1 },
 
-            // ── C+ hexatonic cycle (upper-right) ─────────────────────────
-            // Grid (row 1 = top, nearest C+; row 3 = bottom, nearest Eb+):
-            //   C    Cm    ← row 1  (C –P– Cm)
-            //   Em   Ab    ← row 2
-            //   E    Abm   ← row 3  (Abm –L– E)
+            // ── C+ hexatonic cycle (upper-right, rotated −45°) ───────────
             // 10  C
-            { lx:  1.35, ly:  3.2, type: "major", s0:  0, s1:  4, s2:  7, root:  0 },
+            { lx:  2.39, ly:  3.31, type: "major", s0:  0, s1:  4, s2:  7, root:  0 },
             // 11  Cm
-            { lx:  2.65, ly:  3.2, type: "minor", s0:  0, s1:  3, s2:  7, root:  0 },
+            { lx:  3.31, ly:  2.39, type: "minor", s0:  0, s1:  3, s2:  7, root:  0 },
             // 12  Em
-            { lx:  1.35, ly:  2.0, type: "minor", s0:  4, s1:  7, s2: 11, root:  4 },
+            { lx:  2.46, ly:  1.54, type: "minor", s0:  4, s1:  7, s2: 11, root:  4 },
             // 13  Ab
-            { lx:  2.65, ly:  2.0, type: "major", s0:  8, s1:  0, s2:  3, root:  8 },
+            { lx:  1.54, ly:  2.46, type: "major", s0:  8, s1:  0, s2:  3, root:  8 },
             // 14  E
-            { lx:  1.35, ly:  0.8, type: "major", s0:  4, s1:  8, s2: 11, root:  4 },
+            { lx:  0.69, ly:  1.61, type: "major", s0:  4, s1:  8, s2: 11, root:  4 },
             // 15  Abm
-            { lx:  2.65, ly:  0.8, type: "minor", s0:  8, s1: 11, s2:  3, root:  8 },
+            { lx:  1.61, ly:  0.69, type: "minor", s0:  8, s1: 11, s2:  3, root:  8 },
 
-            // ── D+ hexatonic cycle (lower-left) ──────────────────────────
-            // Grid (row 1 = top, nearest Db+; row 3 = bottom, nearest D+):
-            //   Dm   Bb    ← row 1  (Dm –L– Bb)
-            //   D    Bbm   ← row 2
-            //   F#m  F#    ← row 3  (F# –P– F#m)
+            // ── D+ hexatonic cycle (lower-left, rotated −45°) ────────────
             // 16  Dm
-            { lx: -2.65, ly: -0.8, type: "minor", s0:  2, s1:  5, s2:  9, root:  2 },
+            { lx: -2.46, ly: -1.54, type: "minor", s0:  2, s1:  5, s2:  9, root:  2 },
             // 17  Bb
-            { lx: -1.35, ly: -0.8, type: "major", s0: 10, s1:  2, s2:  5, root: 10 },
+            { lx: -2.39, ly: -3.31, type: "major", s0: 10, s1:  2, s2:  5, root: 10 },
             // 18  D
-            { lx: -2.65, ly: -2.0, type: "major", s0:  2, s1:  6, s2:  9, root:  2 },
+            { lx: -0.69, ly: -1.61, type: "major", s0:  2, s1:  6, s2:  9, root:  2 },
             // 19  Bbm
-            { lx: -1.35, ly: -2.0, type: "minor", s0: 10, s1:  1, s2:  5, root: 10 },
+            { lx: -3.31, ly: -2.39, type: "minor", s0: 10, s1:  1, s2:  5, root: 10 },
             // 20  F#m
-            { lx: -2.65, ly: -3.2, type: "minor", s0:  6, s1:  9, s2:  1, root:  6 },
+            { lx: -1.61, ly: -0.69, type: "minor", s0:  6, s1:  9, s2:  1, root:  6 },
             // 21  F#
-            { lx: -1.35, ly: -3.2, type: "major", s0:  6, s1: 10, s2:  1, root:  6 },
+            { lx: -1.54, ly: -2.46, type: "major", s0:  6, s1: 10, s2:  1, root:  6 },
 
-            // ── Eb+ hexatonic cycle (lower-right) ────────────────────────
-            // Grid (row 1 = top, nearest Eb+; row 3 = bottom, nearest D+):
-            //   Ebm  B     ← row 1  (Ebm –L– B)
-            //   Eb   Bm    ← row 2
-            //   Gm   G     ← row 3  (G –P– Gm)
+            // ── Eb+ hexatonic cycle (lower-right, rotated +45°) ──────────
             // 22  Ebm
-            { lx:  1.35, ly: -0.8, type: "minor", s0:  3, s1:  6, s2: 10, root:  3 },
+            { lx:  0.69, ly: -1.61, type: "minor", s0:  3, s1:  6, s2: 10, root:  3 },
             // 23  B
-            { lx:  2.65, ly: -0.8, type: "major", s0: 11, s1:  3, s2:  6, root: 11 },
+            { lx:  1.61, ly: -0.69, type: "major", s0: 11, s1:  3, s2:  6, root: 11 },
             // 24  Eb
-            { lx:  1.35, ly: -2.0, type: "major", s0:  3, s1:  7, s2: 10, root:  3 },
+            { lx:  2.46, ly: -1.54, type: "major", s0:  3, s1:  7, s2: 10, root:  3 },
             // 25  Bm
-            { lx:  2.65, ly: -2.0, type: "minor", s0: 11, s1:  2, s2:  6, root: 11 },
+            { lx:  1.54, ly: -2.46, type: "minor", s0: 11, s1:  2, s2:  6, root: 11 },
             // 26  Gm
-            { lx:  1.35, ly: -3.2, type: "minor", s0:  7, s1: 10, s2:  2, root:  7 },
+            { lx:  2.39, ly: -3.31, type: "minor", s0:  7, s1: 10, s2:  2, root:  7 },
             // 27  G
-            { lx:  2.65, ly: -3.2, type: "major", s0:  7, s1: 11, s2:  2, root:  7 }
+            { lx:  3.31, ly: -2.39, type: "major", s0:  7, s1: 11, s2:  2, root:  7 }
         ]
 
         // ── Edge table ────────────────────────────────────────────────────────
@@ -202,14 +186,6 @@ Item {
             [3, 17, "aug"], [3, 18, "aug"], [3, 21, "aug"],
             [3, 22, "aug"], [3, 25, "aug"], [3, 26, "aug"],
 
-            // R edges: C+ cycle ↔ Db+ cycle
-            [10,  5, "R"], [13,  6, "R"], [14,  9, "R"],
-            // R edges: C+ cycle ↔ Eb+ cycle
-            [11, 24, "R"], [12, 27, "R"], [15, 23, "R"],
-            // R edges: Db+ cycle ↔ D+ cycle
-            [8,  19, "R"], [4,  16, "R"], [7,  20, "R"],
-            // R edges: D+ cycle ↔ Eb+ cycle
-            [18, 25, "R"], [21, 22, "R"], [17, 26, "R"]
         ]
 
         // ── Hit testing ───────────────────────────────────────────────────────
@@ -258,9 +234,7 @@ Item {
                     ctx.strokeStyle = "#707070"
                 } else {
                     ctx.lineWidth   = Math.max(0.5, 1.8 * scale)
-                    ctx.strokeStyle = e[2] === "P" ? Theme.edgeP
-                                    : e[2] === "L" ? Theme.edgeL
-                                    :                Theme.edgeR
+                    ctx.strokeStyle = e[2] === "P" ? Theme.edgeP : Theme.edgeL
                 }
                 ctx.beginPath()
                 ctx.moveTo(pa.x, pa.y)
