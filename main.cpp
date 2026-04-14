@@ -108,8 +108,9 @@ int main(int argc, char *argv[])
     };
 
     // set-up View Menu
-    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"), QStringLiteral("tonnetz.qml"));
-    auto *cwAction = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("chickenWire.qml"));
+    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"),      QStringLiteral("tonnetz.qml"));
+    auto *cwAction      = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("chickenWire.qml"));
+    auto *cdAction      = makeAction(QStringLiteral("Cube &Dance"),   QStringLiteral("cubeDance.qml"));
     viewMenu->addSeparator();
     auto *augAction = viewMenu->addAction(QStringLiteral("Show &Augmented Chords"));
     augAction->setCheckable(true);
@@ -127,7 +128,7 @@ int main(int argc, char *argv[])
     viewMenu->addSeparator();
     viewMenu->addAction(transport->toggleViewAction());
 
-    // set up keyboard shortcut : F4 toggles between the two visualizers
+    // set up keyboard shortcut: F4 toggles between Tonnetz and ChickenWire
     auto *f4 = new QShortcut(QKeySequence(Qt::Key_F4), &mw);
     QObject::connect(f4, &QShortcut::activated, [&switcher]() {
         switcher.setSource(
@@ -137,8 +138,10 @@ int main(int argc, char *argv[])
     });
 
     QObject::connect(&switcher, &VisualizerSwitcher::sourceChanged, [&]() {
-        tonnetzAction->setChecked(switcher.source() == QStringLiteral("tonnetz.qml"));
-        cwAction->setChecked(switcher.source() == QStringLiteral("chickenWire.qml"));
+        const QString src = switcher.source();
+        tonnetzAction->setChecked(src == QStringLiteral("tonnetz.qml"));
+        cwAction->setChecked(src      == QStringLiteral("chickenWire.qml"));
+        cdAction->setChecked(src      == QStringLiteral("cubeDance.qml"));
     });
 
     // Color Scheme menu

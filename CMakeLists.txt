@@ -51,6 +51,7 @@ qt_add_qml_module(appChickenWire
     main.qml
     tonnetz.qml
     chickenWire.qml
+    cubeDance.qml
 )
 
 set_target_properties(appChickenWire PROPERTIES

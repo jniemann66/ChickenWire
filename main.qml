@@ -51,11 +51,25 @@ Item {
         onLoaded: if (visualizerSwitcher.source === "chickenWire.qml") item.forceActiveFocus()
     }
 
+    Loader {
+        id: cdLoader
+        anchors.fill: parent
+        source: "cubeDance.qml"
+        opacity: visualizerSwitcher.source === "cubeDance.qml" ? 1.0 : 0.0
+        enabled: visualizerSwitcher.source === "cubeDance.qml"
+        layer.enabled: true
+        Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
+        onLoaded: if (visualizerSwitcher.source === "cubeDance.qml") item.forceActiveFocus()
+    }
+
     // Transfer keyboard focus to whichever view is becoming active.
     Connections {
         target: visualizerSwitcher
         function onSourceChanged() {
-            var loader = visualizerSwitcher.source === "tonnetz.qml" ? tonnetzLoader : cwLoader
+            var src = visualizerSwitcher.source
+            var loader = src === "tonnetz.qml"    ? tonnetzLoader
+                       : src === "chickenWire.qml" ? cwLoader
+                       :                             cdLoader
             if (loader.item) loader.item.forceActiveFocus()
         }
     }
