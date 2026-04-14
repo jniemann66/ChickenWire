@@ -95,60 +95,72 @@ Item {
             { lx:  0.00, ly: -5.0, type: "aug",   s0:  2, s1:  6, s2: 10, root:  2 },
 
             // ── Db+ hexatonic cycle (upper-left, rotated +45°) ───────────
+            // Horizontal edges: F–Am, C#m–Db  (shared ly)
+            // Vertical edges:   Am–A, Db–Fm   (shared lx)
+            // Diagonal edges:   A–C#m, Fm–F   (Δlx = Δly = 0.85)
             // 4  F
-            { lx: -3.31, ly:  2.39, type: "major", s0:  5, s1:  9, s2:  0, root:  5 },
+            { lx: -3.275, ly:  2.425, type: "major", s0:  5, s1:  9, s2:  0, root:  5 },
             // 5  Am
-            { lx: -1.54, ly:  2.46, type: "minor", s0:  9, s1:  0, s2:  4, root:  9 },
+            { lx: -1.575, ly:  2.425, type: "minor", s0:  9, s1:  0, s2:  4, root:  9 },
             // 6  Fm
-            { lx: -2.39, ly:  3.31, type: "minor", s0:  5, s1:  8, s2:  0, root:  5 },
+            { lx: -2.425, ly:  3.275, type: "minor", s0:  5, s1:  8, s2:  0, root:  5 },
             // 7  A
-            { lx: -1.61, ly:  0.69, type: "major", s0:  9, s1:  1, s2:  4, root:  9 },
+            { lx: -1.575, ly:  0.725, type: "major", s0:  9, s1:  1, s2:  4, root:  9 },
             // 8  Db
-            { lx: -2.46, ly:  1.54, type: "major", s0:  1, s1:  5, s2:  8, root:  1 },
+            { lx: -2.425, ly:  1.575, type: "major", s0:  1, s1:  5, s2:  8, root:  1 },
             // 9  C#m
-            { lx: -0.69, ly:  1.61, type: "minor", s0:  1, s1:  4, s2:  8, root:  1 },
+            { lx: -0.725, ly:  1.575, type: "minor", s0:  1, s1:  4, s2:  8, root:  1 },
 
             // ── C+ hexatonic cycle (upper-right, rotated −45°) ───────────
+            // Horizontal edges: Cm–Ab, E–Em   (shared ly)
+            // Vertical edges:   Ab–Abm, Em–C  (shared lx)
+            // Diagonal edges:   C–Cm, Abm–E   (Δlx = Δly = 0.85)
             // 10  C
-            { lx:  2.39, ly:  3.31, type: "major", s0:  0, s1:  4, s2:  7, root:  0 },
+            { lx:  2.425, ly:  3.275, type: "major", s0:  0, s1:  4, s2:  7, root:  0 },
             // 11  Cm
-            { lx:  3.31, ly:  2.39, type: "minor", s0:  0, s1:  3, s2:  7, root:  0 },
+            { lx:  3.275, ly:  2.425, type: "minor", s0:  0, s1:  3, s2:  7, root:  0 },
             // 12  Em
-            { lx:  2.46, ly:  1.54, type: "minor", s0:  4, s1:  7, s2: 11, root:  4 },
+            { lx:  2.425, ly:  1.575, type: "minor", s0:  4, s1:  7, s2: 11, root:  4 },
             // 13  Ab
-            { lx:  1.54, ly:  2.46, type: "major", s0:  8, s1:  0, s2:  3, root:  8 },
+            { lx:  1.575, ly:  2.425, type: "major", s0:  8, s1:  0, s2:  3, root:  8 },
             // 14  E
-            { lx:  0.69, ly:  1.61, type: "major", s0:  4, s1:  8, s2: 11, root:  4 },
+            { lx:  0.725, ly:  1.575, type: "major", s0:  4, s1:  8, s2: 11, root:  4 },
             // 15  Abm
-            { lx:  1.61, ly:  0.69, type: "minor", s0:  8, s1: 11, s2:  3, root:  8 },
+            { lx:  1.575, ly:  0.725, type: "minor", s0:  8, s1: 11, s2:  3, root:  8 },
 
             // ── D+ hexatonic cycle (lower-left, rotated −45°) ────────────
+            // Horizontal edges: Bbm–F#, D–Dm  (shared ly)
+            // Vertical edges:   Dm–Bb, F#–F#m (shared lx)
+            // Diagonal edges:   Bb–Bbm, F#m–D (Δlx = Δly = 0.85)
             // 16  Dm
-            { lx: -2.46, ly: -1.54, type: "minor", s0:  2, s1:  5, s2:  9, root:  2 },
+            { lx: -2.425, ly: -1.575, type: "minor", s0:  2, s1:  5, s2:  9, root:  2 },
             // 17  Bb
-            { lx: -2.39, ly: -3.31, type: "major", s0: 10, s1:  2, s2:  5, root: 10 },
+            { lx: -2.425, ly: -3.275, type: "major", s0: 10, s1:  2, s2:  5, root: 10 },
             // 18  D
-            { lx: -0.69, ly: -1.61, type: "major", s0:  2, s1:  6, s2:  9, root:  2 },
+            { lx: -0.725, ly: -1.575, type: "major", s0:  2, s1:  6, s2:  9, root:  2 },
             // 19  Bbm
-            { lx: -3.31, ly: -2.39, type: "minor", s0: 10, s1:  1, s2:  5, root: 10 },
+            { lx: -3.275, ly: -2.425, type: "minor", s0: 10, s1:  1, s2:  5, root: 10 },
             // 20  F#m
-            { lx: -1.61, ly: -0.69, type: "minor", s0:  6, s1:  9, s2:  1, root:  6 },
+            { lx: -1.575, ly: -0.725, type: "minor", s0:  6, s1:  9, s2:  1, root:  6 },
             // 21  F#
-            { lx: -1.54, ly: -2.46, type: "major", s0:  6, s1: 10, s2:  1, root:  6 },
+            { lx: -1.575, ly: -2.425, type: "major", s0:  6, s1: 10, s2:  1, root:  6 },
 
             // ── Eb+ hexatonic cycle (lower-right, rotated +45°) ──────────
+            // Horizontal edges: Bm–G, Eb–Ebm  (shared ly)
+            // Vertical edges:   B–Bm, Gm–Eb   (shared lx)
+            // Diagonal edges:   Ebm–B, G–Gm   (Δlx = Δly = 0.85)
             // 22  Ebm
-            { lx:  0.69, ly: -1.61, type: "minor", s0:  3, s1:  6, s2: 10, root:  3 },
+            { lx:  0.725, ly: -1.575, type: "minor", s0:  3, s1:  6, s2: 10, root:  3 },
             // 23  B
-            { lx:  1.61, ly: -0.69, type: "major", s0: 11, s1:  3, s2:  6, root: 11 },
+            { lx:  1.575, ly: -0.725, type: "major", s0: 11, s1:  3, s2:  6, root: 11 },
             // 24  Eb
-            { lx:  2.46, ly: -1.54, type: "major", s0:  3, s1:  7, s2: 10, root:  3 },
+            { lx:  2.425, ly: -1.575, type: "major", s0:  3, s1:  7, s2: 10, root:  3 },
             // 25  Bm
-            { lx:  1.54, ly: -2.46, type: "minor", s0: 11, s1:  2, s2:  6, root: 11 },
+            { lx:  1.575, ly: -2.425, type: "minor", s0: 11, s1:  2, s2:  6, root: 11 },
             // 26  Gm
-            { lx:  2.39, ly: -3.31, type: "minor", s0:  7, s1: 10, s2:  2, root:  7 },
+            { lx:  2.425, ly: -3.275, type: "minor", s0:  7, s1: 10, s2:  2, root:  7 },
             // 27  G
-            { lx:  3.31, ly: -2.39, type: "major", s0:  7, s1: 11, s2:  2, root:  7 }
+            { lx:  3.275, ly: -2.425, type: "major", s0:  7, s1: 11, s2:  2, root:  7 }
         ]
 
         // ── Edge table ────────────────────────────────────────────────────────
