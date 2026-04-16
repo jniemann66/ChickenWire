@@ -4,17 +4,13 @@ import ChickenWire
 Item {
     anchors.fill: parent
 
-    layer.enabled: visualizerSwitcher.invertColors
-                || visualizerSwitcher.saturation  !== 1.0
-                || visualizerSwitcher.hue         !== 0.0
-                || visualizerSwitcher.brightness  !== 1.0
-                || visualizerSwitcher.contrast    !== 1.0
+    layer.enabled: visualizerSwitcher.invertColors || visualizerSwitcher.saturation !== 1.0 || visualizerSwitcher.hue !== 0.0 || visualizerSwitcher.brightness !== 1.0 || visualizerSwitcher.contrast !== 1.0
     layer.effect: ShaderEffect {
-        property real saturation:   visualizerSwitcher.saturation
+        property real saturation: visualizerSwitcher.saturation
         property real invertColors: visualizerSwitcher.invertColors ? 1.0 : 0.0
-        property real hue:          visualizerSwitcher.hue
-        property real brightness:   visualizerSwitcher.brightness
-        property real contrast:     visualizerSwitcher.contrast
+        property real hue: visualizerSwitcher.hue
+        property real brightness: visualizerSwitcher.brightness
+        property real contrast: visualizerSwitcher.contrast
         fragmentShader: "qrc:/shaders/coloreffect.frag.qsb"
     }
 
@@ -36,8 +32,14 @@ Item {
         opacity: visualizerSwitcher.source === "tonnetz.qml" ? 1.0 : 0.0
         enabled: visualizerSwitcher.source === "tonnetz.qml"
         layer.enabled: true
-        Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-        onLoaded: if (visualizerSwitcher.source === "tonnetz.qml") item.forceActiveFocus()
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1000
+                easing.type: Easing.InOutQuad
+            }
+        }
+        onLoaded: if (visualizerSwitcher.source === "tonnetz.qml")
+            item.forceActiveFocus()
     }
 
     Loader {
@@ -47,8 +49,14 @@ Item {
         opacity: visualizerSwitcher.source === "chickenWire.qml" ? 1.0 : 0.0
         enabled: visualizerSwitcher.source === "chickenWire.qml"
         layer.enabled: true
-        Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-        onLoaded: if (visualizerSwitcher.source === "chickenWire.qml") item.forceActiveFocus()
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1000
+                easing.type: Easing.InOutQuad
+            }
+        }
+        onLoaded: if (visualizerSwitcher.source === "chickenWire.qml")
+            item.forceActiveFocus()
     }
 
     Loader {
@@ -58,19 +66,24 @@ Item {
         opacity: visualizerSwitcher.source === "cubeDance.qml" ? 1.0 : 0.0
         enabled: visualizerSwitcher.source === "cubeDance.qml"
         layer.enabled: true
-        Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-        onLoaded: if (visualizerSwitcher.source === "cubeDance.qml") item.forceActiveFocus()
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1000
+                easing.type: Easing.InOutQuad
+            }
+        }
+        onLoaded: if (visualizerSwitcher.source === "cubeDance.qml")
+            item.forceActiveFocus()
     }
 
     // Transfer keyboard focus to whichever view is becoming active.
     Connections {
         target: visualizerSwitcher
         function onSourceChanged() {
-            var src = visualizerSwitcher.source
-            var loader = src === "tonnetz.qml"    ? tonnetzLoader
-                       : src === "chickenWire.qml" ? cwLoader
-                       :                             cdLoader
-            if (loader.item) loader.item.forceActiveFocus()
+            var src = visualizerSwitcher.source;
+            var loader = src === "tonnetz.qml" ? tonnetzLoader : src === "chickenWire.qml" ? cwLoader : cdLoader;
+            if (loader.item)
+                loader.item.forceActiveFocus();
         }
     }
 }
