@@ -46,7 +46,7 @@ The **Color Scheme** menu provides:
 | **F4** | Toggle between Tonnetz and ChickenWire |
 | **Arrow keys** | Move selection along perfect-5ths / major-3rds axes |
 | **Shift + Up/Down** | Move selection along minor-3rds axis |
-| **D** | Toggle neo-Riemannian distance highlighting |
+| **F5** | Toggle neo-Riemannian distance highlighting |
 | **Click** | Select a note or triad; click again to deselect |
 | **Drag** | Pan the view |
 | **Scroll wheel** | Zoom |

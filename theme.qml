@@ -52,7 +52,7 @@ QtObject {
     readonly property color nrDist3: "#3355ff"   // d=3: blue
     readonly property color nrDist4: "#9933ff"   // d=4: violet
     readonly property color nrDist5: "#cc2222"   // d=5: red
-    readonly property color nrDist6: "#885522"   // d=6: brown (unreachable — diameter is 5)
+    readonly property color nrDist6: "#885522"   // d=6: brown (unreachable in Tonnetz/ChickenWire; reachable in Cube Dance)
 
     // Highlight — arbitrary note-set via setHighlightedNotes()
     readonly property color hlFaceFill:     selTriadFill    // Tonnetz triangle / CW hex face interior

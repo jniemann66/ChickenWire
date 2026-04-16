@@ -21,6 +21,19 @@ Item {
     id: root
     focus: true
 
+    Keys.onPressed: (event) => {
+        if (event.key === Qt.Key_F5) {
+            canvas.showDistances = !canvas.showDistances
+            if (canvas.showDistances && canvas.selNode >= 0) {
+                canvas.nodeDists = canvas.computeDistances(canvas.selNode)
+            } else {
+                canvas.nodeDists = []
+            }
+            canvas.requestPaint()
+            event.accepted = true
+        }
+    }
+
     Canvas {
         id: canvas
         anchors.fill: parent
@@ -45,8 +58,39 @@ Item {
         // Currently selected node index, or -1.
         property int selNode: -1
 
+        // NR distance from selected node to every other node.
+        // Empty when no node is selected or distance mode is off.
+        property bool showDistances: false
+        property var  nodeDists: []
+
         // Base size: 1 layout unit = baseUnit px at scale 1.
         readonly property real baseUnit: 58.0
+
+        // BFS over the explicit edge table.  Returns an array of length
+        // nodes.length where each entry is the shortest-path distance from
+        // startIdx, or -1 if unreachable (every node IS reachable here).
+        function computeDistances(startIdx) {
+            var dist = []
+            var i
+            for (i = 0; i < nodes.length; i++) dist[i] = -1
+            dist[startIdx] = 0
+            var queue = [startIdx]
+            var head  = 0
+            while (head < queue.length) {
+                var cur = queue[head++]
+                for (var ei = 0; ei < edges.length; ei++) {
+                    var e   = edges[ei]
+                    var nbr = -1
+                    if      (e[0] === cur) nbr = e[1]
+                    else if (e[1] === cur) nbr = e[0]
+                    if (nbr >= 0 && dist[nbr] < 0) {
+                        dist[nbr] = dist[cur] + 1
+                        queue.push(nbr)
+                    }
+                }
+            }
+            return dist
+        }
 
         function isAct(s) { return !!((activeNotes >> s) & 1) }
 
@@ -270,12 +314,16 @@ Item {
             }
 
             // ── Nodes ─────────────────────────────────────────────────────
+            var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3,
+                       Theme.nrDist4, Theme.nrDist5, Theme.nrDist6]
+
             for (var ni = 0; ni < nodes.length; ni++) {
                 var n       = nodes[ni]
                 var np      = nodePos(ni)
                 var active  = nodeIsActive(ni)
                 var sel     = (ni === selNode)
                 var augGlow = (n.type === "aug") && active && showAugmented
+                var nrD     = (nodeDists.length > 0) ? nodeDists[ni] : -1
 
                 if (n.type === "aug") {
                     // Square node for augmented chord
@@ -284,6 +332,11 @@ Item {
                     if (sel || augGlow) {
                         ctx.fillStyle   = Theme.selFill
                         ctx.strokeStyle = Theme.selStroke
+                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                    } else if (nrD >= 0 && nrD < nrC.length) {
+                        var nrClrA = nrC[nrD]
+                        ctx.fillStyle   = Qt.rgba(nrClrA.r, nrClrA.g, nrClrA.b, 0.35)
+                        ctx.strokeStyle = nrClrA
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                     } else {
                         ctx.fillStyle   = Theme.nodeFill
@@ -296,7 +349,9 @@ Item {
                     ctx.font         = "bold " + augFont + "px sans-serif"
                     ctx.textAlign    = "center"
                     ctx.textBaseline = "middle"
-                    ctx.fillStyle    = (sel || augGlow) ? Theme.selText : Theme.nodeText
+                    ctx.fillStyle    = (sel || augGlow) ? Theme.selText
+                                     : (nrD >= 0 && nrD < nrC.length) ? nrC[nrD]
+                                     : Theme.nodeText
                     ctx.fillText(nodeLabel(ni), np.x, np.y)
 
                 } else {
@@ -311,6 +366,11 @@ Item {
                     } else if (active) {
                         ctx.fillStyle   = Theme.hlNodeFill
                         ctx.strokeStyle = Theme.hlColor
+                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                    } else if (nrD >= 0 && nrD < nrC.length) {
+                        var nrClr = nrC[nrD]
+                        ctx.fillStyle   = Qt.rgba(nrClr.r, nrClr.g, nrClr.b, 0.35)
+                        ctx.strokeStyle = nrClr
                         ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
                     } else if (n.type === "major") {
                         ctx.fillStyle   = Theme.majorFill
@@ -328,7 +388,9 @@ Item {
                         ctx.font         = "bold " + fontSize + "px sans-serif"
                         ctx.textAlign    = "center"
                         ctx.textBaseline = "middle"
-                        ctx.fillStyle    = (active || sel) ? Theme.hlColor : Theme.triadText
+                        ctx.fillStyle    = (active || sel) ? Theme.hlColor
+                                         : (nrD >= 0 && nrD < nrC.length) ? nrC[nrD]
+                                         : Theme.triadText
                         ctx.fillText(nodeLabel(ni), np.x, np.y)
                     }
                 }
@@ -367,14 +429,18 @@ Item {
                 if (didDrag) return
                 var hit = canvas.hitTest(mouse.x, mouse.y)
                 if (hit < 0) {
-                    canvas.selNode = -1
+                    canvas.selNode   = -1
+                    canvas.nodeDists = []
                 } else if (hit === canvas.selNode) {
-                    canvas.selNode = -1   // toggle off
+                    canvas.selNode   = -1   // toggle off
+                    canvas.nodeDists = []
                 } else {
                     canvas.selNode = hit
                     var n = canvas.nodes[hit]
                     if (n.type !== "aug")
                         tonnetzController.selectTriad(n.s0, n.s1, n.s2, n.type === "major")
+                    if (canvas.showDistances)
+                        canvas.nodeDists = canvas.computeDistances(hit)
                 }
                 canvas.requestPaint()
             }

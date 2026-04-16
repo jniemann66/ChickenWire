@@ -5,7 +5,7 @@ Item {
     focus: true
 
     Keys.onPressed: (event) => {
-        if (event.key === Qt.Key_D) {
+        if (event.key === Qt.Key_F5) {
             tonnetzController.nrDistancesEnabled = !tonnetzController.nrDistancesEnabled
             event.accepted = true
             return
