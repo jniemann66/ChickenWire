@@ -83,6 +83,10 @@ Rectangle {
                     desc: "Toggle NR distance highlight"
                 },
                 {
+                    key: "F7",
+                    desc: "Toggle 'actual cubes' mode (split each aug into 2 vertices, one per bordering cluster)"
+                },
+                {
                     key: "Click",
                     desc: "Select chord"
                 },

@@ -31,6 +31,9 @@ Item {
             }
             canvas.requestPaint()
             event.accepted = true
+        } else if (event.key === Qt.Key_F7) {
+            canvas.cubeMode = !canvas.cubeMode
+            event.accepted = true
         }
     }
 
@@ -66,18 +69,31 @@ Item {
         // Base size: 1 layout unit = baseUnit px at scale 1.
         readonly property real baseUnit: 58.0
 
-        // Largest extent of the layout in layout units (the 4 augmented
-        // chords sit at ±5 along the cardinal axes), used to auto-fit the
-        // figure on resize.  Outermost shapes are the augmented squares with
-        // half-width 17 px at scale = 1, so we add that to the figure extent
-        // so the squares' outer edges (not their centres) are what fit.
-        readonly property real figureRadius: 5.0
+        // "Actual cubes" mode (F7): each hexatonic cycle becomes a true
+        // 8-vertex cube — its two bordering augmented chords appear as local
+        // vertices.  Each augmented chord is shared between two clusters, so
+        // it shows up twice; a faint line ties the two appearances together.
+        // Default; toggle off with F7 to see the traditional layout (4 augs
+        // pulled out to cardinal positions with long stretched spokes).
+        property bool cubeMode: true
+        onCubeModeChanged: fitToWindow()
+
+        // Largest extent of the layout in layout units, used to auto-fit the
+        // figure on resize.  In normal mode the 4 augmented chords sit at ±5
+        // along the cardinal axes; in cube mode the outermost cube-aug
+        // vertices sit at ±3.275.  Outermost shapes are the augmented squares
+        // with half-width 17 px at scale = 1, so we add that to the figure
+        // extent so the squares' outer edges (not their centres) are what fit.
         readonly property real nodeExtentPx: 17
 
         function fitToWindow() {
             if (width <= 0 || height <= 0) return
-            var avail = Math.min(width, height) / 2 - 20
-            var fr    = baseUnit * figureRadius + nodeExtentPx
+            var avail  = Math.min(width, height) / 2 - 20
+            // Read cubeMode directly here.  A `figureRadius: cubeMode ? ...`
+            // binding races against `onCubeModeChanged: fitToWindow()`, and
+            // the wrong radius produces over- or under-scaling on toggle.
+            var radius = cubeMode ? 3.275 : 5.0
+            var fr     = baseUnit * radius + nodeExtentPx
             if (fr < 1) return
             scale   = Math.max(0.1, avail / fr)
             originX = width / 2
@@ -88,15 +104,32 @@ Item {
         onHeightChanged:       fitToWindow()
         Component.onCompleted: fitToWindow()
 
-        // BFS over the explicit edge table.  Returns an array of length
-        // nodes.length where each entry is the shortest-path distance from
-        // startIdx, or -1 if unreachable (every node IS reachable here).
+        // Visibility / selection helpers for cube-mode aug nodes (28-35).
+        // Each cube-aug at index >= 28 is a visual surrogate for the central
+        // aug at index Math.floor((idx - 28) / 2) — selection state, BFS
+        // distance, and "is this chord sounding?" all defer to the central
+        // twin.
+        function centralAugFor(idx) {
+            return (idx >= 28) ? Math.floor((idx - 28) / 2) : idx
+        }
+        function isVisibleNode(idx) {
+            if (idx < 4)   return !cubeMode    // 4 central augs: only normal mode
+            if (idx >= 28) return cubeMode     // 8 cube augs: only cube mode
+            return true                         // 24 triads: always
+        }
+
+        // BFS over the original edge table (24 P/L + 24 aug-spoke edges).
+        // Returns an array of length nodes.length where each entry is the
+        // shortest-path distance from startIdx, or -1 if unreachable.
+        // Cube-mode aug positions (28-35) inherit the distance of their
+        // central twin so swapping display modes never changes distances.
         function computeDistances(startIdx) {
+            var src  = centralAugFor(startIdx)
             var dist = []
             var i
             for (i = 0; i < nodes.length; i++) dist[i] = -1
-            dist[startIdx] = 0
-            var queue = [startIdx]
+            dist[src] = 0
+            var queue = [src]
             var head  = 0
             while (head < queue.length) {
                 var cur = queue[head++]
@@ -111,6 +144,8 @@ Item {
                     }
                 }
             }
+            for (i = 28; i < nodes.length; i++)
+                dist[i] = dist[centralAugFor(i)]
             return dist
         }
 
@@ -226,7 +261,34 @@ Item {
             // 26  Gm
             { lx:  2.425, ly: -3.275, type: "minor", s0:  7, s1: 10, s2:  2, root:  7 },
             // 27  G
-            { lx:  3.275, ly: -2.425, type: "major", s0:  7, s1: 11, s2:  2, root:  7 }
+            { lx:  3.275, ly: -2.425, type: "major", s0:  7, s1: 11, s2:  2, root:  7 },
+
+            // ── Cube-mode aug positions (only drawn when cubeMode == true) ─
+            // Each augmented chord appears twice — once in each of the two
+            // clusters whose hexagonal cycle it borders.  A faint augLink
+            // edge (in cubeEdges) ties the two appearances together.
+            //
+            // Each cube-aug shares its x with one of its 3 spoke triads and
+            // its y with another, so 2 of the 3 spokes are axis-aligned and
+            // the 3rd is a 45° diagonal — matching the existing 2-axial +
+            // 1-diagonal pattern of the cluster hexagons.  The aug-twin
+            // links also fall on screen-axis lines.
+            // 28  C+ in Db+ cluster (foreign — links the cluster's 3 minors)
+            { lx: -0.725, ly:  3.275, type: "aug", s0:  0, s1:  4, s2:  8, root:  0 },
+            // 29  C+ in C+  cluster (own     — links the cluster's 3 majors)
+            { lx:  0.725, ly:  3.275, type: "aug", s0:  0, s1:  4, s2:  8, root:  0 },
+            // 30  Db+ in Db+ cluster (own     — 3 majors)
+            { lx: -3.275, ly:  0.725, type: "aug", s0:  1, s1:  5, s2:  9, root:  1 },
+            // 31  Db+ in D+  cluster (foreign — 3 minors)
+            { lx: -3.275, ly: -0.725, type: "aug", s0:  1, s1:  5, s2:  9, root:  1 },
+            // 32  Eb+ in C+  cluster (foreign — 3 minors)
+            { lx:  3.275, ly:  0.725, type: "aug", s0:  3, s1:  7, s2: 11, root:  3 },
+            // 33  Eb+ in Eb+ cluster (own     — 3 majors)
+            { lx:  3.275, ly: -0.725, type: "aug", s0:  3, s1:  7, s2: 11, root:  3 },
+            // 34  D+  in D+  cluster (own     — 3 majors)
+            { lx: -0.725, ly: -3.275, type: "aug", s0:  2, s1:  6, s2: 10, root:  2 },
+            // 35  D+  in Eb+ cluster (foreign — 3 minors)
+            { lx:  0.725, ly: -3.275, type: "aug", s0:  2, s1:  6, s2: 10, root:  2 }
         ]
 
         // ── Edge table ────────────────────────────────────────────────────────
@@ -266,6 +328,38 @@ Item {
 
         ]
 
+        // Cube-mode edges (only drawn when cubeMode == true).
+        // 4 augLink "twin" edges + 24 short aug spokes (each cube-aug to its
+        // 3 in-cluster triads).  No P/L edges here — those are shared with
+        // normal mode and drawn unconditionally.
+        property var cubeEdges: [
+            // Aug-twin links (faint cross-cluster connectors)
+            [28, 29, "augLink"],   // C+
+            [30, 31, "augLink"],   // Db+
+            [32, 33, "augLink"],   // Eb+
+            [34, 35, "augLink"],   // D+
+
+            // C+ in Db+ cluster (28) → 3 minors of that cluster: Am, Fm, C#m
+            [28, 5, "aug"], [28, 6, "aug"], [28, 9, "aug"],
+            // C+ in C+ cluster  (29) → 3 majors of that cluster: C, Ab, E
+            [29, 10, "aug"], [29, 13, "aug"], [29, 14, "aug"],
+
+            // Db+ in Db+ cluster (30) → 3 majors: F, A, Db
+            [30, 4, "aug"], [30, 7, "aug"], [30, 8, "aug"],
+            // Db+ in D+ cluster  (31) → 3 minors: Dm, Bbm, F#m
+            [31, 16, "aug"], [31, 19, "aug"], [31, 20, "aug"],
+
+            // Eb+ in C+ cluster  (32) → 3 minors: Cm, Em, Abm
+            [32, 11, "aug"], [32, 12, "aug"], [32, 15, "aug"],
+            // Eb+ in Eb+ cluster (33) → 3 majors: B, Eb, G
+            [33, 23, "aug"], [33, 24, "aug"], [33, 27, "aug"],
+
+            // D+ in D+ cluster   (34) → 3 majors: Bb, D, F#
+            [34, 17, "aug"], [34, 18, "aug"], [34, 21, "aug"],
+            // D+ in Eb+ cluster  (35) → 3 minors: Ebm, Bm, Gm
+            [35, 22, "aug"], [35, 25, "aug"], [35, 26, "aug"]
+        ]
+
         // ── Hit testing ───────────────────────────────────────────────────────
 
         function hitTest(px, py) {
@@ -273,11 +367,14 @@ Item {
             var bestDist2 = r2
             var best = -1
             for (var i = 0; i < nodes.length; i++) {
+                if (!isVisibleNode(i)) continue
                 var p  = nodePos(i)
                 var d2 = (px - p.x) * (px - p.x) + (py - p.y) * (py - p.y)
                 if (d2 < bestDist2) { bestDist2 = d2; best = i }
             }
-            return best
+            // Selection state lives in central-aug indices; cube-aug clicks
+            // map to their twin so both appearances highlight together.
+            return centralAugFor(best)
         }
 
         function scrollIntoView(screenPt) {
@@ -302,8 +399,13 @@ Item {
             ctx.lineCap = "round"
 
             // ── Edges ─────────────────────────────────────────────────────
+            // Normal mode draws the original 24 P/L + 24 aug-spoke edges.
+            // Cube mode draws the 24 P/L edges plus the cube-spoke + augLink
+            // edges (and skips the long stretched aug spokes from edges[]).
+            var edgeList = cubeMode ? cubeEdges : edges
             for (var ei = 0; ei < edges.length; ei++) {
                 var e  = edges[ei]
+                if (cubeMode && e[2] === "aug") continue  // long spokes off in cube mode
                 var pa = nodePos(e[0])
                 var pb = nodePos(e[1])
 
@@ -318,6 +420,24 @@ Item {
                 ctx.moveTo(pa.x, pa.y)
                 ctx.lineTo(pb.x, pb.y)
                 ctx.stroke()
+            }
+            if (cubeMode) {
+                for (var cei = 0; cei < cubeEdges.length; cei++) {
+                    var ce  = cubeEdges[cei]
+                    var cpa = nodePos(ce[0])
+                    var cpb = nodePos(ce[1])
+                    if (ce[2] === "augLink") {
+                        ctx.lineWidth   = Math.max(0.4, 0.7 * scale)
+                        ctx.strokeStyle = "#505050"
+                    } else {   // "aug" — short cube spoke
+                        ctx.lineWidth   = Math.max(0.5, 1.4 * scale)
+                        ctx.strokeStyle = "#909090"
+                    }
+                    ctx.beginPath()
+                    ctx.moveTo(cpa.x, cpa.y)
+                    ctx.lineTo(cpb.x, cpb.y)
+                    ctx.stroke()
+                }
             }
 
             // ── Highlight active edges ─────────────────────────────────────
@@ -340,10 +460,13 @@ Item {
                        Theme.nrDist4, Theme.nrDist5, Theme.nrDist6]
 
             for (var ni = 0; ni < nodes.length; ni++) {
+                if (!isVisibleNode(ni)) continue
                 var n       = nodes[ni]
                 var np      = nodePos(ni)
                 var active  = nodeIsActive(ni)
-                var sel     = (ni === selNode)
+                // selNode always holds a central-aug index (0-3) for augs;
+                // both cube-aug twins of that aug should highlight together.
+                var sel     = (centralAugFor(ni) === selNode)
                 var augGlow = (n.type === "aug") && active && showAugmented
                 var nrD     = (nodeDists.length > 0) ? nodeDists[ni] : -1
 
