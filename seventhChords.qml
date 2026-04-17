@@ -110,6 +110,25 @@ Item {
 
         readonly property real baseUnit: 45.0
 
+        // Outermost ring radius in layout units — used to fit the figure
+        // into the available canvas size whenever it is resized.  rMaj sits
+        // at the outside, plus a small allowance for node radius + label.
+        readonly property real figureRadius: rMaj
+
+        function fitToWindow() {
+            if (width <= 0 || height <= 0) return
+            var avail = Math.min(width, height) / 2 - 40
+            var fr    = baseUnit * figureRadius
+            if (fr < 1) return
+            scale   = Math.max(0.1, avail / fr)
+            originX = width / 2
+            originY = height / 2
+            requestPaint()
+        }
+        onWidthChanged:        fitToWindow()
+        onHeightChanged:       fitToWindow()
+        Component.onCompleted: fitToWindow()
+
         // Ring radii (layout units).  Order from centre outward follows the
         // "darker → brighter" gradient of the seventh chords themselves
         // (°7 darkest, maj7 brightest).  rDim is wider than the natural

@@ -66,6 +66,24 @@ Item {
         // Base size: 1 layout unit = baseUnit px at scale 1.
         readonly property real baseUnit: 58.0
 
+        // Largest extent of the layout (the 4 augmented chords sit at ±5
+        // along the cardinal axes), used to auto-fit the figure on resize.
+        readonly property real figureRadius: 5.0
+
+        function fitToWindow() {
+            if (width <= 0 || height <= 0) return
+            var avail = Math.min(width, height) / 2 - 40
+            var fr    = baseUnit * figureRadius
+            if (fr < 1) return
+            scale   = Math.max(0.1, avail / fr)
+            originX = width / 2
+            originY = height / 2
+            requestPaint()
+        }
+        onWidthChanged:        fitToWindow()
+        onHeightChanged:       fitToWindow()
+        Component.onCompleted: fitToWindow()
+
         // BFS over the explicit edge table.  Returns an array of length
         // nodes.length where each entry is the shortest-path distance from
         // startIdx, or -1 if unreachable (every node IS reachable here).
