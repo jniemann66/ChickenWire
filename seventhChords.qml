@@ -1,12 +1,12 @@
 // seventhChords.qml — Cannas/Andreatta generalised Chicken-wire Torus
 // for seventh chords (Bridges 2018, Fig. 3).
 //
-// 51 chord nodes + 132 edges.
-//   12 maj7    (Δ)   — hexagons, outer ring
-//   12 dom7    (7)   — pentagons
-//   12 min7    (m)   — rhombi
-//   12 ø7            — circles
-//    3 °7  orbits    — squares, centre triangle
+// 51 chord nodes + 132 edges, drawn in concentric rings.
+//   inner   ø7         (circles)
+//           min7       (rhombi)
+//           dom7       (pentagons)
+//           maj7       (hexagons)
+//   outer   °7 orbits  (squares — only 3 nodes, at 120° intervals)
 //
 // After enharmonic reduction the paper's 17 transformations collapse to
 // 11 distinct edge classes (12 instances each = 132 edges):
@@ -24,6 +24,16 @@
 //   Q43  maj ↔ ø        special Cannas/Andreatta Q map
 //
 // Edge colours:  P → pink   R → orange   L → blue   Q → green.
+//
+// Declutter aids:
+//   F5             toggle distance highlighting from the selected chord
+//   1..4           toggle P12, P14, P23, P35 (parallel edges)
+//   5..7           toggle R12, R23, R42      (relative edges)
+//   8, 9, 0        toggle L13, L15, L42      (leading-tone edges)
+//   - (minus)      toggle Q43                (special Q edge)
+//   = (or Backsp.) un-mute every class
+//   click a node   fades non-incident edges to ~20% so the local
+//                  neighbourhood stands out
 
 import QtQuick
 import ChickenWire
@@ -40,6 +50,26 @@ Item {
             } else {
                 canvas.nodeDists = []
             }
+            canvas.requestPaint()
+            event.accepted = true
+            return
+        }
+
+        // Number-row keys: toggle one transformation class at a time.
+        var idx = canvas.classKeyOrder.indexOf(event.key)
+        if (idx >= 0) {
+            var cls = canvas.classNames[idx]
+            var v   = Object.assign({}, canvas.visibleClasses)
+            v[cls]  = !v[cls]
+            canvas.visibleClasses = v
+            canvas.requestPaint()
+            event.accepted = true
+            return
+        }
+
+        // = / Backspace: restore all classes
+        if (event.key === Qt.Key_Equal || event.key === Qt.Key_Backspace) {
+            canvas.visibleClasses = canvas.allClassesVisible()
             canvas.requestPaint()
             event.accepted = true
         }
@@ -66,14 +96,37 @@ Item {
         property bool showDistances: false
         property var  nodeDists: []
 
-        readonly property real baseUnit: 45.0
+        readonly property real baseUnit: 38.0
 
-        // Ring radii (layout units)
-        readonly property real rMaj:     7.0
-        readonly property real rDom:     5.3
-        readonly property real rMin:     3.9
-        readonly property real rHalfdim: 2.55
-        readonly property real rDim:     0.85
+        // Ring radii (layout units).  °7 sits on its own ring outside maj;
+        // this empties the centre and gives the °7 squares room to be hit
+        // without the half-dim circles crowding their incoming edges.
+        readonly property real rHalfdim: 2.0
+        readonly property real rMin:     3.6
+        readonly property real rDom:     5.2
+        readonly property real rMaj:     6.8
+        readonly property real rDim:     8.5
+
+        // ── Edge-class visibility  ───────────────────────────────────────────
+        readonly property var classNames: [
+            "P12", "P14", "P23", "P35",
+            "R12", "R23", "R42",
+            "L13", "L15", "L42",
+            "Q43"
+        ]
+        // Number-row keys (in classNames order):  1 2 3 4 5 6 7 8 9 0 -
+        readonly property var classKeyOrder: [
+            Qt.Key_1, Qt.Key_2, Qt.Key_3, Qt.Key_4,
+            Qt.Key_5, Qt.Key_6, Qt.Key_7,
+            Qt.Key_8, Qt.Key_9, Qt.Key_0,
+            Qt.Key_Minus
+        ]
+        function allClassesVisible() {
+            var v = {}
+            for (var i = 0; i < classNames.length; i++) v[classNames[i]] = true
+            return v
+        }
+        property var visibleClasses: allClassesVisible()
 
         // Node layout:  0–11 maj | 12–23 dom | 24–35 min | 36–47 ø | 48–50 °
         property var nodes: (function () {
@@ -213,6 +266,53 @@ Item {
             return nodeR * 0.70                            // rhombus
         }
 
+        // Angular separation (radians) between two nodes as seen from the
+        // figure centre.  Used to decide whether to curve an edge.
+        function angularSpan(idxA, idxB) {
+            var na = nodes[idxA]
+            var nb = nodes[idxB]
+            var aa = (na.type === "dim") ? angleForDim(na.root) : angleFor(na.root)
+            var ab = (nb.type === "dim") ? angleForDim(nb.root) : angleFor(nb.root)
+            var d  = Math.abs(aa - ab)
+            if (d > Math.PI) d = 2 * Math.PI - d
+            return d
+        }
+
+        // Quadratic-Bezier control point that bows the chord outward, away
+        // from the figure centre.  Returns null for nearly-radial edges that
+        // should stay straight.  For chords whose midpoint is on the centre
+        // line, the cross product of (chord) × (midpoint−origin) breaks the
+        // tie deterministically.
+        function curveControlPoint(pa, pb, span) {
+            if (span < Math.PI / 6) return null   // < 30° → straight
+            var mx  = (pa.x + pb.x) / 2
+            var my  = (pa.y + pb.y) / 2
+            var dx  = pb.x - pa.x
+            var dy  = pb.y - pa.y
+            var len = Math.sqrt(dx * dx + dy * dy)
+            if (len < 1) return null
+            // Perpendicular unit vector.
+            var px = -dy / len
+            var py =  dx / len
+            // Midpoint relative to origin, used to pick the "outward" side.
+            var rx = mx - originX
+            var ry = my - originY
+            var dot = rx * px + ry * py
+            if (Math.abs(dot) < 0.5) {
+                // Chord (nearly) passes through origin — perpendicular is
+                // perpendicular to the radius too, so dot ≈ 0.  Use the
+                // signed area as a stable tiebreaker.
+                var cross = dx * ry - dy * rx
+                if (cross < 0) { px = -px; py = -py }
+            } else if (dot < 0) {
+                px = -px; py = -py
+            }
+            // Curvature grows from 0 at 30° to ~0.18·len at 180°.
+            var t      = (span - Math.PI / 6) / (Math.PI - Math.PI / 6)
+            var amount = len * 0.18 * t
+            return Qt.point(mx + px * amount, my + py * amount)
+        }
+
         onPaint: {
             var ctx = getContext("2d")
             ctx.clearRect(0, 0, width, height)
@@ -223,26 +323,48 @@ Item {
 
             ctx.lineCap = "round"
 
+            var hasSel = (selNode >= 0)
+
             // ── Edges ────────────────────────────────────────────────────────
             for (var ei = 0; ei < edges.length; ei++) {
                 var ed = edges[ei]
-                var pa = nodePos(ed[0])
-                var pb = nodePos(ed[1])
+                if (!visibleClasses[ed[2]]) continue
+                var pa  = nodePos(ed[0])
+                var pb  = nodePos(ed[1])
+                var inc = hasSel && (ed[0] === selNode || ed[1] === selNode)
+                ctx.globalAlpha = (hasSel && !inc) ? 0.2 : 1.0
+
+                var span = angularSpan(ed[0], ed[1])
+                var cp   = curveControlPoint(pa, pb, span)
+
                 ctx.lineWidth   = Math.max(0.4, 1.2 * scale)
                 ctx.strokeStyle = edgeColour(ed[2])
-                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke()
+                ctx.beginPath()
+                ctx.moveTo(pa.x, pa.y)
+                if (cp) ctx.quadraticCurveTo(cp.x, cp.y, pb.x, pb.y)
+                else    ctx.lineTo(pb.x, pb.y)
+                ctx.stroke()
             }
+            ctx.globalAlpha = 1.0
 
             // Active-edge highlight: both endpoints fully sounding.
+            // Skip muted classes so that hiding a class hides its highlight too.
             if (activeNotes !== 0) {
                 ctx.lineWidth   = Math.max(1, 2.6 * scale)
                 ctx.strokeStyle = Theme.hlEdge
                 for (var hi = 0; hi < edges.length; hi++) {
                     var he = edges[hi]
+                    if (!visibleClasses[he[2]]) continue
                     if (nodeIsActive(he[0]) && nodeIsActive(he[1])) {
-                        var ha = nodePos(he[0])
-                        var hb = nodePos(he[1])
-                        ctx.beginPath(); ctx.moveTo(ha.x, ha.y); ctx.lineTo(hb.x, hb.y); ctx.stroke()
+                        var ha   = nodePos(he[0])
+                        var hb   = nodePos(he[1])
+                        var hsp  = angularSpan(he[0], he[1])
+                        var hcp  = curveControlPoint(ha, hb, hsp)
+                        ctx.beginPath()
+                        ctx.moveTo(ha.x, ha.y)
+                        if (hcp) ctx.quadraticCurveTo(hcp.x, hcp.y, hb.x, hb.y)
+                        else     ctx.lineTo(hb.x, hb.y)
+                        ctx.stroke()
                     }
                 }
             }
@@ -305,27 +427,41 @@ Item {
 
             // ── Junction dots ────────────────────────────────────────────────
             // Schematic-style "the wire connects HERE" markers — one per edge
-            // endpoint, just inside each node's boundary along the edge's
-            // direction.  Coloured to match the edge so the transformation
-            // type stays readable.
+            // endpoint, just inside each node's boundary, in the direction of
+            // the curve's tangent at that endpoint (so dots line up with their
+            // edge even when the edge is bowed).  Coloured to match the edge
+            // and faded along with non-incident edges when a node is selected.
             var dotR = Math.max(1.6, 2.6 * scale)
             for (var di = 0; di < edges.length; di++) {
                 var edd = edges[di]
-                var pa  = nodePos(edd[0])
-                var pb  = nodePos(edd[1])
-                var dx  = pb.x - pa.x
-                var dy  = pb.y - pa.y
-                var len = Math.sqrt(dx * dx + dy * dy)
-                if (len < 1) continue
-                var ux = dx / len
-                var uy = dy / len
+                if (!visibleClasses[edd[2]]) continue
+                var dpa = nodePos(edd[0])
+                var dpb = nodePos(edd[1])
+                var dsp = angularSpan(edd[0], edd[1])
+                var dcp = curveControlPoint(dpa, dpb, dsp)
+
+                // Tangent direction at A points toward CP (or B if straight).
+                var ax2 = (dcp ? dcp.x : dpb.x) - dpa.x
+                var ay2 = (dcp ? dcp.y : dpb.y) - dpa.y
+                var bx2 = (dcp ? dcp.x : dpa.x) - dpb.x
+                var by2 = (dcp ? dcp.y : dpa.y) - dpb.y
+                var alen = Math.sqrt(ax2 * ax2 + ay2 * ay2)
+                var blen = Math.sqrt(bx2 * bx2 + by2 * by2)
+                if (alen < 1 || blen < 1) continue
                 var oa = boundaryOffset(nodes[edd[0]].type, nodeR, squareHW)
                 var ob = boundaryOffset(nodes[edd[1]].type, nodeR, squareHW)
 
-                ctx.fillStyle = edgeColour(edd[2])
-                ctx.beginPath(); ctx.arc(pa.x + ux * oa, pa.y + uy * oa, dotR, 0, Math.PI * 2); ctx.fill()
-                ctx.beginPath(); ctx.arc(pb.x - ux * ob, pb.y - uy * ob, dotR, 0, Math.PI * 2); ctx.fill()
+                var inc = hasSel && (edd[0] === selNode || edd[1] === selNode)
+                ctx.globalAlpha = (hasSel && !inc) ? 0.2 : 1.0
+                ctx.fillStyle   = edgeColour(edd[2])
+                ctx.beginPath()
+                ctx.arc(dpa.x + ax2 / alen * oa, dpa.y + ay2 / alen * oa, dotR, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.beginPath()
+                ctx.arc(dpb.x + bx2 / blen * ob, dpb.y + by2 / blen * ob, dotR, 0, Math.PI * 2)
+                ctx.fill()
             }
+            ctx.globalAlpha = 1.0
         }
 
         // ── Input ────────────────────────────────────────────────────────────
