@@ -1,0 +1,348 @@
+// seventhChords.qml — Cannas/Andreatta generalised Chicken-wire Torus
+// for seventh chords (Bridges 2018, Fig. 3).
+//
+// 51 chord nodes + 132 edges.
+//   12 maj7    (Δ)   — hexagons, outer ring
+//   12 dom7    (7)   — pentagons
+//   12 min7    (m)   — rhombi
+//   12 ø7            — circles
+//    3 °7  orbits    — squares, centre triangle
+//
+// After enharmonic reduction the paper's 17 transformations collapse to
+// 11 distinct edge classes (12 instances each = 132 edges):
+//
+//   P12  dom ↔ min      same root, parallel
+//   P14  dom ↔ maj
+//   P23  min ↔ ø
+//   P35  ø   ↔ °        same root (° orbit = root mod 3)
+//   R12  dom ↔ min      min root = dom root − 3
+//   R23  min ↔ ø
+//   R42  maj ↔ min
+//   L13  dom ↔ ø
+//   L15  dom ↔ °
+//   L42  maj ↔ min
+//   Q43  maj ↔ ø        special Cannas/Andreatta Q map
+//
+// Edge colours:  P → pink   R → orange   L → blue   Q → green.
+
+import QtQuick
+import ChickenWire
+
+Item {
+    id: root
+    focus: true
+
+    Keys.onPressed: (event) => {
+        if (event.key === Qt.Key_F5) {
+            canvas.showDistances = !canvas.showDistances
+            if (canvas.showDistances && canvas.selNode >= 0) {
+                canvas.nodeDists = canvas.computeDistances(canvas.selNode)
+            } else {
+                canvas.nodeDists = []
+            }
+            canvas.requestPaint()
+            event.accepted = true
+        }
+    }
+
+    Canvas {
+        id: canvas
+        anchors.fill: parent
+
+        property var noteNames:          tonnetzController.noteNames
+        property var majorRootNoteNames: tonnetzController.majorRootNoteNames
+        property var minorRootNoteNames: tonnetzController.minorRootNoteNames
+        property int activeNotes:        tonnetzController.activeNotes
+
+        onNoteNamesChanged:          requestPaint()
+        onMajorRootNoteNamesChanged: requestPaint()
+        onMinorRootNoteNamesChanged: requestPaint()
+        onActiveNotesChanged:        requestPaint()
+
+        property real originX: width  / 2
+        property real originY: height / 2
+        property real scale:   1.0
+        property int  selNode: -1
+        property bool showDistances: false
+        property var  nodeDists: []
+
+        readonly property real baseUnit: 45.0
+
+        // Ring radii (layout units)
+        readonly property real rMaj:     7.0
+        readonly property real rDom:     5.3
+        readonly property real rMin:     3.9
+        readonly property real rHalfdim: 2.55
+        readonly property real rDim:     0.85
+
+        // Node layout:  0–11 maj | 12–23 dom | 24–35 min | 36–47 ø | 48–50 °
+        property var nodes: (function () {
+            var arr = []
+            for (var r = 0; r < 12; r++) arr.push({ type: "maj",     root: r })
+            for (var r = 0; r < 12; r++) arr.push({ type: "dom",     root: r })
+            for (var r = 0; r < 12; r++) arr.push({ type: "min",     root: r })
+            for (var r = 0; r < 12; r++) arr.push({ type: "halfdim", root: r })
+            for (var r = 0; r < 3;  r++) arr.push({ type: "dim",     root: r })
+            return arr
+        })()
+
+        // Edge table — generated programmatically from the 11 transformation rules.
+        // Each entry: [nodeA, nodeB, transformationLabel].
+        property var edges: (function () {
+            var e = []
+            for (var r = 0; r < 12; r++) {
+                e.push([12 + r,       24 + r,               "P12"])
+                e.push([12 + r,        0 + r,               "P14"])
+                e.push([24 + r,       36 + r,               "P23"])
+                e.push([36 + r,       48 + (r % 3),         "P35"])
+                e.push([12 + r,       24 + ((r + 9) % 12),  "R12"])
+                e.push([24 + r,       36 + ((r + 9) % 12),  "R23"])
+                e.push([ 0 + r,       24 + ((r + 9) % 12),  "R42"])
+                e.push([12 + r,       36 + ((r + 4) % 12),  "L13"])
+                e.push([12 + r,       48 + ((r + 1) % 3),   "L15"])
+                e.push([ 0 + r,       24 + ((r + 4) % 12),  "L42"])
+                e.push([ 0 + r,       36 + ((r + 1) % 12),  "Q43"])
+            }
+            return e
+        })()
+
+        function angleFor(r)    { return Math.PI / 2 - r * Math.PI / 6 }
+        function angleForDim(o) { return Math.PI / 2 - o * 2 * Math.PI / 3 }
+
+        function posPolar(rad, ang) {
+            return Qt.point(
+                originX + rad * baseUnit * scale * Math.cos(ang),
+                originY - rad * baseUnit * scale * Math.sin(ang)
+            )
+        }
+
+        function nodePos(idx) {
+            var n = nodes[idx]
+            if (n.type === "maj")     return posPolar(rMaj,     angleFor(n.root))
+            if (n.type === "dom")     return posPolar(rDom,     angleFor(n.root))
+            if (n.type === "min")     return posPolar(rMin,     angleFor(n.root))
+            if (n.type === "halfdim") return posPolar(rHalfdim, angleFor(n.root))
+            return posPolar(rDim, angleForDim(n.root))
+        }
+
+        function notesForNode(idx) {
+            var n = nodes[idx]
+            var r = n.root
+            if (n.type === "maj")     return [r, (r+4)%12, (r+7)%12, (r+11)%12]
+            if (n.type === "dom")     return [r, (r+4)%12, (r+7)%12, (r+10)%12]
+            if (n.type === "min")     return [r, (r+3)%12, (r+7)%12, (r+10)%12]
+            if (n.type === "halfdim") return [r, (r+3)%12, (r+6)%12, (r+10)%12]
+            return [r, (r+3)%12, (r+6)%12, (r+9)%12]
+        }
+
+        function nodeLabel(idx) {
+            var n = nodes[idx]
+            if (n.type === "maj")     return majorRootNoteNames[n.root] + "Δ"
+            if (n.type === "dom")     return majorRootNoteNames[n.root] + "7"
+            if (n.type === "min")     return minorRootNoteNames[n.root] + "m"
+            if (n.type === "halfdim") return minorRootNoteNames[n.root] + "ø"
+            return minorRootNoteNames[n.root] + "°"
+        }
+
+        function isAct(s) { return !!((activeNotes >> s) & 1) }
+        function nodeIsActive(idx) {
+            var ns = notesForNode(idx)
+            return isAct(ns[0]) && isAct(ns[1]) && isAct(ns[2]) && isAct(ns[3])
+        }
+
+        function edgeColour(etype) {
+            var c = etype.charCodeAt(0)
+            if (c === 80)  return Theme.edgeP           // 'P'
+            if (c === 82)  return Theme.edgeR           // 'R'
+            if (c === 76)  return Theme.edgeL           // 'L'
+            return Theme.edgeQ                          // 'Q'
+        }
+
+        // BFS distance over the edge table.
+        function computeDistances(startIdx) {
+            var dist = []
+            for (var i = 0; i < nodes.length; i++) dist[i] = -1
+            dist[startIdx] = 0
+            var queue = [startIdx], head = 0
+            while (head < queue.length) {
+                var cur = queue[head++]
+                for (var ei = 0; ei < edges.length; ei++) {
+                    var ee  = edges[ei]
+                    var nbr = (ee[0] === cur) ? ee[1] : (ee[1] === cur ? ee[0] : -1)
+                    if (nbr >= 0 && dist[nbr] < 0) {
+                        dist[nbr] = dist[cur] + 1
+                        queue.push(nbr)
+                    }
+                }
+            }
+            return dist
+        }
+
+        function hitTest(px, py) {
+            var rad = Math.max(7, 15 * scale)
+            var bestD2 = rad * rad
+            var best = -1
+            for (var i = 0; i < nodes.length; i++) {
+                var p  = nodePos(i)
+                var d2 = (px - p.x) * (px - p.x) + (py - p.y) * (py - p.y)
+                if (d2 < bestD2) { bestD2 = d2; best = i }
+            }
+            return best
+        }
+
+        // Regular polygon path, circumradius `rad`, first vertex at angle `phase`.
+        function pathPolygon(ctx, cx, cy, rad, sides, phase) {
+            ctx.beginPath()
+            for (var k = 0; k < sides; k++) {
+                var a = phase + k * 2 * Math.PI / sides
+                var x = cx + rad * Math.cos(a)
+                var y = cy + rad * Math.sin(a)
+                if (k === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y)
+            }
+            ctx.closePath()
+        }
+
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.clearRect(0, 0, width, height)
+
+            var nodeR    = Math.max(6, 15 * scale)
+            var squareHW = Math.max(5, 13 * scale)
+            var fontSize = Math.max(1, 10 * scale)
+
+            ctx.lineCap = "round"
+
+            // ── Edges ────────────────────────────────────────────────────────
+            for (var ei = 0; ei < edges.length; ei++) {
+                var ed = edges[ei]
+                var pa = nodePos(ed[0])
+                var pb = nodePos(ed[1])
+                ctx.lineWidth   = Math.max(0.4, 1.2 * scale)
+                ctx.strokeStyle = edgeColour(ed[2])
+                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke()
+            }
+
+            // Active-edge highlight: both endpoints fully sounding.
+            if (activeNotes !== 0) {
+                ctx.lineWidth   = Math.max(1, 2.6 * scale)
+                ctx.strokeStyle = Theme.hlEdge
+                for (var hi = 0; hi < edges.length; hi++) {
+                    var he = edges[hi]
+                    if (nodeIsActive(he[0]) && nodeIsActive(he[1])) {
+                        var ha = nodePos(he[0])
+                        var hb = nodePos(he[1])
+                        ctx.beginPath(); ctx.moveTo(ha.x, ha.y); ctx.lineTo(hb.x, hb.y); ctx.stroke()
+                    }
+                }
+            }
+
+            // ── Nodes ────────────────────────────────────────────────────────
+            var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3,
+                       Theme.nrDist4, Theme.nrDist5, Theme.nrDist6]
+
+            for (var ni = 0; ni < nodes.length; ni++) {
+                var n   = nodes[ni]
+                var np  = nodePos(ni)
+                var act = nodeIsActive(ni)
+                var sel = (ni === selNode)
+                var nrD = (nodeDists.length > 0) ? nodeDists[ni] : -1
+                if (nrD > nrC.length - 1) nrD = nrC.length - 1
+
+                // Shape
+                if      (n.type === "maj")     pathPolygon(ctx, np.x, np.y, nodeR,         6, -Math.PI / 2)
+                else if (n.type === "dom")     pathPolygon(ctx, np.x, np.y, nodeR,         5, -Math.PI / 2)
+                else if (n.type === "min")     pathPolygon(ctx, np.x, np.y, nodeR * 1.05,  4, -Math.PI / 2)
+                else if (n.type === "halfdim") { ctx.beginPath(); ctx.arc(np.x, np.y, nodeR * 0.9, 0, Math.PI * 2) }
+                else                           { ctx.beginPath(); ctx.rect(np.x - squareHW, np.y - squareHW, squareHW * 2, squareHW * 2) }
+
+                // Fill / stroke
+                if (sel) {
+                    ctx.fillStyle   = Theme.selFill
+                    ctx.strokeStyle = Theme.selStroke
+                    ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                } else if (act) {
+                    ctx.fillStyle   = Theme.hlNodeFill
+                    ctx.strokeStyle = Theme.hlColor
+                    ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                } else if (nrD >= 0) {
+                    var c = nrC[nrD]
+                    ctx.fillStyle   = Qt.rgba(c.r, c.g, c.b, 0.35)
+                    ctx.strokeStyle = c
+                    ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                } else if (n.type === "maj" || n.type === "dom") {
+                    ctx.fillStyle   = Theme.majorFill
+                    ctx.strokeStyle = Theme.majorStroke
+                    ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
+                } else {
+                    ctx.fillStyle   = Theme.minorFill
+                    ctx.strokeStyle = Theme.minorStroke
+                    ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
+                }
+                ctx.fill()
+                ctx.stroke()
+
+                if (nodeR > 6) {
+                    ctx.font         = "bold " + fontSize + "px sans-serif"
+                    ctx.textAlign    = "center"
+                    ctx.textBaseline = "middle"
+                    ctx.fillStyle    = (act || sel)   ? Theme.hlColor
+                                     : (nrD >= 0)     ? nrC[nrD]
+                                                      : Theme.triadText
+                    ctx.fillText(nodeLabel(ni), np.x, np.y)
+                }
+            }
+        }
+
+        // ── Input ────────────────────────────────────────────────────────────
+
+        MouseArea {
+            anchors.fill: parent
+
+            property real lastX:  0
+            property real lastY:  0
+            property real pressX: 0
+            property real pressY: 0
+            property bool didDrag: false
+
+            onPressed: (m) => {
+                lastX = m.x; lastY = m.y
+                pressX = m.x; pressY = m.y
+                didDrag = false
+            }
+
+            onPositionChanged: (m) => {
+                if (!pressed) return
+                if (Math.abs(m.x - pressX) > 4 || Math.abs(m.y - pressY) > 4) didDrag = true
+                canvas.originX += m.x - lastX
+                canvas.originY += m.y - lastY
+                lastX = m.x; lastY = m.y
+                canvas.requestPaint()
+            }
+
+            onReleased: (m) => {
+                parent.forceActiveFocus()
+                if (didDrag) return
+                var hit = canvas.hitTest(m.x, m.y)
+                if (hit < 0 || hit === canvas.selNode) {
+                    canvas.selNode   = -1
+                    canvas.nodeDists = []
+                    tonnetzController.clearHighlightedNotes()
+                } else {
+                    canvas.selNode = hit
+                    tonnetzController.setHighlightedNotes(canvas.notesForNode(hit))
+                    if (canvas.showDistances)
+                        canvas.nodeDists = canvas.computeDistances(hit)
+                }
+                canvas.requestPaint()
+            }
+
+            onWheel: (w) => {
+                var factor = w.angleDelta.y > 0 ? 1.12 : (1.0 / 1.12)
+                canvas.originX = w.x + (canvas.originX - w.x) * factor
+                canvas.originY = w.y + (canvas.originY - w.y) * factor
+                canvas.scale *= factor
+                canvas.requestPaint()
+            }
+        }
+    }
+}

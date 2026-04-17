@@ -15,9 +15,11 @@ QtObject {
 
     // Neo-Riemannian edges (Tonnetz edges / ChickenWire edges)
     //    L = leading-tone exchange   R = relative   P = parallel
+    //    Q = special seventh-chord transformation (Cannas/Andreatta Q43)
     readonly property color edgeL: "#3daee9"   // blue   (was "#6a9fd4")
     readonly property color edgeR: "#f67400"   // orange (was "#d4964a")
     readonly property color edgeP: "#e93d9a"   // pink   (was "#d47a9b")
+    readonly property color edgeQ: "#22cc55"   // green  (used only in the seventh-chord graph)
 
     // Labels: faint and active (ie when selected)
     readonly property color labelFaint: "#8888aa"

@@ -108,9 +108,10 @@ int main(int argc, char *argv[])
     };
 
     // set-up View Menu
-    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"),      QStringLiteral("tonnetz.qml"));
-    auto *cwAction      = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("chickenWire.qml"));
-    auto *cdAction      = makeAction(QStringLiteral("Cube &Dance"),   QStringLiteral("cubeDance.qml"));
+    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"),           QStringLiteral("tonnetz.qml"));
+    auto *cwAction      = makeAction(QStringLiteral("&Chicken Wire"),      QStringLiteral("chickenWire.qml"));
+    auto *cdAction      = makeAction(QStringLiteral("Cube &Dance"),        QStringLiteral("cubeDance.qml"));
+    auto *s7Action      = makeAction(QStringLiteral("&Seventh Chords"),    QStringLiteral("seventhChords.qml"));
     viewMenu->addSeparator();
     auto *augAction = viewMenu->addAction(QStringLiteral("Show &Augmented Chords"));
     augAction->setCheckable(true);
@@ -142,6 +143,7 @@ int main(int argc, char *argv[])
         tonnetzAction->setChecked(src == QStringLiteral("tonnetz.qml"));
         cwAction->setChecked(src      == QStringLiteral("chickenWire.qml"));
         cdAction->setChecked(src      == QStringLiteral("cubeDance.qml"));
+        s7Action->setChecked(src      == QStringLiteral("seventhChords.qml"));
     });
 
     // Color Scheme menu

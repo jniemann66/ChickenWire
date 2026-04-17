@@ -76,12 +76,32 @@ Item {
             item.forceActiveFocus()
     }
 
+    Loader {
+        id: s7Loader
+        anchors.fill: parent
+        source: "seventhChords.qml"
+        opacity: visualizerSwitcher.source === "seventhChords.qml" ? 1.0 : 0.0
+        enabled: visualizerSwitcher.source === "seventhChords.qml"
+        layer.enabled: true
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1000
+                easing.type: Easing.InOutQuad
+            }
+        }
+        onLoaded: if (visualizerSwitcher.source === "seventhChords.qml")
+            item.forceActiveFocus()
+    }
+
     // Transfer keyboard focus to whichever view is becoming active.
     Connections {
         target: visualizerSwitcher
         function onSourceChanged() {
             var src = visualizerSwitcher.source;
-            var loader = src === "tonnetz.qml" ? tonnetzLoader : src === "chickenWire.qml" ? cwLoader : cdLoader;
+            var loader = src === "tonnetz.qml"       ? tonnetzLoader
+                       : src === "chickenWire.qml"   ? cwLoader
+                       : src === "cubeDance.qml"     ? cdLoader
+                       : s7Loader;
             if (loader.item)
                 loader.item.forceActiveFocus();
         }
