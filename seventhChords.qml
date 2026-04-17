@@ -110,23 +110,28 @@ Item {
 
         readonly property real baseUnit: 45.0
 
-        // Outermost ring radius in layout units — used to fit the figure
-        // into the available canvas size whenever it is resized.  rMaj sits
-        // at the outside, plus a small allowance for node radius + label.
+        // Outermost-ring radius in layout units; the maj hexagons sit there.
         readonly property real figureRadius: rMaj
+        // Scale-dependent half-extent of an outermost node, in pixels at
+        // scale = 1.  This is what `nodeR = max(6, 15*scale)` evaluates to
+        // when scale = 1, so the actual visual extent is `(figureRadius *
+        // baseUnit + nodeExtentPx) * scale`.
+        readonly property real nodeExtentPx: 15
 
         function fitToWindow() {
-            if (width <= 0 || height <= 0) return
-            var avail = Math.min(width, height) / 2 - 40
-            var fr    = baseUnit * figureRadius
-            if (fr < 1) return
-            scale   = Math.max(0.1, avail / fr)
-            originX = width / 2
-            originY = height / 2
-            requestPaint()
+            if (width <= 0 || height <= 0)
+                return;
+            var avail = Math.min(width, height) / 2 - 20;   // 20 px breathing room
+            var fr = baseUnit * figureRadius + nodeExtentPx;
+            if (fr < 1)
+                return;
+            scale = Math.max(0.1, avail / fr);
+            originX = width / 2;
+            originY = height / 2;
+            requestPaint();
         }
-        onWidthChanged:        fitToWindow()
-        onHeightChanged:       fitToWindow()
+        onWidthChanged: fitToWindow()
+        onHeightChanged: fitToWindow()
         Component.onCompleted: fitToWindow()
 
         // Ring radii (layout units).  Order from centre outward follows the

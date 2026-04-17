@@ -66,14 +66,18 @@ Item {
         // Base size: 1 layout unit = baseUnit px at scale 1.
         readonly property real baseUnit: 58.0
 
-        // Largest extent of the layout (the 4 augmented chords sit at ±5
-        // along the cardinal axes), used to auto-fit the figure on resize.
+        // Largest extent of the layout in layout units (the 4 augmented
+        // chords sit at ±5 along the cardinal axes), used to auto-fit the
+        // figure on resize.  Outermost shapes are the augmented squares with
+        // half-width 17 px at scale = 1, so we add that to the figure extent
+        // so the squares' outer edges (not their centres) are what fit.
         readonly property real figureRadius: 5.0
+        readonly property real nodeExtentPx: 17
 
         function fitToWindow() {
             if (width <= 0 || height <= 0) return
-            var avail = Math.min(width, height) / 2 - 40
-            var fr    = baseUnit * figureRadius
+            var avail = Math.min(width, height) / 2 - 20
+            var fr    = baseUnit * figureRadius + nodeExtentPx
             if (fr < 1) return
             scale   = Math.max(0.1, avail / fr)
             originX = width / 2
