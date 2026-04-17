@@ -9,10 +9,10 @@
 // adjacent hexatonic cycles.
 //
 // Edge colour coding matches Tonnetz / ChickenWire:
-//   P (parallel)             pink
-//   L (leading-tone exchange) blue
-//   R (relative)             orange
-//   augmented-chord edges    grey  (semitone voice leading, not a NR transformation)
+// P (parallel)             pink
+// L (leading-tone exchange) blue
+// R (relative)             orange
+// augmented-chord edges    grey  (semitone voice leading, not a NR transformation)
 
 import QtQuick
 import ChickenWire
@@ -21,19 +21,19 @@ Item {
     id: root
     focus: true
 
-    Keys.onPressed: (event) => {
+    Keys.onPressed: event => {
         if (event.key === Qt.Key_F5) {
-            canvas.showDistances = !canvas.showDistances
+            canvas.showDistances = !canvas.showDistances;
             if (canvas.showDistances && canvas.selNode >= 0) {
-                canvas.nodeDists = canvas.computeDistances(canvas.selNode)
+                canvas.nodeDists = canvas.computeDistances(canvas.selNode);
             } else {
-                canvas.nodeDists = []
+                canvas.nodeDists = [];
             }
-            canvas.requestPaint()
-            event.accepted = true
+            canvas.requestPaint();
+            event.accepted = true;
         } else if (event.key === Qt.Key_F7) {
-            canvas.cubeMode = !canvas.cubeMode
-            event.accepted = true
+            canvas.cubeMode = !canvas.cubeMode;
+            event.accepted = true;
         }
     }
 
@@ -41,22 +41,22 @@ Item {
         id: canvas
         anchors.fill: parent
 
-        property var noteNames:          tonnetzController.noteNames
+        property var noteNames: tonnetzController.noteNames
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
-        property int  activeNotes:   tonnetzController.activeNotes
+        property int activeNotes: tonnetzController.activeNotes
         property bool showAugmented: visualizerSwitcher.showAugmented
 
-        onNoteNamesChanged:          requestPaint()
+        onNoteNamesChanged: requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
-        onActiveNotesChanged:        requestPaint()
-        onShowAugmentedChanged:      requestPaint()
+        onActiveNotesChanged: requestPaint()
+        onShowAugmentedChanged: requestPaint()
 
         // Viewport — independent of Tonnetz / ChickenWire coordinate system.
-        property real originX: width  / 2
+        property real originX: width / 2
         property real originY: height / 2
-        property real scale:   1.0
+        property real scale: 1.0
 
         // Currently selected node index, or -1.
         property int selNode: -1
@@ -64,7 +64,7 @@ Item {
         // NR distance from selected node to every other node.
         // Empty when no node is selected or distance mode is off.
         property bool showDistances: false
-        property var  nodeDists: []
+        property var nodeDists: []
 
         // Base size: 1 layout unit = baseUnit px at scale 1.
         readonly property real baseUnit: 58.0
@@ -87,21 +87,23 @@ Item {
         readonly property real nodeExtentPx: 17
 
         function fitToWindow() {
-            if (width <= 0 || height <= 0) return
-            var avail  = Math.min(width, height) / 2 - 20
+            if (width <= 0 || height <= 0)
+                return;
+            var avail = Math.min(width, height) / 2 - 20;
             // Read cubeMode directly here.  A `figureRadius: cubeMode ? ...`
             // binding races against `onCubeModeChanged: fitToWindow()`, and
             // the wrong radius produces over- or under-scaling on toggle.
-            var radius = cubeMode ? 3.275 : 5.0
-            var fr     = baseUnit * radius + nodeExtentPx
-            if (fr < 1) return
-            scale   = Math.max(0.1, avail / fr)
-            originX = width / 2
-            originY = height / 2
-            requestPaint()
+            var radius = cubeMode ? 3.275 : 5.0;
+            var fr = baseUnit * radius + nodeExtentPx;
+            if (fr < 1)
+                return;
+            scale = Math.max(0.1, avail / fr);
+            originX = width / 2;
+            originY = height / 2;
+            requestPaint();
         }
-        onWidthChanged:        fitToWindow()
-        onHeightChanged:       fitToWindow()
+        onWidthChanged: fitToWindow()
+        onHeightChanged: fitToWindow()
         Component.onCompleted: fitToWindow()
 
         // Visibility / selection helpers for cube-mode aug nodes (28-35).
@@ -110,12 +112,14 @@ Item {
         // distance, and "is this chord sounding?" all defer to the central
         // twin.
         function centralAugFor(idx) {
-            return (idx >= 28) ? Math.floor((idx - 28) / 2) : idx
+            return (idx >= 28) ? Math.floor((idx - 28) / 2) : idx;
         }
         function isVisibleNode(idx) {
-            if (idx < 4)   return !cubeMode    // 4 central augs: only normal mode
-            if (idx >= 28) return cubeMode     // 8 cube augs: only cube mode
-            return true                         // 24 triads: always
+            if (idx < 4)
+                return !cubeMode;    // 4 central augs: only normal mode
+            if (idx >= 28)
+                return cubeMode;     // 8 cube augs: only cube mode
+            return true;                         // 24 triads: always
         }
 
         // BFS over the original edge table (24 P/L + 24 aug-spoke edges).
@@ -124,146 +128,372 @@ Item {
         // Cube-mode aug positions (28-35) inherit the distance of their
         // central twin so swapping display modes never changes distances.
         function computeDistances(startIdx) {
-            var src  = centralAugFor(startIdx)
-            var dist = []
-            var i
-            for (i = 0; i < nodes.length; i++) dist[i] = -1
-            dist[src] = 0
-            var queue = [src]
-            var head  = 0
+            var src = centralAugFor(startIdx);
+            var dist = [];
+            var i;
+            for (i = 0; i < nodes.length; i++)
+                dist[i] = -1;
+            dist[src] = 0;
+            var queue = [src];
+            var head = 0;
             while (head < queue.length) {
-                var cur = queue[head++]
+                var cur = queue[head++];
                 for (var ei = 0; ei < edges.length; ei++) {
-                    var e   = edges[ei]
-                    var nbr = -1
-                    if      (e[0] === cur) nbr = e[1]
-                    else if (e[1] === cur) nbr = e[0]
+                    var e = edges[ei];
+                    var nbr = -1;
+                    if (e[0] === cur)
+                        nbr = e[1];
+                    else if (e[1] === cur)
+                        nbr = e[0];
                     if (nbr >= 0 && dist[nbr] < 0) {
-                        dist[nbr] = dist[cur] + 1
-                        queue.push(nbr)
+                        dist[nbr] = dist[cur] + 1;
+                        queue.push(nbr);
                     }
                 }
             }
             for (i = 28; i < nodes.length; i++)
-                dist[i] = dist[centralAugFor(i)]
-            return dist
+                dist[i] = dist[centralAugFor(i)];
+            return dist;
         }
 
-        function isAct(s) { return !!((activeNotes >> s) & 1) }
+        function isAct(s) {
+            return !!((activeNotes >> s) & 1);
+        }
 
         function nodeIsActive(idx) {
-            var n = nodes[idx]
-            return isAct(n.s0) && isAct(n.s1) && isAct(n.s2)
+            var n = nodes[idx];
+            return isAct(n.s0) && isAct(n.s1) && isAct(n.s2);
         }
 
         function nodePos(idx) {
-            var n = nodes[idx]
-            return Qt.point(
-                originX + n.lx * baseUnit * scale,
-                originY - n.ly * baseUnit * scale
-            )
+            var n = nodes[idx];
+            return Qt.point(originX + n.lx * baseUnit * scale, originY - n.ly * baseUnit * scale);
         }
 
         function nodeLabel(idx) {
-            var n = nodes[idx]
+            var n = nodes[idx];
             if (n.type === "aug")
-                return majorRootNoteNames[n.root] + "+"
+                return majorRootNoteNames[n.root] + "+";
             if (n.type === "major")
-                return majorRootNoteNames[n.root]
-            return minorRootNoteNames[n.root] + "m"
+                return majorRootNoteNames[n.root];
+            return minorRootNoteNames[n.root] + "m";
         }
 
-        // ── Node table ────────────────────────────────────────────────────────
-        //   lx, ly  : layout coordinates (y up; 1 unit ≈ baseUnit px at scale 1)
-        //   type    : "aug" | "major" | "minor"
-        //   s0..s2  : three semitones (root, third, fifth)
-        //   root    : root semitone used for label lookup
+        // Node table
+        // lx, ly  : layout coordinates (y up; 1 unit ≈ baseUnit px at scale 1)
+        // type    : "aug" | "major" | "minor"
+        // s0..s2  : three semitones (root, third, fifth)
+        // root    : root semitone used for label lookup
         //
-        //   Augmented chord nodes (indices 0–3) — cardinal positions
-        //   Db+ cycle cluster (indices 4–9)  — upper-left
-        //   C+  cycle cluster (indices 10–15) — upper-right
-        //   D+  cycle cluster (indices 16–21) — lower-left
-        //   Eb+ cycle cluster (indices 22–27) — lower-right
+        // Augmented chord nodes (indices 0–3) — cardinal positions
+        // Db+ cycle cluster (indices 4–9)  — upper-left
+        // C+  cycle cluster (indices 10–15) — upper-right
+        // D+  cycle cluster (indices 16–21) — lower-left
+        // Eb+ cycle cluster (indices 22–27) — lower-right
         property var nodes: [
-            // ── Augmented chords ──────────────────────────────────────────
+            // Augmented chords
             // 0  C+
-            { lx:  0.00, ly:  5.0, type: "aug",   s0:  0, s1:  4, s2:  8, root:  0 },
+            {
+                lx: 0.00,
+                ly: 5.0,
+                type: "aug",
+                s0: 0,
+                s1: 4,
+                s2: 8,
+                root: 0
+            },
             // 1  Db+
-            { lx: -5.00, ly:  0.0, type: "aug",   s0:  1, s1:  5, s2:  9, root:  1 },
+            {
+                lx: -5.00,
+                ly: 0.0,
+                type: "aug",
+                s0: 1,
+                s1: 5,
+                s2: 9,
+                root: 1
+            },
             // 2  Eb+
-            { lx:  5.00, ly:  0.0, type: "aug",   s0:  3, s1:  7, s2: 11, root:  3 },
+            {
+                lx: 5.00,
+                ly: 0.0,
+                type: "aug",
+                s0: 3,
+                s1: 7,
+                s2: 11,
+                root: 3
+            },
             // 3  D+
-            { lx:  0.00, ly: -5.0, type: "aug",   s0:  2, s1:  6, s2: 10, root:  2 },
+            {
+                lx: 0.00,
+                ly: -5.0,
+                type: "aug",
+                s0: 2,
+                s1: 6,
+                s2: 10,
+                root: 2
+            },
 
-            // ── Db+ hexatonic cycle (upper-left, rotated +45°) ───────────
+            // Db+ hexatonic cycle (upper-left, rotated +45°)
             // Horizontal edges: F–Am, C#m–Db  (shared ly)
             // Vertical edges:   Am–A, Db–Fm   (shared lx)
             // Diagonal edges:   A–C#m, Fm–F   (Δlx = Δly = 0.85)
             // 4  F
-            { lx: -3.275, ly:  2.425, type: "major", s0:  5, s1:  9, s2:  0, root:  5 },
+            {
+                lx: -3.275,
+                ly: 2.425,
+                type: "major",
+                s0: 5,
+                s1: 9,
+                s2: 0,
+                root: 5
+            },
             // 5  Am
-            { lx: -1.575, ly:  2.425, type: "minor", s0:  9, s1:  0, s2:  4, root:  9 },
+            {
+                lx: -1.575,
+                ly: 2.425,
+                type: "minor",
+                s0: 9,
+                s1: 0,
+                s2: 4,
+                root: 9
+            },
             // 6  Fm
-            { lx: -2.425, ly:  3.275, type: "minor", s0:  5, s1:  8, s2:  0, root:  5 },
+            {
+                lx: -2.425,
+                ly: 3.275,
+                type: "minor",
+                s0: 5,
+                s1: 8,
+                s2: 0,
+                root: 5
+            },
             // 7  A
-            { lx: -1.575, ly:  0.725, type: "major", s0:  9, s1:  1, s2:  4, root:  9 },
+            {
+                lx: -1.575,
+                ly: 0.725,
+                type: "major",
+                s0: 9,
+                s1: 1,
+                s2: 4,
+                root: 9
+            },
             // 8  Db
-            { lx: -2.425, ly:  1.575, type: "major", s0:  1, s1:  5, s2:  8, root:  1 },
+            {
+                lx: -2.425,
+                ly: 1.575,
+                type: "major",
+                s0: 1,
+                s1: 5,
+                s2: 8,
+                root: 1
+            },
             // 9  C#m
-            { lx: -0.725, ly:  1.575, type: "minor", s0:  1, s1:  4, s2:  8, root:  1 },
+            {
+                lx: -0.725,
+                ly: 1.575,
+                type: "minor",
+                s0: 1,
+                s1: 4,
+                s2: 8,
+                root: 1
+            },
 
-            // ── C+ hexatonic cycle (upper-right, rotated −45°) ───────────
+            // C+ hexatonic cycle (upper-right, rotated −45°)
             // Horizontal edges: Cm–Ab, E–Em   (shared ly)
             // Vertical edges:   Ab–Abm, Em–C  (shared lx)
             // Diagonal edges:   C–Cm, Abm–E   (Δlx = Δly = 0.85)
             // 10  C
-            { lx:  2.425, ly:  3.275, type: "major", s0:  0, s1:  4, s2:  7, root:  0 },
+            {
+                lx: 2.425,
+                ly: 3.275,
+                type: "major",
+                s0: 0,
+                s1: 4,
+                s2: 7,
+                root: 0
+            },
             // 11  Cm
-            { lx:  3.275, ly:  2.425, type: "minor", s0:  0, s1:  3, s2:  7, root:  0 },
+            {
+                lx: 3.275,
+                ly: 2.425,
+                type: "minor",
+                s0: 0,
+                s1: 3,
+                s2: 7,
+                root: 0
+            },
             // 12  Em
-            { lx:  2.425, ly:  1.575, type: "minor", s0:  4, s1:  7, s2: 11, root:  4 },
+            {
+                lx: 2.425,
+                ly: 1.575,
+                type: "minor",
+                s0: 4,
+                s1: 7,
+                s2: 11,
+                root: 4
+            },
             // 13  Ab
-            { lx:  1.575, ly:  2.425, type: "major", s0:  8, s1:  0, s2:  3, root:  8 },
+            {
+                lx: 1.575,
+                ly: 2.425,
+                type: "major",
+                s0: 8,
+                s1: 0,
+                s2: 3,
+                root: 8
+            },
             // 14  E
-            { lx:  0.725, ly:  1.575, type: "major", s0:  4, s1:  8, s2: 11, root:  4 },
+            {
+                lx: 0.725,
+                ly: 1.575,
+                type: "major",
+                s0: 4,
+                s1: 8,
+                s2: 11,
+                root: 4
+            },
             // 15  Abm
-            { lx:  1.575, ly:  0.725, type: "minor", s0:  8, s1: 11, s2:  3, root:  8 },
+            {
+                lx: 1.575,
+                ly: 0.725,
+                type: "minor",
+                s0: 8,
+                s1: 11,
+                s2: 3,
+                root: 8
+            },
 
-            // ── D+ hexatonic cycle (lower-left, rotated −45°) ────────────
+            // D+ hexatonic cycle (lower-left, rotated −45°)
             // Horizontal edges: Bbm–F#, D–Dm  (shared ly)
             // Vertical edges:   Dm–Bb, F#–F#m (shared lx)
             // Diagonal edges:   Bb–Bbm, F#m–D (Δlx = Δly = 0.85)
             // 16  Dm
-            { lx: -2.425, ly: -1.575, type: "minor", s0:  2, s1:  5, s2:  9, root:  2 },
+            {
+                lx: -2.425,
+                ly: -1.575,
+                type: "minor",
+                s0: 2,
+                s1: 5,
+                s2: 9,
+                root: 2
+            },
             // 17  Bb
-            { lx: -2.425, ly: -3.275, type: "major", s0: 10, s1:  2, s2:  5, root: 10 },
+            {
+                lx: -2.425,
+                ly: -3.275,
+                type: "major",
+                s0: 10,
+                s1: 2,
+                s2: 5,
+                root: 10
+            },
             // 18  D
-            { lx: -0.725, ly: -1.575, type: "major", s0:  2, s1:  6, s2:  9, root:  2 },
+            {
+                lx: -0.725,
+                ly: -1.575,
+                type: "major",
+                s0: 2,
+                s1: 6,
+                s2: 9,
+                root: 2
+            },
             // 19  Bbm
-            { lx: -3.275, ly: -2.425, type: "minor", s0: 10, s1:  1, s2:  5, root: 10 },
+            {
+                lx: -3.275,
+                ly: -2.425,
+                type: "minor",
+                s0: 10,
+                s1: 1,
+                s2: 5,
+                root: 10
+            },
             // 20  F#m
-            { lx: -1.575, ly: -0.725, type: "minor", s0:  6, s1:  9, s2:  1, root:  6 },
+            {
+                lx: -1.575,
+                ly: -0.725,
+                type: "minor",
+                s0: 6,
+                s1: 9,
+                s2: 1,
+                root: 6
+            },
             // 21  F#
-            { lx: -1.575, ly: -2.425, type: "major", s0:  6, s1: 10, s2:  1, root:  6 },
+            {
+                lx: -1.575,
+                ly: -2.425,
+                type: "major",
+                s0: 6,
+                s1: 10,
+                s2: 1,
+                root: 6
+            },
 
-            // ── Eb+ hexatonic cycle (lower-right, rotated +45°) ──────────
+            // Eb+ hexatonic cycle (lower-right, rotated +45°)
             // Horizontal edges: Bm–G, Eb–Ebm  (shared ly)
             // Vertical edges:   B–Bm, Gm–Eb   (shared lx)
             // Diagonal edges:   Ebm–B, G–Gm   (Δlx = Δly = 0.85)
             // 22  Ebm
-            { lx:  0.725, ly: -1.575, type: "minor", s0:  3, s1:  6, s2: 10, root:  3 },
+            {
+                lx: 0.725,
+                ly: -1.575,
+                type: "minor",
+                s0: 3,
+                s1: 6,
+                s2: 10,
+                root: 3
+            },
             // 23  B
-            { lx:  1.575, ly: -0.725, type: "major", s0: 11, s1:  3, s2:  6, root: 11 },
+            {
+                lx: 1.575,
+                ly: -0.725,
+                type: "major",
+                s0: 11,
+                s1: 3,
+                s2: 6,
+                root: 11
+            },
             // 24  Eb
-            { lx:  2.425, ly: -1.575, type: "major", s0:  3, s1:  7, s2: 10, root:  3 },
+            {
+                lx: 2.425,
+                ly: -1.575,
+                type: "major",
+                s0: 3,
+                s1: 7,
+                s2: 10,
+                root: 3
+            },
             // 25  Bm
-            { lx:  1.575, ly: -2.425, type: "minor", s0: 11, s1:  2, s2:  6, root: 11 },
+            {
+                lx: 1.575,
+                ly: -2.425,
+                type: "minor",
+                s0: 11,
+                s1: 2,
+                s2: 6,
+                root: 11
+            },
             // 26  Gm
-            { lx:  2.425, ly: -3.275, type: "minor", s0:  7, s1: 10, s2:  2, root:  7 },
+            {
+                lx: 2.425,
+                ly: -3.275,
+                type: "minor",
+                s0: 7,
+                s1: 10,
+                s2: 2,
+                root: 7
+            },
             // 27  G
-            { lx:  3.275, ly: -2.425, type: "major", s0:  7, s1: 11, s2:  2, root:  7 },
+            {
+                lx: 3.275,
+                ly: -2.425,
+                type: "major",
+                s0: 7,
+                s1: 11,
+                s2: 2,
+                root: 7
+            },
 
-            // ── Cube-mode aug positions (only drawn when cubeMode == true) ─
+            // Cube-mode aug positions (only drawn when cubeMode == true)
             // Each augmented chord appears twice — once in each of the two
             // clusters whose hexagonal cycle it borders.  A faint augLink
             // edge (in cubeEdges) ties the two appearances together.
@@ -274,59 +504,113 @@ Item {
             // 1-diagonal pattern of the cluster hexagons.  The aug-twin
             // links also fall on screen-axis lines.
             // 28  C+ in Db+ cluster (foreign — links the cluster's 3 minors)
-            { lx: -0.725, ly:  3.275, type: "aug", s0:  0, s1:  4, s2:  8, root:  0 },
+            {
+                lx: -0.725,
+                ly: 3.275,
+                type: "aug",
+                s0: 0,
+                s1: 4,
+                s2: 8,
+                root: 0
+            },
             // 29  C+ in C+  cluster (own     — links the cluster's 3 majors)
-            { lx:  0.725, ly:  3.275, type: "aug", s0:  0, s1:  4, s2:  8, root:  0 },
+            {
+                lx: 0.725,
+                ly: 3.275,
+                type: "aug",
+                s0: 0,
+                s1: 4,
+                s2: 8,
+                root: 0
+            },
             // 30  Db+ in Db+ cluster (own     — 3 majors)
-            { lx: -3.275, ly:  0.725, type: "aug", s0:  1, s1:  5, s2:  9, root:  1 },
+            {
+                lx: -3.275,
+                ly: 0.725,
+                type: "aug",
+                s0: 1,
+                s1: 5,
+                s2: 9,
+                root: 1
+            },
             // 31  Db+ in D+  cluster (foreign — 3 minors)
-            { lx: -3.275, ly: -0.725, type: "aug", s0:  1, s1:  5, s2:  9, root:  1 },
+            {
+                lx: -3.275,
+                ly: -0.725,
+                type: "aug",
+                s0: 1,
+                s1: 5,
+                s2: 9,
+                root: 1
+            },
             // 32  Eb+ in C+  cluster (foreign — 3 minors)
-            { lx:  3.275, ly:  0.725, type: "aug", s0:  3, s1:  7, s2: 11, root:  3 },
+            {
+                lx: 3.275,
+                ly: 0.725,
+                type: "aug",
+                s0: 3,
+                s1: 7,
+                s2: 11,
+                root: 3
+            },
             // 33  Eb+ in Eb+ cluster (own     — 3 majors)
-            { lx:  3.275, ly: -0.725, type: "aug", s0:  3, s1:  7, s2: 11, root:  3 },
+            {
+                lx: 3.275,
+                ly: -0.725,
+                type: "aug",
+                s0: 3,
+                s1: 7,
+                s2: 11,
+                root: 3
+            },
             // 34  D+  in D+  cluster (own     — 3 majors)
-            { lx: -0.725, ly: -3.275, type: "aug", s0:  2, s1:  6, s2: 10, root:  2 },
+            {
+                lx: -0.725,
+                ly: -3.275,
+                type: "aug",
+                s0: 2,
+                s1: 6,
+                s2: 10,
+                root: 2
+            },
             // 35  D+  in Eb+ cluster (foreign — 3 minors)
-            { lx:  0.725, ly: -3.275, type: "aug", s0:  2, s1:  6, s2: 10, root:  2 }
+            {
+                lx: 0.725,
+                ly: -3.275,
+                type: "aug",
+                s0: 2,
+                s1: 6,
+                s2: 10,
+                root: 2
+            }
         ]
 
-        // ── Edge table ────────────────────────────────────────────────────────
+        // Edge table
         // [nodeA, nodeB, type]
         property var edges: [
             // Db+ hexatonic cycle  (F –L– Am –P– A –L– C#m –P– Db –L– Fm –P– F)
-            [4,  5,  "L"], [5,  7,  "P"], [7,  9,  "L"],
-            [9,  8,  "P"], [8,  6,  "L"], [6,  4,  "P"],
+            [4, 5, "L"], [5, 7, "P"], [7, 9, "L"], [9, 8, "P"], [8, 6, "L"], [6, 4, "P"],
 
             // C+ hexatonic cycle   (C –P– Cm –L– Ab –P– Abm –L– E –P– Em –L– C)
-            [10, 11, "P"], [11, 13, "L"], [13, 15, "P"],
-            [15, 14, "L"], [14, 12, "P"], [12, 10, "L"],
+            [10, 11, "P"], [11, 13, "L"], [13, 15, "P"], [15, 14, "L"], [14, 12, "P"], [12, 10, "L"],
 
             // D+ hexatonic cycle   (Dm –L– Bb –P– Bbm –L– F# –P– F#m –L– D –P– Dm)
-            [16, 17, "L"], [17, 19, "P"], [19, 21, "L"],
-            [21, 20, "P"], [20, 18, "L"], [18, 16, "P"],
+            [16, 17, "L"], [17, 19, "P"], [19, 21, "L"], [21, 20, "P"], [20, 18, "L"], [18, 16, "P"],
 
             // Eb+ hexatonic cycle  (Ebm –L– B –P– Bm –L– G –P– Gm –L– Eb –P– Ebm)
-            [22, 23, "L"], [23, 25, "P"], [25, 27, "L"],
-            [27, 26, "P"], [26, 24, "L"], [24, 22, "P"],
+            [22, 23, "L"], [23, 25, "P"], [25, 27, "L"], [27, 26, "P"], [26, 24, "L"], [24, 22, "P"],
 
             // C+  augmented → its 3 major triads (own cycle) + 3 minor triads (Db+ cycle)
-            [0, 10, "aug"], [0, 13, "aug"], [0, 14, "aug"],
-            [0,  5, "aug"], [0,  6, "aug"], [0,  9, "aug"],
+            [0, 10, "aug"], [0, 13, "aug"], [0, 14, "aug"], [0, 5, "aug"], [0, 6, "aug"], [0, 9, "aug"],
 
             // Db+ augmented → its 3 major triads (own cycle) + 3 minor triads (D+ cycle)
-            [1,  4, "aug"], [1,  7, "aug"], [1,  8, "aug"],
-            [1, 16, "aug"], [1, 19, "aug"], [1, 20, "aug"],
+            [1, 4, "aug"], [1, 7, "aug"], [1, 8, "aug"], [1, 16, "aug"], [1, 19, "aug"], [1, 20, "aug"],
 
             // Eb+ augmented → its 3 major triads (own cycle) + 3 minor triads (C+ cycle)
-            [2, 23, "aug"], [2, 24, "aug"], [2, 27, "aug"],
-            [2, 11, "aug"], [2, 12, "aug"], [2, 15, "aug"],
+            [2, 23, "aug"], [2, 24, "aug"], [2, 27, "aug"], [2, 11, "aug"], [2, 12, "aug"], [2, 15, "aug"],
 
             // D+  augmented → its 3 major triads (own cycle) + 3 minor triads (Eb+ cycle)
-            [3, 17, "aug"], [3, 18, "aug"], [3, 21, "aug"],
-            [3, 22, "aug"], [3, 25, "aug"], [3, 26, "aug"],
-
-        ]
+            [3, 17, "aug"], [3, 18, "aug"], [3, 21, "aug"], [3, 22, "aug"], [3, 25, "aug"], [3, 26, "aug"],]
 
         // Cube-mode edges (only drawn when cubeMode == true).
         // 4 augLink "twin" edges + 24 short aug spokes (each cube-aug to its
@@ -334,10 +618,12 @@ Item {
         // normal mode and drawn unconditionally.
         property var cubeEdges: [
             // Aug-twin links (faint cross-cluster connectors)
-            [28, 29, "augLink"],   // C+
-            [30, 31, "augLink"],   // Db+
-            [32, 33, "augLink"],   // Eb+
-            [34, 35, "augLink"],   // D+
+            [28, 29, "augLink"]   // C+
+            , [30, 31, "augLink"]   // Db+
+            , [32, 33, "augLink"]   // Eb+
+            , [34, 35, "augLink"]   // D+
+
+            ,
 
             // C+ in Db+ cluster (28) → 3 minors of that cluster: Am, Fm, C#m
             [28, 5, "aug"], [28, 6, "aug"], [28, 9, "aug"],
@@ -357,245 +643,259 @@ Item {
             // D+ in D+ cluster   (34) → 3 majors: Bb, D, F#
             [34, 17, "aug"], [34, 18, "aug"], [34, 21, "aug"],
             // D+ in Eb+ cluster  (35) → 3 minors: Ebm, Bm, Gm
-            [35, 22, "aug"], [35, 25, "aug"], [35, 26, "aug"]
-        ]
+            [35, 22, "aug"], [35, 25, "aug"], [35, 26, "aug"]]
 
-        // ── Hit testing ───────────────────────────────────────────────────────
+        // Hit testing
 
         function hitTest(px, py) {
-            var r2 = Math.pow(Math.max(6, 16 * scale), 2)
-            var bestDist2 = r2
-            var best = -1
+            var r2 = Math.pow(Math.max(6, 16 * scale), 2);
+            var bestDist2 = r2;
+            var best = -1;
             for (var i = 0; i < nodes.length; i++) {
-                if (!isVisibleNode(i)) continue
-                var p  = nodePos(i)
-                var d2 = (px - p.x) * (px - p.x) + (py - p.y) * (py - p.y)
-                if (d2 < bestDist2) { bestDist2 = d2; best = i }
+                if (!isVisibleNode(i))
+                    continue;
+                var p = nodePos(i);
+                var d2 = (px - p.x) * (px - p.x) + (py - p.y) * (py - p.y);
+                if (d2 < bestDist2) {
+                    bestDist2 = d2;
+                    best = i;
+                }
             }
             // Selection state lives in central-aug indices; cube-aug clicks
             // map to their twin so both appearances highlight together.
-            return centralAugFor(best)
+            return centralAugFor(best);
         }
 
         function scrollIntoView(screenPt) {
-            var margin = 100
-            if      (screenPt.x < margin)          originX += margin - screenPt.x
-            else if (screenPt.x > width  - margin) originX -= screenPt.x - (width  - margin)
-            if      (screenPt.y < margin)          originY += margin - screenPt.y
-            else if (screenPt.y > height - margin) originY -= screenPt.y - (height - margin)
+            var margin = 100;
+            if (screenPt.x < margin)
+                originX += margin - screenPt.x;
+            else if (screenPt.x > width - margin)
+                originX -= screenPt.x - (width - margin);
+            if (screenPt.y < margin)
+                originY += margin - screenPt.y;
+            else if (screenPt.y > height - margin)
+                originY -= screenPt.y - (height - margin);
         }
 
-        // ── Paint ─────────────────────────────────────────────────────────────
+        // Paint
 
         onPaint: {
-            var ctx = getContext("2d")
-            ctx.clearRect(0, 0, width, height)
+            var ctx = getContext("2d");
+            ctx.clearRect(0, 0, width, height);
 
-            var r        = Math.max(5,  15 * scale)
-            var augHW    = Math.max(6,  17 * scale)   // augmented square half-width
-            var fontSize = Math.max(1,  11 * scale)
-            var augFont  = Math.max(1,  10 * scale)
+            var r = Math.max(5, 15 * scale);
+            var augHW = Math.max(6, 17 * scale);   // augmented square half-width
+            var fontSize = Math.max(1, 11 * scale);
+            var augFont = Math.max(1, 10 * scale);
 
-            ctx.lineCap = "round"
+            ctx.lineCap = "round";
 
-            // ── Edges ─────────────────────────────────────────────────────
+            // Edges
             // Normal mode draws the original 24 P/L + 24 aug-spoke edges.
             // Cube mode draws the 24 P/L edges plus the cube-spoke + augLink
             // edges (and skips the long stretched aug spokes from edges[]).
-            var edgeList = cubeMode ? cubeEdges : edges
+            var edgeList = cubeMode ? cubeEdges : edges;
             for (var ei = 0; ei < edges.length; ei++) {
-                var e  = edges[ei]
-                if (cubeMode && e[2] === "aug") continue  // long spokes off in cube mode
-                var pa = nodePos(e[0])
-                var pb = nodePos(e[1])
+                var e = edges[ei];
+                if (cubeMode && e[2] === "aug")
+                    // long spokes off in cube mode
+                    continue;
+                var pa = nodePos(e[0]);
+                var pb = nodePos(e[1]);
 
                 if (e[2] === "aug") {
-                    ctx.lineWidth   = Math.max(0.5, 0.9 * scale)
-                    ctx.strokeStyle = "#707070"
+                    ctx.lineWidth = Math.max(0.5, 0.9 * scale);
+                    ctx.strokeStyle = "#707070";
                 } else {
-                    ctx.lineWidth   = Math.max(0.5, 1.8 * scale)
-                    ctx.strokeStyle = e[2] === "P" ? Theme.edgeP : Theme.edgeL
+                    ctx.lineWidth = Math.max(0.5, 1.8 * scale);
+                    ctx.strokeStyle = e[2] === "P" ? Theme.edgeP : Theme.edgeL;
                 }
-                ctx.beginPath()
-                ctx.moveTo(pa.x, pa.y)
-                ctx.lineTo(pb.x, pb.y)
-                ctx.stroke()
+                ctx.beginPath();
+                ctx.moveTo(pa.x, pa.y);
+                ctx.lineTo(pb.x, pb.y);
+                ctx.stroke();
             }
             if (cubeMode) {
                 for (var cei = 0; cei < cubeEdges.length; cei++) {
-                    var ce  = cubeEdges[cei]
-                    var cpa = nodePos(ce[0])
-                    var cpb = nodePos(ce[1])
+                    var ce = cubeEdges[cei];
+                    var cpa = nodePos(ce[0]);
+                    var cpb = nodePos(ce[1]);
                     if (ce[2] === "augLink") {
-                        ctx.lineWidth   = Math.max(0.4, 0.7 * scale)
-                        ctx.strokeStyle = "#505050"
+                        ctx.lineWidth = Math.max(0.4, 0.7 * scale);
+                        ctx.strokeStyle = "#505050";
                     } else {   // "aug" — short cube spoke
-                        ctx.lineWidth   = Math.max(0.5, 1.4 * scale)
-                        ctx.strokeStyle = "#909090"
+                        ctx.lineWidth = Math.max(0.5, 1.4 * scale);
+                        ctx.strokeStyle = "#909090";
                     }
-                    ctx.beginPath()
-                    ctx.moveTo(cpa.x, cpa.y)
-                    ctx.lineTo(cpb.x, cpb.y)
-                    ctx.stroke()
+                    ctx.beginPath();
+                    ctx.moveTo(cpa.x, cpa.y);
+                    ctx.lineTo(cpb.x, cpb.y);
+                    ctx.stroke();
                 }
             }
 
-            // ── Highlight active edges ─────────────────────────────────────
+            // Highlight active edges
             if (activeNotes !== 0) {
-                ctx.lineWidth   = Math.max(1, 3 * scale)
-                ctx.strokeStyle = Theme.hlEdge
+                ctx.lineWidth = Math.max(1, 3 * scale);
+                ctx.strokeStyle = Theme.hlEdge;
                 for (var hi = 0; hi < edges.length; hi++) {
-                    var he = edges[hi]
-                    if (he[2] === "aug") continue   // skip aug-chord spokes
+                    var he = edges[hi];
+                    if (he[2] === "aug")
+                        // skip aug-chord spokes
+                        continue;
                     if (nodeIsActive(he[0]) && nodeIsActive(he[1])) {
-                        var ha = nodePos(he[0])
-                        var hb = nodePos(he[1])
-                        ctx.beginPath(); ctx.moveTo(ha.x, ha.y); ctx.lineTo(hb.x, hb.y); ctx.stroke()
+                        var ha = nodePos(he[0]);
+                        var hb = nodePos(he[1]);
+                        ctx.beginPath();
+                        ctx.moveTo(ha.x, ha.y);
+                        ctx.lineTo(hb.x, hb.y);
+                        ctx.stroke();
                     }
                 }
             }
 
-            // ── Nodes ─────────────────────────────────────────────────────
-            var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3,
-                       Theme.nrDist4, Theme.nrDist5, Theme.nrDist6]
+            // Nodes
+            var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3, Theme.nrDist4, Theme.nrDist5, Theme.nrDist6];
 
             for (var ni = 0; ni < nodes.length; ni++) {
-                if (!isVisibleNode(ni)) continue
-                var n       = nodes[ni]
-                var np      = nodePos(ni)
-                var active  = nodeIsActive(ni)
+                if (!isVisibleNode(ni))
+                    continue;
+                var n = nodes[ni];
+                var np = nodePos(ni);
+                var active = nodeIsActive(ni);
                 // selNode always holds a central-aug index (0-3) for augs;
                 // both cube-aug twins of that aug should highlight together.
-                var sel     = (centralAugFor(ni) === selNode)
-                var augGlow = (n.type === "aug") && active && showAugmented
-                var nrD     = (nodeDists.length > 0) ? nodeDists[ni] : -1
+                var sel = (centralAugFor(ni) === selNode);
+                var augGlow = (n.type === "aug") && active && showAugmented;
+                var nrD = (nodeDists.length > 0) ? nodeDists[ni] : -1;
 
                 if (n.type === "aug") {
                     // Square node for augmented chord
-                    ctx.beginPath()
-                    ctx.rect(np.x - augHW, np.y - augHW, augHW * 2, augHW * 2)
+                    ctx.beginPath();
+                    ctx.rect(np.x - augHW, np.y - augHW, augHW * 2, augHW * 2);
                     if (sel || augGlow) {
-                        ctx.fillStyle   = Theme.selFill
-                        ctx.strokeStyle = Theme.selStroke
-                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                        ctx.fillStyle = Theme.selFill;
+                        ctx.strokeStyle = Theme.selStroke;
+                        ctx.lineWidth = Math.max(0.5, 2.5 * scale);
                     } else if (nrD >= 0 && nrD < nrC.length) {
-                        var nrClrA = nrC[nrD]
-                        ctx.fillStyle   = Qt.rgba(nrClrA.r, nrClrA.g, nrClrA.b, 0.35)
-                        ctx.strokeStyle = nrClrA
-                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                        var nrClrA = nrC[nrD];
+                        ctx.fillStyle = Qt.rgba(nrClrA.r, nrClrA.g, nrClrA.b, 0.35);
+                        ctx.strokeStyle = nrClrA;
+                        ctx.lineWidth = Math.max(0.5, 2.5 * scale);
                     } else {
-                        ctx.fillStyle   = Theme.nodeFill
-                        ctx.strokeStyle = Theme.nodeStroke
-                        ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
+                        ctx.fillStyle = Theme.nodeFill;
+                        ctx.strokeStyle = Theme.nodeStroke;
+                        ctx.lineWidth = Math.max(0.5, 1.5 * scale);
                     }
-                    ctx.fill()
-                    ctx.stroke()
+                    ctx.fill();
+                    ctx.stroke();
 
-                    ctx.font         = "bold " + augFont + "px sans-serif"
-                    ctx.textAlign    = "center"
-                    ctx.textBaseline = "middle"
-                    ctx.fillStyle    = (sel || augGlow) ? Theme.selText
-                                     : (nrD >= 0 && nrD < nrC.length) ? nrC[nrD]
-                                     : Theme.nodeText
-                    ctx.fillText(nodeLabel(ni), np.x, np.y)
-
+                    ctx.font = "bold " + augFont + "px sans-serif";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillStyle = (sel || augGlow) ? Theme.selText : (nrD >= 0 && nrD < nrC.length) ? nrC[nrD] : Theme.nodeText;
+                    ctx.fillText(nodeLabel(ni), np.x, np.y);
                 } else {
                     // Circle node for triad
-                    ctx.beginPath()
-                    ctx.arc(np.x, np.y, r, 0, Math.PI * 2)
+                    ctx.beginPath();
+                    ctx.arc(np.x, np.y, r, 0, Math.PI * 2);
 
                     if (sel) {
-                        ctx.fillStyle   = Theme.selFill
-                        ctx.strokeStyle = Theme.selStroke
-                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                        ctx.fillStyle = Theme.selFill;
+                        ctx.strokeStyle = Theme.selStroke;
+                        ctx.lineWidth = Math.max(0.5, 2.5 * scale);
                     } else if (active) {
-                        ctx.fillStyle   = Theme.hlNodeFill
-                        ctx.strokeStyle = Theme.hlColor
-                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                        ctx.fillStyle = Theme.hlNodeFill;
+                        ctx.strokeStyle = Theme.hlColor;
+                        ctx.lineWidth = Math.max(0.5, 2.5 * scale);
                     } else if (nrD >= 0 && nrD < nrC.length) {
-                        var nrClr = nrC[nrD]
-                        ctx.fillStyle   = Qt.rgba(nrClr.r, nrClr.g, nrClr.b, 0.35)
-                        ctx.strokeStyle = nrClr
-                        ctx.lineWidth   = Math.max(0.5, 2.5 * scale)
+                        var nrClr = nrC[nrD];
+                        ctx.fillStyle = Qt.rgba(nrClr.r, nrClr.g, nrClr.b, 0.35);
+                        ctx.strokeStyle = nrClr;
+                        ctx.lineWidth = Math.max(0.5, 2.5 * scale);
                     } else if (n.type === "major") {
-                        ctx.fillStyle   = Theme.majorFill
-                        ctx.strokeStyle = Theme.majorStroke
-                        ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
+                        ctx.fillStyle = Theme.majorFill;
+                        ctx.strokeStyle = Theme.majorStroke;
+                        ctx.lineWidth = Math.max(0.5, 1.5 * scale);
                     } else {
-                        ctx.fillStyle   = Theme.minorFill
-                        ctx.strokeStyle = Theme.minorStroke
-                        ctx.lineWidth   = Math.max(0.5, 1.5 * scale)
+                        ctx.fillStyle = Theme.minorFill;
+                        ctx.strokeStyle = Theme.minorStroke;
+                        ctx.lineWidth = Math.max(0.5, 1.5 * scale);
                     }
-                    ctx.fill()
-                    ctx.stroke()
+                    ctx.fill();
+                    ctx.stroke();
 
                     if (r > 6) {
-                        ctx.font         = "bold " + fontSize + "px sans-serif"
-                        ctx.textAlign    = "center"
-                        ctx.textBaseline = "middle"
-                        ctx.fillStyle    = (active || sel) ? Theme.hlColor
-                                         : (nrD >= 0 && nrD < nrC.length) ? nrC[nrD]
-                                         : Theme.triadText
-                        ctx.fillText(nodeLabel(ni), np.x, np.y)
+                        ctx.font = "bold " + fontSize + "px sans-serif";
+                        ctx.textAlign = "center";
+                        ctx.textBaseline = "middle";
+                        ctx.fillStyle = (active || sel) ? Theme.hlColor : (nrD >= 0 && nrD < nrC.length) ? nrC[nrD] : Theme.triadText;
+                        ctx.fillText(nodeLabel(ni), np.x, np.y);
                     }
                 }
             }
         }
 
-        // ── Input ─────────────────────────────────────────────────────────────
+        // Input
 
         MouseArea {
             anchors.fill: parent
 
-            property real lastX:   0
-            property real lastY:   0
-            property real pressX:  0
-            property real pressY:  0
+            property real lastX: 0
+            property real lastY: 0
+            property real pressX: 0
+            property real pressY: 0
             property bool didDrag: false
 
-            onPressed: (mouse) => {
-                lastX = mouse.x; lastY = mouse.y
-                pressX = mouse.x; pressY = mouse.y
-                didDrag = false
+            onPressed: mouse => {
+                lastX = mouse.x;
+                lastY = mouse.y;
+                pressX = mouse.x;
+                pressY = mouse.y;
+                didDrag = false;
             }
 
-            onPositionChanged: (mouse) => {
-                if (!pressed) return
+            onPositionChanged: mouse => {
+                if (!pressed)
+                    return;
                 if (Math.abs(mouse.x - pressX) > 4 || Math.abs(mouse.y - pressY) > 4)
-                    didDrag = true
-                canvas.originX += mouse.x - lastX
-                canvas.originY += mouse.y - lastY
-                lastX = mouse.x; lastY = mouse.y
-                canvas.requestPaint()
+                    didDrag = true;
+                canvas.originX += mouse.x - lastX;
+                canvas.originY += mouse.y - lastY;
+                lastX = mouse.x;
+                lastY = mouse.y;
+                canvas.requestPaint();
             }
 
-            onReleased: (mouse) => {
-                parent.forceActiveFocus()
-                if (didDrag) return
-                var hit = canvas.hitTest(mouse.x, mouse.y)
+            onReleased: mouse => {
+                parent.forceActiveFocus();
+                if (didDrag)
+                    return;
+                var hit = canvas.hitTest(mouse.x, mouse.y);
                 if (hit < 0) {
-                    canvas.selNode   = -1
-                    canvas.nodeDists = []
+                    canvas.selNode = -1;
+                    canvas.nodeDists = [];
                 } else if (hit === canvas.selNode) {
-                    canvas.selNode   = -1   // toggle off
-                    canvas.nodeDists = []
+                    canvas.selNode = -1;   // toggle off
+                    canvas.nodeDists = [];
                 } else {
-                    canvas.selNode = hit
-                    var n = canvas.nodes[hit]
+                    canvas.selNode = hit;
+                    var n = canvas.nodes[hit];
                     if (n.type !== "aug")
-                        tonnetzController.selectTriad(n.s0, n.s1, n.s2, n.type === "major")
+                        tonnetzController.selectTriad(n.s0, n.s1, n.s2, n.type === "major");
                     if (canvas.showDistances)
-                        canvas.nodeDists = canvas.computeDistances(hit)
+                        canvas.nodeDists = canvas.computeDistances(hit);
                 }
-                canvas.requestPaint()
+                canvas.requestPaint();
             }
 
-            onWheel: (wheel) => {
-                var factor = wheel.angleDelta.y > 0 ? 1.12 : (1.0 / 1.12)
-                canvas.originX = wheel.x + (canvas.originX - wheel.x) * factor
-                canvas.originY = wheel.y + (canvas.originY - wheel.y) * factor
-                canvas.scale  *= factor
-                canvas.requestPaint()
+            onWheel: wheel => {
+                var factor = wheel.angleDelta.y > 0 ? 1.12 : (1.0 / 1.12);
+                canvas.originX = wheel.x + (canvas.originX - wheel.x) * factor;
+                canvas.originY = wheel.y + (canvas.originY - wheel.y) * factor;
+                canvas.scale *= factor;
+                canvas.requestPaint();
             }
         }
     }
