@@ -202,6 +202,17 @@ Item {
             ctx.closePath()
         }
 
+        // Distance from a node's centre at which to plant the schematic-style
+        // junction dot — roughly the inradius of each shape so the dot sits
+        // just inside the visible boundary.
+        function boundaryOffset(type, nodeR, squareHW) {
+            if (type === "halfdim") return nodeR * 0.78
+            if (type === "dim")     return squareHW * 0.85
+            if (type === "maj")     return nodeR * 0.78    // hexagon inradius
+            if (type === "dom")     return nodeR * 0.72    // pentagon inradius
+            return nodeR * 0.70                            // rhombus
+        }
+
         onPaint: {
             var ctx = getContext("2d")
             ctx.clearRect(0, 0, width, height)
@@ -290,6 +301,30 @@ Item {
                                                       : Theme.triadText
                     ctx.fillText(nodeLabel(ni), np.x, np.y)
                 }
+            }
+
+            // ── Junction dots ────────────────────────────────────────────────
+            // Schematic-style "the wire connects HERE" markers — one per edge
+            // endpoint, just inside each node's boundary along the edge's
+            // direction.  Coloured to match the edge so the transformation
+            // type stays readable.
+            var dotR = Math.max(1.6, 2.6 * scale)
+            for (var di = 0; di < edges.length; di++) {
+                var edd = edges[di]
+                var pa  = nodePos(edd[0])
+                var pb  = nodePos(edd[1])
+                var dx  = pb.x - pa.x
+                var dy  = pb.y - pa.y
+                var len = Math.sqrt(dx * dx + dy * dy)
+                if (len < 1) continue
+                var ux = dx / len
+                var uy = dy / len
+                var oa = boundaryOffset(nodes[edd[0]].type, nodeR, squareHW)
+                var ob = boundaryOffset(nodes[edd[1]].type, nodeR, squareHW)
+
+                ctx.fillStyle = edgeColour(edd[2])
+                ctx.beginPath(); ctx.arc(pa.x + ux * oa, pa.y + uy * oa, dotR, 0, Math.PI * 2); ctx.fill()
+                ctx.beginPath(); ctx.arc(pb.x - ux * ob, pb.y - uy * ob, dotR, 0, Math.PI * 2); ctx.fill()
             }
         }
 
