@@ -98,10 +98,7 @@ Item {
         target: visualizerSwitcher
         function onSourceChanged() {
             var src = visualizerSwitcher.source;
-            var loader = src === "tonnetz.qml"       ? tonnetzLoader
-                       : src === "chickenWire.qml"   ? cwLoader
-                       : src === "cubeDance.qml"     ? cdLoader
-                       : s7Loader;
+            var loader = src === "tonnetz.qml" ? tonnetzLoader : src === "chickenWire.qml" ? cwLoader : src === "cubeDance.qml" ? cdLoader : s7Loader;
             if (loader.item)
                 loader.item.forceActiveFocus();
         }

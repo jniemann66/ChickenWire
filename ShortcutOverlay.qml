@@ -18,66 +18,154 @@ Rectangle {
     property string activeSource: ""
 
     function toggle() {
-        visible = !visible
+        visible = !visible;
         if (visible)
-            forceActiveFocus()
+            forceActiveFocus();
     }
 
     // Per-visualizer shortcut tables.
     readonly property var sectionData: ({
-        "tonnetz.qml": [
-            { key: "←/→/↑/↓",        desc: "Move selection" },
-            { key: "Shift+↑/↓",      desc: "Move along the alternate axis" },
-            { key: "F5",             desc: "Toggle NR distance highlight" },
-            { key: "Click",          desc: "Select note or triad" },
-            { key: "Drag",           desc: "Pan view" },
-            { key: "Wheel",          desc: "Zoom" }
-        ],
-        "chickenWire.qml": [
-            { key: "←/→/↑/↓",        desc: "Move selection" },
-            { key: "Shift+↑/↓",      desc: "Move along the alternate axis" },
-            { key: "F5",             desc: "Toggle NR distance highlight" },
-            { key: "Click",          desc: "Select face or chord vertex" },
-            { key: "Drag",           desc: "Pan view" },
-            { key: "Wheel",          desc: "Zoom" }
-        ],
-        "cubeDance.qml": [
-            { key: "F5",             desc: "Toggle NR distance highlight" },
-            { key: "Click",          desc: "Select chord" },
-            { key: "Drag",           desc: "Pan view" },
-            { key: "Wheel",          desc: "Zoom" }
-        ],
-        "seventhChords.qml": [
-            { key: "F5",             desc: "Toggle distance highlight from selected chord" },
-            { key: "F6",             desc: "Toggle chromatic ↔ cycle-of-fourths root order" },
-            { key: "1 / 2 / 3 / 4",  desc: "Toggle P12 / P14 / P23 / P35 (parallel edges)" },
-            { key: "5 / 6 / 7",      desc: "Toggle R12 / R23 / R42 (relative edges)" },
-            { key: "8 / 9 / 0",      desc: "Toggle L13 / L15 / L42 (leading-tone edges)" },
-            { key: "-",              desc: "Toggle Q43 (special Q edge)" },
-            { key: "= or Backspace", desc: "Restore all transformation classes" },
-            { key: "Click",          desc: "Focus a chord's incident edges" },
-            { key: "Drag",           desc: "Pan view" },
-            { key: "Wheel",          desc: "Zoom" }
-        ]
-    })
+            "tonnetz.qml": [
+                {
+                    key: "←/→/↑/↓",
+                    desc: "Move selection"
+                },
+                {
+                    key: "Shift+↑/↓",
+                    desc: "Move along the alternate axis"
+                },
+                {
+                    key: "F5",
+                    desc: "Toggle NR distance highlight"
+                },
+                {
+                    key: "Click",
+                    desc: "Select note or triad"
+                },
+                {
+                    key: "Drag",
+                    desc: "Pan view"
+                },
+                {
+                    key: "Wheel",
+                    desc: "Zoom"
+                }
+            ],
+            "chickenWire.qml": [
+                {
+                    key: "←/→/↑/↓",
+                    desc: "Move selection"
+                },
+                {
+                    key: "Shift+↑/↓",
+                    desc: "Move along the alternate axis"
+                },
+                {
+                    key: "F5",
+                    desc: "Toggle NR distance highlight"
+                },
+                {
+                    key: "Click",
+                    desc: "Select face or chord vertex"
+                },
+                {
+                    key: "Drag",
+                    desc: "Pan view"
+                },
+                {
+                    key: "Wheel",
+                    desc: "Zoom"
+                }
+            ],
+            "cubeDance.qml": [
+                {
+                    key: "F5",
+                    desc: "Toggle NR distance highlight"
+                },
+                {
+                    key: "Click",
+                    desc: "Select chord"
+                },
+                {
+                    key: "Drag",
+                    desc: "Pan view"
+                },
+                {
+                    key: "Wheel",
+                    desc: "Zoom"
+                }
+            ],
+            "seventhChords.qml": [
+                {
+                    key: "F5",
+                    desc: "Toggle distance highlight from selected chord"
+                },
+                {
+                    key: "F6",
+                    desc: "Toggle chromatic ↔ cycle-of-fourths root order"
+                },
+                {
+                    key: "1 / 2 / 3 / 4",
+                    desc: "Toggle P12 / P14 / P23 / P35 (parallel edges)"
+                },
+                {
+                    key: "5 / 6 / 7",
+                    desc: "Toggle R12 / R23 / R42 (relative edges)"
+                },
+                {
+                    key: "8 / 9 / 0",
+                    desc: "Toggle L13 / L15 / L42 (leading-tone edges)"
+                },
+                {
+                    key: "-",
+                    desc: "Toggle Q43 (special Q edge)"
+                },
+                {
+                    key: "= or Backspace",
+                    desc: "Restore all transformation classes"
+                },
+                {
+                    key: "Click",
+                    desc: "Focus a chord's incident edges"
+                },
+                {
+                    key: "Drag",
+                    desc: "Pan view"
+                },
+                {
+                    key: "Wheel",
+                    desc: "Zoom"
+                }
+            ]
+        })
 
     readonly property var globalData: [
-        { key: "F1", desc: "Show / hide this shortcut overlay" },
-        { key: "F4", desc: "Toggle Tonnetz ↔ Chicken Wire" }
+        {
+            key: "F1",
+            desc: "Show / hide this shortcut overlay"
+        },
+        {
+            key: "F4",
+            desc: "Next visualizer"
+        },
+        {
+            key: "Shift+F4",
+            desc: "Previous visualizer"
+        }
     ]
 
     readonly property var titleFor: ({
-        "tonnetz.qml":       "Tonnetz",
-        "chickenWire.qml":   "Chicken Wire",
-        "cubeDance.qml":     "Cube Dance",
-        "seventhChords.qml": "Seventh Chords"
-    })
+            "tonnetz.qml": "Tonnetz",
+            "chickenWire.qml": "Chicken Wire",
+            "cubeDance.qml": "Cube Dance",
+            "seventhChords.qml": "Seventh Chords"
+        })
 
     focus: visible
     Keys.onPressed: event => {
         if (event.key === Qt.Key_F1 || event.key === Qt.Key_Escape)
-            visible = false
-        event.accepted = true   // swallow everything so the view behind doesn't react
+            visible = false;
+        event.accepted = true;   // swallow everything so the view behind doesn't react
     }
 
     MouseArea {
@@ -96,7 +184,10 @@ Rectangle {
         radius: 6
 
         // Click on the panel itself shouldn't dismiss.
-        MouseArea { anchors.fill: parent; onClicked: {} }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {}
+        }
 
         Column {
             id: contentCol

@@ -129,14 +129,23 @@ int main(int argc, char *argv[])
     viewMenu->addSeparator();
     viewMenu->addAction(transport->toggleViewAction());
 
-    // set up keyboard shortcut: F4 toggles between Tonnetz and ChickenWire
+    // F4 / Shift+F4 cycle through the visualizers in display order.
+    static const QStringList visualizerOrder{
+        QStringLiteral("tonnetz.qml"),
+        QStringLiteral("chickenWire.qml"),
+        QStringLiteral("cubeDance.qml"),
+        QStringLiteral("seventhChords.qml"),
+    };
+    auto cycle = [&switcher](int step) {
+        int idx = visualizerOrder.indexOf(switcher.source());
+        if (idx < 0) idx = 0;
+        int n = visualizerOrder.size();
+        switcher.setSource(visualizerOrder.at(((idx + step) % n + n) % n));
+    };
     auto *f4 = new QShortcut(QKeySequence(Qt::Key_F4), &mw);
-    QObject::connect(f4, &QShortcut::activated, [&switcher]() {
-        switcher.setSource(
-            switcher.source() == QStringLiteral("tonnetz.qml")
-                ? QStringLiteral("chickenWire.qml")
-                : QStringLiteral("tonnetz.qml"));
-    });
+    QObject::connect(f4, &QShortcut::activated, [cycle]() { cycle(+1); });
+    auto *shiftF4 = new QShortcut(QKeySequence(Qt::SHIFT | Qt::Key_F4), &mw);
+    QObject::connect(shiftF4, &QShortcut::activated, [cycle]() { cycle(-1); });
 
     QObject::connect(&switcher, &VisualizerSwitcher::sourceChanged, [&]() {
         const QString src = switcher.source();
