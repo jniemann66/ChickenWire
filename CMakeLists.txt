@@ -53,6 +53,7 @@ qt_add_qml_module(appChickenWire
     chickenWire.qml
     cubeDance.qml
     seventhChords.qml
+    ShortcutOverlay.qml
 )
 
 set_target_properties(appChickenWire PROPERTIES

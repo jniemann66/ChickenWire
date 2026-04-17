@@ -106,4 +106,16 @@ Item {
                 loader.item.forceActiveFocus();
         }
     }
+
+    ShortcutOverlay {
+        id: shortcutOverlay
+        activeSource: visualizerSwitcher.source
+        z: 100
+    }
+
+    Shortcut {
+        sequence: "F1"
+        context: Qt.WindowShortcut
+        onActivated: shortcutOverlay.toggle()
+    }
 }
