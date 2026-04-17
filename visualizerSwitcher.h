@@ -1,6 +1,7 @@
 #pragma once
 #include <QObject>
 #include <QString>
+#include <QStringList>
 
 // Exposed to QML as "visualizerSwitcher".
 // Holds the active visualizer filename and the shared viewport state.
@@ -22,6 +23,9 @@ class VisualizerSwitcher : public QObject
 
     Q_PROPERTY(bool  invertColors  READ invertColors  WRITE setInvertColors  NOTIFY invertColorsChanged)
     Q_PROPERTY(bool  showAugmented READ showAugmented WRITE setShowAugmented NOTIFY showAugmentedChanged)
+    Q_PROPERTY(bool  cubeMode      READ cubeMode      WRITE setCubeMode      NOTIFY cubeModeChanged)
+    Q_PROPERTY(bool  fifthsOrder   READ fifthsOrder   WRITE setFifthsOrder   NOTIFY fifthsOrderChanged)
+    Q_PROPERTY(QStringList hiddenClasses READ hiddenClasses WRITE setHiddenClasses NOTIFY hiddenClassesChanged)
     Q_PROPERTY(qreal saturation    READ saturation    WRITE setSaturation    NOTIFY saturationChanged)
     Q_PROPERTY(qreal hue          READ hue          WRITE setHue          NOTIFY hueChanged)
     Q_PROPERTY(qreal brightness   READ brightness   WRITE setBrightness   NOTIFY brightnessChanged)
@@ -56,6 +60,33 @@ public:
         if (m_showAugmented != v) {
             m_showAugmented = v;
             emit showAugmentedChanged();
+        }
+    }
+
+    bool cubeMode() const { return m_cubeMode; }
+    void setCubeMode(bool v)
+    {
+        if (m_cubeMode != v) {
+            m_cubeMode = v;
+            emit cubeModeChanged();
+        }
+    }
+
+    bool fifthsOrder() const { return m_fifthsOrder; }
+    void setFifthsOrder(bool v)
+    {
+        if (m_fifthsOrder != v) {
+            m_fifthsOrder = v;
+            emit fifthsOrderChanged();
+        }
+    }
+
+    QStringList hiddenClasses() const { return m_hiddenClasses; }
+    void setHiddenClasses(const QStringList &v)
+    {
+        if (m_hiddenClasses != v) {
+            m_hiddenClasses = v;
+            emit hiddenClassesChanged();
         }
     }
 
@@ -167,6 +198,9 @@ signals:
     void selectionChanged();
     void invertColorsChanged();
     void showAugmentedChanged();
+    void cubeModeChanged();
+    void fifthsOrderChanged();
+    void hiddenClassesChanged();
     void saturationChanged();
     void hueChanged();
     void brightnessChanged();
@@ -175,6 +209,9 @@ signals:
 private:
     bool m_invertColors = false;
     bool m_showAugmented = false;
+    bool m_cubeMode = true;
+    bool m_fifthsOrder = true;
+    QStringList m_hiddenClasses;
     qreal m_saturation = 1.0;
     qreal m_hue = 0.0;   // degrees
     qreal m_brightness = 1.0;

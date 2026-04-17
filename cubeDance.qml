@@ -32,7 +32,7 @@ Item {
             canvas.requestPaint();
             event.accepted = true;
         } else if (event.key === Qt.Key_F7) {
-            canvas.cubeMode = !canvas.cubeMode;
+            visualizerSwitcher.cubeMode = !visualizerSwitcher.cubeMode;
             event.accepted = true;
         }
     }
@@ -75,7 +75,7 @@ Item {
         // it shows up twice; a faint line ties the two appearances together.
         // Default; toggle off with F7 to see the traditional layout (4 augs
         // pulled out to cardinal positions with long stretched spokes).
-        property bool cubeMode: true
+        property bool cubeMode: visualizerSwitcher.cubeMode
         onCubeModeChanged: fitToWindow()
 
         // Largest extent of the layout in layout units, used to auto-fit the

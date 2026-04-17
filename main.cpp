@@ -153,6 +153,18 @@ int main(int argc, char *argv[])
         cwAction->setChecked(src      == QStringLiteral("chickenWire.qml"));
         cdAction->setChecked(src      == QStringLiteral("cubeDance.qml"));
         s7Action->setChecked(src      == QStringLiteral("seventhChords.qml"));
+        settings.setValue(QStringLiteral("view/source"), src);
+    });
+
+    // Persist per-visualizer toggle state.
+    QObject::connect(&switcher, &VisualizerSwitcher::cubeModeChanged, [&]() {
+        settings.setValue(QStringLiteral("display/cubeMode"), switcher.cubeMode());
+    });
+    QObject::connect(&switcher, &VisualizerSwitcher::fifthsOrderChanged, [&]() {
+        settings.setValue(QStringLiteral("display/fifthsOrder"), switcher.fifthsOrder());
+    });
+    QObject::connect(&switcher, &VisualizerSwitcher::hiddenClassesChanged, [&]() {
+        settings.setValue(QStringLiteral("display/hiddenClasses"), switcher.hiddenClasses());
     });
 
     // Color Scheme menu
@@ -271,6 +283,28 @@ int main(int argc, char *argv[])
     hueSlider->setValue(settings.value(QStringLiteral("color/hue"),        180).toInt());
     briSlider->setValue(settings.value(QStringLiteral("color/brightness"), 100).toInt());
     conSlider->setValue(settings.value(QStringLiteral("color/contrast"),   100).toInt());
+
+    switcher.setCubeMode(settings.value(QStringLiteral("display/cubeMode"), true).toBool());
+    switcher.setFifthsOrder(settings.value(QStringLiteral("display/fifthsOrder"), true).toBool());
+    switcher.setHiddenClasses(settings.value(QStringLiteral("display/hiddenClasses"), QStringList{}).toStringList());
+
+    // Restore active visualizer.  Menu checkmarks were initialized to the
+    // default ("tonnetz.qml") in makeAction; setSource() will fix them up
+    // via the sourceChanged connection if the restored value differs.
+    switcher.setSource(settings.value(QStringLiteral("view/source"), QStringLiteral("tonnetz.qml")).toString());
+
+    // Restore window geometry & dock layout, save on quit.
+    const QByteArray geom = settings.value(QStringLiteral("window/geometry")).toByteArray();
+    if (!geom.isEmpty())
+        mw.restoreGeometry(geom);
+    const QByteArray state = settings.value(QStringLiteral("window/state")).toByteArray();
+    if (!state.isEmpty())
+        mw.restoreState(state);
+
+    QObject::connect(&app, &QApplication::aboutToQuit, [&]() {
+        settings.setValue(QStringLiteral("window/geometry"), mw.saveGeometry());
+        settings.setValue(QStringLiteral("window/state"),    mw.saveState());
+    });
 
     mw.show();
     return app.exec();

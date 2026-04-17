@@ -61,7 +61,7 @@ Item {
         }
 
         if (event.key === Qt.Key_F6) {
-            canvas.useFifthsOrder = !canvas.useFifthsOrder;
+            visualizerSwitcher.fifthsOrder = !visualizerSwitcher.fifthsOrder;
             canvas.requestPaint();
             event.accepted = true;
             return;
@@ -71,9 +71,13 @@ Item {
         var idx = canvas.classKeyOrder.indexOf(event.key);
         if (idx >= 0) {
             var cls = canvas.classNames[idx];
-            var v = Object.assign({}, canvas.visibleClasses);
-            v[cls] = !v[cls];
-            canvas.visibleClasses = v;
+            var hidden = (visualizerSwitcher.hiddenClasses || []).slice();
+            var i = hidden.indexOf(cls);
+            if (i >= 0)
+                hidden.splice(i, 1);
+            else
+                hidden.push(cls);
+            visualizerSwitcher.hiddenClasses = hidden;
             canvas.requestPaint();
             event.accepted = true;
             return;
@@ -81,7 +85,7 @@ Item {
 
         // = / Backspace: restore all classes
         if (event.key === Qt.Key_Equal || event.key === Qt.Key_Backspace) {
-            canvas.visibleClasses = canvas.allClassesVisible();
+            visualizerSwitcher.hiddenClasses = [];
             canvas.requestPaint();
             event.accepted = true;
         }
@@ -155,13 +159,24 @@ Item {
                 v[classNames[i]] = true;
             return v;
         }
-        property var visibleClasses: allClassesVisible()
+        // Derived from visualizerSwitcher.hiddenClasses so the set survives
+        // across sessions (and so VisualizerSwitcher remains the single
+        // source of truth for persisted UI state).
+        property var visibleClasses: {
+            var v = {};
+            var hidden = visualizerSwitcher.hiddenClasses || [];
+            for (var i = 0; i < classNames.length; i++)
+                v[classNames[i]] = hidden.indexOf(classNames[i]) === -1;
+            return v;
+        }
+        onVisibleClassesChanged: requestPaint()
 
         // true  → cycle of fourths / descending fifths
         //         (C, F, B♭, E♭, ...) clockwise from the top — the jazz
         //         "cycle of fifths" direction, matching V→I motion (default)
         // false → chromatic (C, C♯, D, ...) clockwise from the top
-        property bool useFifthsOrder: true
+        property bool useFifthsOrder: visualizerSwitcher.fifthsOrder
+        onUseFifthsOrderChanged: requestPaint()
 
         // Node layout:  0–11 maj | 12–23 dom | 24–35 min | 36–47 ø | 48–50 °
         property var nodes: (function () {
