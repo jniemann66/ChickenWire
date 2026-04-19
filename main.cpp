@@ -5,6 +5,8 @@
 
 #include <QActionGroup>
 #include <QApplication>
+#include <QClipboard>
+#include <QFileDialog>
 #include <QDebug>
 #include <QDockWidget>
 #include <QEvent>
@@ -12,12 +14,14 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QMenuBar>
+#include <QMimeData>
 #include <QPushButton>
 #include <QQmlContext>
 #include <QQuickWidget>
 #include <QSettings>
 #include <QShortcut>
 #include <QSlider>
+#include <QStatusBar>
 
 // Resets a slider to its default value on double-click.
 class SliderResetter : public QObject
@@ -104,6 +108,30 @@ int main(int argc, char *argv[])
                      });
     QObject::connect(transport, &TransportWidget::channelFilterChanged,
                      &controller, &TonnetzController::setMidiChannelFilter);
+
+    // File menu
+    auto grabVisualizer = [view]() { return view->grabFramebuffer(); };
+
+    auto *fileMenu = mw.menuBar()->addMenu(QStringLiteral("&File"));
+
+    auto *copyAction = fileMenu->addAction(QStringLiteral("&Copy Visualizer to Clipboard"));
+    copyAction->setShortcut(QKeySequence(Qt::ALT | Qt::Key_Print));
+    QObject::connect(copyAction, &QAction::triggered, [grabVisualizer, &mw]() {
+        QMimeData *mimeData = new QMimeData();
+        mimeData->setImageData(grabVisualizer());
+        QApplication::clipboard()->setMimeData(mimeData);
+        mw.statusBar()->showMessage(QStringLiteral("Copied to Clipboard"), 3000);
+    });
+
+    auto *saveAction = fileMenu->addAction(QStringLiteral("&Save Visualizer Image…"));
+    saveAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Print));
+    QObject::connect(saveAction, &QAction::triggered, [grabVisualizer, &mw]() {
+        const QString path = QFileDialog::getSaveFileName(
+            &mw, QStringLiteral("Save Visualizer Image"), {},
+            QStringLiteral("PNG Image (*.png)"));
+        if (!path.isEmpty())
+            grabVisualizer().save(path, "PNG");
+    });
 
     // View menu
     auto *viewMenu = mw.menuBar()->addMenu(QStringLiteral("&View"));
