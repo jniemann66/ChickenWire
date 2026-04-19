@@ -217,6 +217,16 @@ int main(int argc, char *argv[])
 
     // Color Scheme menu
     auto *colorMenu = mw.menuBar()->addMenu(QStringLiteral("&Color Scheme"));
+
+    // Theme submenu (radio-button style, exclusive)
+    auto *themeMenu = colorMenu->addMenu(QStringLiteral("&Theme"));
+    auto *themeGroup = new QActionGroup(&mw);
+    themeGroup->setExclusive(true);
+    const QList<QPair<QString,QString>> themeItems = {
+        { QStringLiteral("Dark"), QStringLiteral("dark") },
+        { QStringLiteral("Light"), QStringLiteral("light") },
+        { QStringLiteral("High Contrast"), QStringLiteral("contrast") },
+    };
     auto *negativeAction = colorMenu->addAction(QStringLiteral("&Negative"));
     negativeAction->setCheckable(true);
     negativeAction->setChecked(switcher.invertColors());
@@ -229,15 +239,7 @@ int main(int argc, char *argv[])
         negativeAction->setChecked(switcher.invertColors());
     });
 
-    // Theme submenu (radio-button style, exclusive)
-    auto *themeMenu = colorMenu->addMenu(QStringLiteral("&Theme"));
-    auto *themeGroup = new QActionGroup(&mw);
-    themeGroup->setExclusive(true);
-    const QList<QPair<QString,QString>> themeItems = {
-        { QStringLiteral("Dark"),          QStringLiteral("dark") },
-        { QStringLiteral("Light"),         QStringLiteral("light") },
-        { QStringLiteral("High Contrast"), QStringLiteral("contrast") },
-    };
+
     for (const auto &[label, id] : themeItems) {
         auto *a = themeMenu->addAction(label);
         a->setCheckable(true);
@@ -249,6 +251,7 @@ int main(int argc, char *argv[])
             settings.setValue(QStringLiteral("color/theme"), id);
         });
     }
+
     QObject::connect(&switcher, &VisualizerSwitcher::themeNameChanged, [&]() {
         const QString name = switcher.themeName();
         for (QAction *a : themeGroup->actions())
