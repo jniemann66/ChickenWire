@@ -18,12 +18,12 @@ TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 
     auto *container = new QWidget(this);
-    m_openBtn      = new QPushButton(tr("Open…"), container);
-    m_playPauseBtn = new QPushButton(tr("Play"),  container);
-    m_stopBtn      = new QPushButton(tr("Stop"),  container);
-    m_slider       = new QSlider(Qt::Horizontal,  container);
-    m_fileLabel    = new QLabel(tr("No file loaded"), container);
-    m_timeLabel    = new QLabel(tr("0:00 / 0:00"),    container);
+    m_openBtn = new QPushButton(tr("Open…"), container);
+    m_playPauseBtn = new QPushButton(tr("Play"), container);
+    m_stopBtn = new QPushButton(tr("Stop"), container);
+    m_slider = new QSlider(Qt::Horizontal, container);
+    m_fileLabel = new QLabel(tr("No file loaded"), container);
+    m_timeLabel = new QLabel(tr("0:00 / 0:00"), container);
     m_channelCombo = new QComboBox(container);
     m_channelCombo->addItem(tr("All Channels"), -1);
     m_channelCombo->setEnabled(false);
@@ -63,7 +63,7 @@ TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     connect(m_stopBtn, &QPushButton::clicked, m_player, &MidiPlayer::stop);
 
     // Slider drag tracking
-    connect(m_slider, &QSlider::sliderPressed,  this, [this]() { m_dragging = true; });
+    connect(m_slider, &QSlider::sliderPressed, this, [this]() { m_dragging = true; });
     connect(m_slider, &QSlider::sliderReleased, this, &TransportWidget::onSliderReleased);
 
     // Channel combo → emit filter signal
@@ -72,7 +72,7 @@ TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     });
 
     // Player → widget updates
-    connect(m_player, &MidiPlayer::stateChanged,    this, &TransportWidget::onStateChanged);
+    connect(m_player, &MidiPlayer::stateChanged, this, &TransportWidget::onStateChanged);
     connect(m_player, &MidiPlayer::positionChanged, this, &TransportWidget::onPositionChanged);
 
     connect(m_player, &MidiPlayer::filePathChanged, this, [this]() {

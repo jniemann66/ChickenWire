@@ -127,8 +127,8 @@ QVariantList TonnetzController::computeTriadDistances(int root, bool isMajor) co
     for (int qi = 0; qi < queue.size(); ++qi) {
         const int cur = queue[qi];
         const bool maj = (cur < 12);
-        const int  r   = cur % 12;
-        const int  d   = dist[cur];
+        const int r = cur % 12;
+        const int d = dist[cur];
 
         if (maj) {
             // major(r) → minor(r), minor((r+9)%12), minor((r+4)%12)  [P, R, L]
@@ -152,7 +152,7 @@ QVariantList TonnetzController::computeTriadDistances(int root, bool isMajor) co
 
 void TonnetzController::selectNote(int semitone, int i, int j)
 {
-    qDebug() << "Note:"  << m_noteNames.value(semitone & 0xF)
+    qDebug() << "Note:" << m_noteNames.value(semitone & 0xF)
              << "  lattice (" << i << "," << j << ")";
     emit noteSelected(semitone, i, j);
 }

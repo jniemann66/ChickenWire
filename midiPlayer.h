@@ -15,10 +15,10 @@ class MidiPlayer : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(State      state           READ state           NOTIFY stateChanged)
-    Q_PROPERTY(qreal      position        READ position        NOTIFY positionChanged)  // 0.0–1.0
-    Q_PROPERTY(int        durationMs      READ durationMs      NOTIFY durationMsChanged)
-    Q_PROPERTY(QString    filePath        READ filePath        NOTIFY filePathChanged)
+    Q_PROPERTY(State state READ state NOTIFY stateChanged)
+    Q_PROPERTY(qreal position READ position NOTIFY positionChanged)  // 0.0–1.0
+    Q_PROPERTY(int durationMs READ durationMs NOTIFY durationMsChanged)
+    Q_PROPERTY(QString filePath READ filePath NOTIFY filePathChanged)
     Q_PROPERTY(QList<int> presentChannels READ presentChannels NOTIFY presentChannelsChanged)
 
 public:
@@ -62,12 +62,12 @@ private:
     void silenceAll();
     qint64 currentMs() const;
 
-    QString    m_filePath;
+    QString m_filePath;
     QList<int> m_presentChannels;
     MidiAudio *m_audio = nullptr;
 
     QList<MidiNoteEvent> m_events;
-    int m_nextEvent  = 0;
+    int m_nextEvent = 0;
     int m_durationMs = 0;
 
     State m_state = Stopped;

@@ -27,7 +27,7 @@ bool MidiPlayer::load(const QString &path)
     stop();
 
     QString errMsg;
-    qint64  dur = 0;
+    qint64 dur = 0;
     m_events = parseMidiFile(path, &dur, &errMsg);
 
     if (m_events.isEmpty() && !errMsg.isEmpty()) {
@@ -36,8 +36,8 @@ bool MidiPlayer::load(const QString &path)
     }
 
     m_durationMs = int(dur);
-    m_nextEvent  = 0;
-    m_filePath   = path;
+    m_nextEvent = 0;
+    m_filePath = path;
 
     QSet<int> seen;
     for (const MidiNoteEvent &e : m_events)
@@ -60,7 +60,7 @@ void MidiPlayer::play()
 
     if (m_state == Stopped) {
         m_resumeOffsetMs = 0;
-        m_nextEvent      = 0;
+        m_nextEvent = 0;
         m_audio->start(m_filePath);
     } else {
         // Paused — audio resumes from where it paused
@@ -93,8 +93,8 @@ void MidiPlayer::stop()
     m_audio->stop();
     silenceAll();
     m_resumeOffsetMs = 0;
-    m_nextEvent      = 0;
-    m_state          = Stopped;
+    m_nextEvent = 0;
+    m_state = Stopped;
     emit stateChanged();
     emit positionChanged();
 }
@@ -165,8 +165,8 @@ void MidiPlayer::tick()
         m_audio->stop();
         silenceAll();
         m_resumeOffsetMs = 0;
-        m_nextEvent      = 0;
-        m_state          = Stopped;
+        m_nextEvent = 0;
+        m_state = Stopped;
         emit stateChanged();
         emit positionChanged();
     }

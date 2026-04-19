@@ -30,14 +30,14 @@ private slots:
 private:
     static QString formatMs(int ms);
 
-    MidiPlayer  *m_player{nullptr};
+    MidiPlayer *m_player{nullptr};
     QPushButton *m_openBtn{nullptr};
     QPushButton *m_playPauseBtn{nullptr};
     QPushButton *m_stopBtn{nullptr};
-    QSlider     *m_slider{nullptr};
-    QLabel      *m_fileLabel{nullptr};
-    QLabel      *m_timeLabel{nullptr};
-    QComboBox   *m_channelCombo{nullptr};
+    QSlider *m_slider{nullptr};
+    QLabel *m_fileLabel{nullptr};
+    QLabel *m_timeLabel{nullptr};
+    QComboBox *m_channelCombo{nullptr};
 
     bool m_dragging = false;
 };

@@ -18,7 +18,7 @@ class TonnetzController : public QObject
 
     // 12-bit bitmask: each bit represents one of the 12 pitch classes. If bit is set, that note is considered to be active.
     // (Bit 0 = C, 1 = C♯/D♭, ... 11 = B )
-    Q_PROPERTY(int  activeNotes READ activeNotes NOTIFY activeNotesChanged)
+    Q_PROPERTY(int activeNotes READ activeNotes NOTIFY activeNotesChanged)
 
     // When false, computeTriadDistances() returns an empty list and the views show no distance colours.
     Q_PROPERTY(bool nrDistancesEnabled READ nrDistancesEnabled WRITE setNrDistancesEnabled NOTIFY nrDistancesEnabledChanged)
@@ -36,7 +36,7 @@ public:
     int activeNotes() const { return m_playingNotes | m_highlightedNotes; }
     bool nrDistancesEnabled() const { return m_nrDistancesEnabled; }
     void setNrDistancesEnabled(bool enabled);
-    int  midiChannelFilter() const { return m_midiChannelFilter; }
+    int midiChannelFilter() const { return m_midiChannelFilter; }
     void setMidiChannelFilter(int channel);
 
     // invokables
@@ -84,9 +84,9 @@ private:
     QStringList m_noteNames; // note names of all 12 notes
     QStringList m_majorRootNoteNames; // names of all 12 root notes for Major Chords
     QStringList m_minorRootNoteNames; // names of all 12 root notes for Minor Chords
-    int  m_highlightedNotes = 0;
+    int m_highlightedNotes = 0;
     bool m_nrDistancesEnabled = false;
-    int  m_playingNotes = 0;
-    int  m_playingNoteCounts[12] = {};
-    int  m_midiChannelFilter = -1;
+    int m_playingNotes = 0;
+    int m_playingNoteCounts[12] = {};
+    int m_midiChannelFilter = -1;
 };

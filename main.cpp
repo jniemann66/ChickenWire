@@ -122,10 +122,10 @@ int main(int argc, char *argv[])
     };
 
     // set-up View Menu
-    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"),           QStringLiteral("tonnetz.qml"));
-    auto *cwAction      = makeAction(QStringLiteral("&Chicken Wire"),      QStringLiteral("chickenWire.qml"));
-    auto *cdAction      = makeAction(QStringLiteral("Cube &Dance"),        QStringLiteral("cubeDance.qml"));
-    auto *s7Action      = makeAction(QStringLiteral("&Seventh Chords"),    QStringLiteral("seventhChords.qml"));
+    auto *tonnetzAction = makeAction(QStringLiteral("&Tonnetz"), QStringLiteral("tonnetz.qml"));
+    auto *cwAction = makeAction(QStringLiteral("&Chicken Wire"), QStringLiteral("chickenWire.qml"));
+    auto *cdAction = makeAction(QStringLiteral("Cube &Dance"), QStringLiteral("cubeDance.qml"));
+    auto *s7Action = makeAction(QStringLiteral("&Seventh Chords"), QStringLiteral("seventhChords.qml"));
     viewMenu->addSeparator();
     auto *augAction = viewMenu->addAction(QStringLiteral("Show &Augmented Chords"));
     augAction->setCheckable(true);
@@ -170,9 +170,9 @@ int main(int argc, char *argv[])
     QObject::connect(&switcher, &VisualizerSwitcher::sourceChanged, [&]() {
         const QString src = switcher.source();
         tonnetzAction->setChecked(src == QStringLiteral("tonnetz.qml"));
-        cwAction->setChecked(src      == QStringLiteral("chickenWire.qml"));
-        cdAction->setChecked(src      == QStringLiteral("cubeDance.qml"));
-        s7Action->setChecked(src      == QStringLiteral("seventhChords.qml"));
+        cwAction->setChecked(src == QStringLiteral("chickenWire.qml"));
+        cdAction->setChecked(src == QStringLiteral("cubeDance.qml"));
+        s7Action->setChecked(src == QStringLiteral("seventhChords.qml"));
         settings.setValue(QStringLiteral("view/source"), src);
     });
 
@@ -326,9 +326,9 @@ int main(int argc, char *argv[])
     negativeAction->setChecked(settings.value(QStringLiteral("color/invertColors"), false).toBool());
     augAction->setChecked(settings.value(QStringLiteral("display/showAugmented"), false).toBool());
     satSlider->setValue(settings.value(QStringLiteral("color/saturation"), 100).toInt());
-    hueSlider->setValue(settings.value(QStringLiteral("color/hue"),        180).toInt());
+    hueSlider->setValue(settings.value(QStringLiteral("color/hue"), 180).toInt());
     briSlider->setValue(settings.value(QStringLiteral("color/brightness"), 100).toInt());
-    conSlider->setValue(settings.value(QStringLiteral("color/contrast"),   100).toInt());
+    conSlider->setValue(settings.value(QStringLiteral("color/contrast"), 100).toInt());
 
     switcher.setCubeMode(settings.value(QStringLiteral("display/cubeMode"), true).toBool());
     switcher.setFifthsOrder(settings.value(QStringLiteral("display/fifthsOrder"), true).toBool());
@@ -350,7 +350,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(&app, &QApplication::aboutToQuit, [&]() {
         settings.setValue(QStringLiteral("window/geometry"), mw.saveGeometry());
-        settings.setValue(QStringLiteral("window/state"),    mw.saveState());
+        settings.setValue(QStringLiteral("window/state"), mw.saveState());
     });
 
     mw.show();

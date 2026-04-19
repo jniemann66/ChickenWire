@@ -133,7 +133,7 @@ QList<MidiNoteEvent> parseMidiFile(const QString &path, qint64 *durationMs, QStr
 
     const QByteArray raw = f.readAll();
     const auto *d = reinterpret_cast<const uchar *>(raw.constData());
-    const int   sz = raw.size();
+    const int sz = raw.size();
 
     if (sz < 14 || raw[0]!='M'||raw[1]!='T'||raw[2]!='h'||raw[3]!='d')
         return fail(QStringLiteral("Not a MIDI file: %1").arg(path));
