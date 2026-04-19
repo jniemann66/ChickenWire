@@ -39,15 +39,52 @@ The **Color Scheme** menu provides:
 - **Negative** — inverts all colours through a GLSL fragment shader applied as a Qt layer effect
 - **Adjust Color…** — opens a dockable panel with sliders for hue rotation, saturation, brightness, and contrast; double-click any slider to reset it; all values are persisted across sessions
 
-## Navigation
+## Keyboard Shortcuts
+
+Press **F1** at any time to show the in-app shortcut overlay.
+
+### Global
 
 | Key | Action |
 |-----|--------|
-| **F4** | Toggle between Tonnetz and ChickenWire |
-| **Arrow keys** | Move selection along perfect-5ths / major-3rds axes |
-| **Shift + Up/Down** | Move selection along minor-3rds axis |
-| **F5** | Toggle neo-Riemannian distance highlighting |
+| **F1** | Show / hide the shortcut overlay |
+| **F4** | Next visualizer |
+| **Shift + F4** | Previous visualizer |
+| **Escape** | Clear all selections |
+
+### Tonnetz and ChickenWire
+
+| Key | Action |
+|-----|--------|
+| **← / → / ↑ / ↓** | Move selection (perfect-5ths / major-3rds axes) |
+| **Shift + ↑ / ↓** | Move selection along the minor-3rds axis |
+| **F5** | Toggle NR distance highlighting |
 | **Click** | Select a note or triad; click again to deselect |
+| **Drag** | Pan the view |
+| **Scroll wheel** | Zoom |
+
+### Cube Dance
+
+| Key | Action |
+|-----|--------|
+| **F5** | Toggle NR distance highlighting |
+| **F7** | Toggle "actual cubes" mode |
+| **Click** | Select a chord |
+| **Drag** | Pan the view |
+| **Scroll wheel** | Zoom |
+
+### Seventh Chords
+
+| Key | Action |
+|-----|--------|
+| **F5** | Toggle distance highlighting from selected chord |
+| **F6** | Toggle chromatic ↔ cycle-of-fourths root order |
+| **1 / 2 / 3 / 4** | Toggle P12 / P14 / P23 / P35 (parallel edges) |
+| **5 / 6 / 7** | Toggle R12 / R23 / R42 (relative edges) |
+| **8 / 9 / 0** | Toggle L13 / L15 / L42 (leading-tone edges) |
+| **-** | Toggle Q43 (special Q edge) |
+| **= or Backspace** | Restore all transformation classes |
+| **Click** | Focus a chord's incident edges |
 | **Drag** | Pan the view |
 | **Scroll wheel** | Zoom |
 
