@@ -1,6 +1,7 @@
 #include "midiPlayer.h"
 #include "midiAudio.h"
 
+#include <QSet>
 #include <QTimer>
 #include <algorithm>
 
@@ -38,9 +39,16 @@ bool MidiPlayer::load(const QString &path)
     m_nextEvent  = 0;
     m_filePath   = path;
 
+    QSet<int> seen;
+    for (const MidiNoteEvent &e : m_events)
+        seen.insert(e.channel);
+    m_presentChannels = seen.values();
+    std::sort(m_presentChannels.begin(), m_presentChannels.end());
+
     emit filePathChanged();
     emit durationMsChanged();
     emit positionChanged();
+    emit presentChannelsChanged();
     return true;
 }
 

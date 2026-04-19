@@ -1,6 +1,7 @@
 #pragma once
 #include "midiFile.h"
 #include <QElapsedTimer>
+#include <QList>
 #include <QObject>
 #include <QString>
 
@@ -14,10 +15,11 @@ class MidiPlayer : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(State   state      READ state      NOTIFY stateChanged)
-    Q_PROPERTY(qreal   position   READ position   NOTIFY positionChanged)  // 0.0–1.0
-    Q_PROPERTY(int     durationMs READ durationMs NOTIFY durationMsChanged)
-    Q_PROPERTY(QString filePath   READ filePath   NOTIFY filePathChanged)
+    Q_PROPERTY(State      state           READ state           NOTIFY stateChanged)
+    Q_PROPERTY(qreal      position        READ position        NOTIFY positionChanged)  // 0.0–1.0
+    Q_PROPERTY(int        durationMs      READ durationMs      NOTIFY durationMsChanged)
+    Q_PROPERTY(QString    filePath        READ filePath        NOTIFY filePathChanged)
+    Q_PROPERTY(QList<int> presentChannels READ presentChannels NOTIFY presentChannelsChanged)
 
 public:
     enum State {
@@ -34,6 +36,7 @@ public:
     qreal position() const;
     int durationMs() const { return m_durationMs; }
     QString filePath() const { return m_filePath; }
+    QList<int> presentChannels() const { return m_presentChannels; }
 
     Q_INVOKABLE bool load(const QString &path);
     Q_INVOKABLE void play();
@@ -49,6 +52,7 @@ signals:
     void positionChanged();
     void durationMsChanged();
     void filePathChanged();
+    void presentChannelsChanged();
     void loadError(const QString &message);
 
 private slots:
@@ -58,7 +62,8 @@ private:
     void silenceAll();
     qint64 currentMs() const;
 
-    QString m_filePath;
+    QString    m_filePath;
+    QList<int> m_presentChannels;
     MidiAudio *m_audio = nullptr;
 
     QList<MidiNoteEvent> m_events;

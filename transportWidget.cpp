@@ -1,6 +1,7 @@
 #include "transportWidget.h"
 #include "midiPlayer.h"
 
+#include <QComboBox>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHBoxLayout>
@@ -17,12 +18,16 @@ TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 
     auto *container = new QWidget(this);
-    m_openBtn = new QPushButton(tr("Open…"), container);
-    m_playPauseBtn = new QPushButton(tr("Play"), container);
-    m_stopBtn = new QPushButton(tr("Stop"), container);
-    m_slider = new QSlider(Qt::Horizontal, container);
-    m_fileLabel = new QLabel(tr("No file loaded"), container);
-    m_timeLabel = new QLabel(tr("0:00 / 0:00"), container);
+    m_openBtn      = new QPushButton(tr("Open…"), container);
+    m_playPauseBtn = new QPushButton(tr("Play"),  container);
+    m_stopBtn      = new QPushButton(tr("Stop"),  container);
+    m_slider       = new QSlider(Qt::Horizontal,  container);
+    m_fileLabel    = new QLabel(tr("No file loaded"), container);
+    m_timeLabel    = new QLabel(tr("0:00 / 0:00"),    container);
+    m_channelCombo = new QComboBox(container);
+    m_channelCombo->addItem(tr("All Channels"), -1);
+    m_channelCombo->setEnabled(false);
+    m_channelCombo->setToolTip(tr("Filter display to a single MIDI channel"));
 
     m_slider->setRange(0, 1000);
     m_slider->setEnabled(false);
@@ -37,6 +42,7 @@ TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     row->addWidget(m_stopBtn);
     row->addWidget(m_slider, 1);
     row->addWidget(m_timeLabel);
+    row->addWidget(m_channelCombo);
 
     auto *layout = new QVBoxLayout(container);
     layout->setContentsMargins(4, 2, 4, 2);
@@ -60,6 +66,11 @@ TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     connect(m_slider, &QSlider::sliderPressed,  this, [this]() { m_dragging = true; });
     connect(m_slider, &QSlider::sliderReleased, this, &TransportWidget::onSliderReleased);
 
+    // Channel combo → emit filter signal
+    connect(m_channelCombo, &QComboBox::currentIndexChanged, this, [this](int idx) {
+        emit channelFilterChanged(m_channelCombo->itemData(idx).toInt());
+    });
+
     // Player → widget updates
     connect(m_player, &MidiPlayer::stateChanged,    this, &TransportWidget::onStateChanged);
     connect(m_player, &MidiPlayer::positionChanged, this, &TransportWidget::onPositionChanged);
@@ -74,6 +85,20 @@ TransportWidget::TransportWidget(MidiPlayer *player, QWidget *parent)
     connect(m_player, &MidiPlayer::loadError, this, [this](const QString &msg) {
         m_fileLabel->setText(tr("Error: %1").arg(msg));
     });
+}
+
+void TransportWidget::setPresentChannels(const QList<int> &channels)
+{
+    // Block signals to avoid emitting channelFilterChanged while rebuilding.
+    const QSignalBlocker blocker(m_channelCombo);
+    m_channelCombo->clear();
+    m_channelCombo->addItem(tr("All Channels"), -1);
+    for (int ch : channels)
+        m_channelCombo->addItem(tr("Channel %1").arg(ch + 1), ch);
+    m_channelCombo->setCurrentIndex(0);
+    m_channelCombo->setEnabled(channels.size() > 1);
+    // Restore filter to "all" when a new file is loaded.
+    emit channelFilterChanged(-1);
 }
 
 void TransportWidget::openFile()

@@ -23,6 +23,9 @@ class TonnetzController : public QObject
     // When false, computeTriadDistances() returns an empty list and the views show no distance colours.
     Q_PROPERTY(bool nrDistancesEnabled READ nrDistancesEnabled WRITE setNrDistancesEnabled NOTIFY nrDistancesEnabledChanged)
 
+    // MIDI channel filter: -1 = all channels, 0–15 = specific channel.
+    Q_PROPERTY(int midiChannelFilter READ midiChannelFilter WRITE setMidiChannelFilter NOTIFY midiChannelFilterChanged)
+
 public:
     explicit TonnetzController(QObject *parent = nullptr);
 
@@ -33,6 +36,8 @@ public:
     int activeNotes() const { return m_playingNotes | m_highlightedNotes; }
     bool nrDistancesEnabled() const { return m_nrDistancesEnabled; }
     void setNrDistancesEnabled(bool enabled);
+    int  midiChannelFilter() const { return m_midiChannelFilter; }
+    void setMidiChannelFilter(int channel);
 
     // invokables
     // Called by QML after hit-testing
@@ -58,8 +63,8 @@ public:
     Q_INVOKABLE QVariantList computeTriadDistances(int root, bool isMajor) const;
 
 public slots:
-    void handleNoteOn (int semitone);
-    void handleNoteOff(int semitone);
+    void handleNoteOn (int semitone, int channel);
+    void handleNoteOff(int semitone, int channel);
     void clearPlayingNotes();
 
 signals:
@@ -71,6 +76,7 @@ signals:
     void minorRootNoteNamesChanged();
     void activeNotesChanged();
     void nrDistancesEnabledChanged();
+    void midiChannelFilterChanged();
 
 private:
     static bool validateNames(const QStringList &names, const char *which);
@@ -78,8 +84,9 @@ private:
     QStringList m_noteNames; // note names of all 12 notes
     QStringList m_majorRootNoteNames; // names of all 12 root notes for Major Chords
     QStringList m_minorRootNoteNames; // names of all 12 root notes for Minor Chords
-    int m_highlightedNotes = 0; // 12-bit bitmask
-    bool m_nrDistancesEnabled = false; // when true, show relative distance from selected triad to other triads using colour code
-    int m_playingNotes = 0;
-    int m_playingNoteCounts[12] = {};
+    int  m_highlightedNotes = 0;
+    bool m_nrDistancesEnabled = false;
+    int  m_playingNotes = 0;
+    int  m_playingNoteCounts[12] = {};
+    int  m_midiChannelFilter = -1;
 };

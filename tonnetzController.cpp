@@ -168,9 +168,20 @@ void TonnetzController::selectTriad(int root, int third, int fifth, bool isMajor
     emit triadSelected(root, third, fifth, isMajor);
 }
 
-void TonnetzController::handleNoteOn(int semitone)
+void TonnetzController::setMidiChannelFilter(int channel)
+{
+    if (m_midiChannelFilter == channel)
+        return;
+    m_midiChannelFilter = channel;
+    clearPlayingNotes();
+    emit midiChannelFilterChanged();
+}
+
+void TonnetzController::handleNoteOn(int semitone, int channel)
 {
     if (semitone < 0 || semitone >= 12)
+        return;
+    if (m_midiChannelFilter >= 0 && channel != m_midiChannelFilter)
         return;
 
     ++m_playingNoteCounts[semitone];
@@ -181,9 +192,11 @@ void TonnetzController::handleNoteOn(int semitone)
     }
 }
 
-void TonnetzController::handleNoteOff(int semitone)
+void TonnetzController::handleNoteOff(int semitone, int channel)
 {
     if (semitone < 0 || semitone >= 12)
+        return;
+    if (m_midiChannelFilter >= 0 && channel != m_midiChannelFilter)
         return;
 
     if (--m_playingNoteCounts[semitone] <= 0) {

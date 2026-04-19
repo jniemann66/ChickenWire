@@ -56,14 +56,12 @@ int main(int argc, char *argv[])
     VisualizerSwitcher switcher;
     MidiPlayer midiPlayer;
 
-    // Handler for sending MIDI note-on events to TonnetzController
-    QObject::connect(&midiPlayer, &MidiPlayer::noteOn, [&controller](int semitone, int /*channel*/, int /*velocity*/) {
-        controller.handleNoteOn(semitone);
+    QObject::connect(&midiPlayer, &MidiPlayer::noteOn, [&controller](int semitone, int channel, int /*velocity*/) {
+        controller.handleNoteOn(semitone, channel);
     });
 
-    // Handler for sending MIDI note-off events to TonnetzController
-    QObject::connect(&midiPlayer, &MidiPlayer::noteOff, [&controller](int semitone, int /*channel*/) {
-        controller.handleNoteOff(semitone);
+    QObject::connect(&midiPlayer, &MidiPlayer::noteOff, [&controller](int semitone, int channel) {
+        controller.handleNoteOff(semitone, channel);
     });
 
     // Handler for clearing all displayed notes from TonnetzController
@@ -98,6 +96,14 @@ int main(int argc, char *argv[])
     // Transport dock
     auto *transport = new TransportWidget(&midiPlayer, &mw);
     mw.addDockWidget(Qt::BottomDockWidgetArea, transport);
+
+    // Channel filter: populate combo when a new file is loaded, wire filter → controller.
+    QObject::connect(&midiPlayer, &MidiPlayer::presentChannelsChanged, transport,
+                     [&midiPlayer, transport]() {
+                         transport->setPresentChannels(midiPlayer.presentChannels());
+                     });
+    QObject::connect(transport, &TransportWidget::channelFilterChanged,
+                     &controller, &TonnetzController::setMidiChannelFilter);
 
     // View menu
     auto *viewMenu = mw.menuBar()->addMenu(QStringLiteral("&View"));
