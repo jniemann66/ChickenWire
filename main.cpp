@@ -195,6 +195,32 @@ int main(int argc, char *argv[])
         negativeAction->setChecked(switcher.invertColors());
     });
 
+    // Theme submenu (radio-button style, exclusive)
+    auto *themeMenu = colorMenu->addMenu(QStringLiteral("&Theme"));
+    auto *themeGroup = new QActionGroup(&mw);
+    themeGroup->setExclusive(true);
+    const QList<QPair<QString,QString>> themeItems = {
+        { QStringLiteral("Dark"),          QStringLiteral("dark") },
+        { QStringLiteral("Light"),         QStringLiteral("light") },
+        { QStringLiteral("High Contrast"), QStringLiteral("contrast") },
+    };
+    for (const auto &[label, id] : themeItems) {
+        auto *a = themeMenu->addAction(label);
+        a->setCheckable(true);
+        a->setData(id);
+        a->setChecked(switcher.themeName() == id);
+        themeGroup->addAction(a);
+        QObject::connect(a, &QAction::triggered, [&switcher, &settings, id]() {
+            switcher.setThemeName(id);
+            settings.setValue(QStringLiteral("color/theme"), id);
+        });
+    }
+    QObject::connect(&switcher, &VisualizerSwitcher::themeNameChanged, [&]() {
+        const QString name = switcher.themeName();
+        for (QAction *a : themeGroup->actions())
+            a->setChecked(a->data().toString() == name);
+    });
+
     // Color controls dock
     auto *colorDock = new QDockWidget(QStringLiteral("Adjust Color"), &mw);
     colorDock->setAllowedAreas(Qt::AllDockWidgetAreas);
@@ -301,6 +327,7 @@ int main(int argc, char *argv[])
     switcher.setCubeMode(settings.value(QStringLiteral("display/cubeMode"), true).toBool());
     switcher.setFifthsOrder(settings.value(QStringLiteral("display/fifthsOrder"), true).toBool());
     switcher.setHiddenClasses(settings.value(QStringLiteral("display/hiddenClasses"), QStringList{}).toStringList());
+    switcher.setThemeName(settings.value(QStringLiteral("color/theme"), QStringLiteral("dark")).toString());
 
     // Restore active visualizer.  Menu checkmarks were initialized to the
     // default ("tonnetz.qml") in makeAction; setSource() will fix them up

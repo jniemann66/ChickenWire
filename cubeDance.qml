@@ -907,5 +907,10 @@ Item {
                 requestPaint();
             }
         }
+
+        Connections {
+            target: Theme
+            function onThemeChanged() { requestPaint(); }
+        }
     }
 }

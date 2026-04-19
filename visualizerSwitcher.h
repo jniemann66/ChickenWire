@@ -30,6 +30,7 @@ class VisualizerSwitcher : public QObject
     Q_PROPERTY(qreal hue          READ hue          WRITE setHue          NOTIFY hueChanged)
     Q_PROPERTY(qreal brightness   READ brightness   WRITE setBrightness   NOTIFY brightnessChanged)
     Q_PROPERTY(qreal contrast     READ contrast     WRITE setContrast     NOTIFY contrastChanged)
+    Q_PROPERTY(QString themeName  READ themeName    WRITE setThemeName    NOTIFY themeNameChanged)
 
     // Shared selection state.  selType: 0=none  1=note  2=triad
     Q_PROPERTY(int  selType    READ selType    NOTIFY selectionChanged)
@@ -123,6 +124,15 @@ public:
         }
     }
 
+    QString themeName() const { return m_themeName; }
+    void setThemeName(const QString &v)
+    {
+        if (m_themeName != v) {
+            m_themeName = v;
+            emit themeNameChanged();
+        }
+    }
+
     QString source() const { return m_source; }
     qreal vpOriginX() const { return m_vpOriginX; }
     qreal vpOriginY() const { return m_vpOriginY; }
@@ -205,6 +215,7 @@ public:
 signals:
     void playbackStarted();
     void selectionsCleared();
+    void themeNameChanged();
     void sourceChanged();
     void vpOriginXChanged();
     void vpOriginYChanged();
@@ -231,6 +242,7 @@ private:
     qreal m_brightness = 1.0;
     qreal m_contrast = 1.0;
     QString m_source;
+    QString m_themeName = QStringLiteral("dark");
     qreal m_vpOriginX = 0;
     qreal m_vpOriginY = 0;
     qreal m_vpScale = 0; // 0 = sentinel "not yet set"

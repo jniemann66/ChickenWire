@@ -315,7 +315,8 @@ Item {
             var ns = notesForNode(idx);
             var n = 0;
             for (var k = 0; k < 4; k++)
-                if (isAct(ns[k])) n++;
+                if (isAct(ns[k]))
+                    n++;
             return n;
         }
         function nodeIsActive(idx) {
@@ -329,17 +330,23 @@ Item {
         function triadPartialNode() {
             var nbits = 0;
             for (var i = 0; i < 12; i++)
-                if ((activeNotes >> i) & 1) nbits++;
-            if (nbits !== 3) return -1;
+                if ((activeNotes >> i) & 1)
+                    nbits++;
+            if (nbits !== 3)
+                return -1;
             for (var r = 0; r < 12; r++) {
-                if (!((activeNotes >> r) & 1)) continue;
+                if (!((activeNotes >> r) & 1))
+                    continue;
                 var m3 = !!((activeNotes >> ((r + 3) % 12)) & 1);
                 var m4 = !!((activeNotes >> ((r + 4) % 12)) & 1);
                 var m6 = !!((activeNotes >> ((r + 6) % 12)) & 1);
                 var m7 = !!((activeNotes >> ((r + 7) % 12)) & 1);
-                if (m4 && m7) return r;              // major triad  → maj7 (index r)
-                if (m3 && m7) return 24 + r;         // minor triad  → min7 (index 24+r)
-                if (m3 && m6) return 48 + (r % 3);  // dim triad    → dim7 (index 48+r%3)
+                if (m4 && m7)
+                    return r;              // major triad  → maj7 (index r)
+                if (m3 && m7)
+                    return 24 + r;         // minor triad  → min7 (index 24+r)
+                if (m3 && m6)
+                    return 48 + (r % 3);  // dim triad    → dim7 (index 48+r%3)
                 // augmented (m4 && m8): no node yet → falls through to return -1
             }
             return -1;
@@ -603,9 +610,7 @@ Item {
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
                     ctx.fillStyle = (act || sel) ? Theme.hlColor : partial ? Qt.rgba(Theme.hlColor.r, Theme.hlColor.g, Theme.hlColor.b, 0.6) : (nrD >= 0) ? nrC[nrD] : Theme.triadText;
-                    ctx.fillText(
-                        (partial && n.type === "maj") ? majorRootNoteNames[n.root] : nodeLabel(ni),
-                        np.x, np.y);
+                    ctx.fillText((partial && n.type === "maj") ? majorRootNoteNames[n.root] : nodeLabel(ni), np.x, np.y);
                 }
             }
 
@@ -715,6 +720,11 @@ Item {
                 nodeDists = [];
                 requestPaint();
             }
+        }
+
+        Connections {
+            target: Theme
+            function onThemeChanged() { requestPaint(); }
         }
     }
 }

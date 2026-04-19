@@ -93,6 +93,13 @@ Item {
             item.forceActiveFocus()
     }
 
+    // Apply theme preset whenever the selection changes, and once on startup.
+    Connections {
+        target: visualizerSwitcher
+        function onThemeNameChanged() { Theme.apply(visualizerSwitcher.themeName); }
+    }
+    Component.onCompleted: Theme.apply(visualizerSwitcher.themeName)
+
     // Transfer keyboard focus to whichever view is becoming active.
     Connections {
         target: visualizerSwitcher
