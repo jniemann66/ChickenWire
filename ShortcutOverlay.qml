@@ -155,6 +155,10 @@ Rectangle {
         {
             key: "Shift+F4",
             desc: "Previous visualizer"
+        },
+        {
+            key: "Escape",
+            desc: "Clear all selections"
         }
     ]
 

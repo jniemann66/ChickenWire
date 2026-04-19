@@ -69,6 +69,14 @@ int main(int argc, char *argv[])
     // Handler for clearing all displayed notes from TonnetzController
     QObject::connect(&midiPlayer, &MidiPlayer::allNotesCleared, &controller, &TonnetzController::clearPlayingNotes);
 
+    // Clear all node/triad selections in every visualizer when playback starts.
+    QObject::connect(&midiPlayer, &MidiPlayer::stateChanged, [&]() {
+        if (midiPlayer.state() == MidiPlayer::Playing) {
+            controller.clearHighlightedNotes();
+            switcher.notifyPlaybackStarted();
+        }
+    });
+
     // QML view
     auto *view = new QQuickWidget;
     view->rootContext()->setContextProperty("tonnetzController", &controller);
@@ -146,6 +154,12 @@ int main(int argc, char *argv[])
     QObject::connect(f4, &QShortcut::activated, [cycle]() { cycle(+1); });
     auto *shiftF4 = new QShortcut(QKeySequence(Qt::SHIFT | Qt::Key_F4), &mw);
     QObject::connect(shiftF4, &QShortcut::activated, [cycle]() { cycle(-1); });
+
+    auto *escKey = new QShortcut(QKeySequence(Qt::Key_Escape), &mw);
+    QObject::connect(escKey, &QShortcut::activated, [&]() {
+        controller.clearHighlightedNotes();
+        switcher.clearAllSelections();
+    });
 
     QObject::connect(&switcher, &VisualizerSwitcher::sourceChanged, [&]() {
         const QString src = switcher.source();

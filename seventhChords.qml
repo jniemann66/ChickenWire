@@ -103,7 +103,30 @@ Item {
         onNoteNamesChanged: requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
-        onActiveNotesChanged: requestPaint()
+        onActiveNotesChanged: {
+            // Auto-follow: select the first fully-matching chord so edge focus
+            // and F5 BFS distances track the music live.  Always clear the
+            // previous selection when no full match exists — so a 7th-chord
+            // selection does not linger into a subsequent triad or rest.
+            var best = -1;
+            if (activeNotes !== 0) {
+                for (var i = 0; i < nodes.length; i++) {
+                    if (nodeMatchCount(i) === 4) {
+                        best = i;
+                        break;
+                    }
+                }
+            }
+            if (best >= 0) {
+                selNode = best;
+                if (showDistances)
+                    nodeDists = computeDistances(best);
+            } else {
+                selNode = -1;
+                nodeDists = [];
+            }
+            requestPaint();
+        }
 
         property real originX: width / 2
         property real originY: height / 2
@@ -288,9 +311,38 @@ Item {
         function isAct(s) {
             return !!((activeNotes >> s) & 1);
         }
-        function nodeIsActive(idx) {
+        function nodeMatchCount(idx) {
             var ns = notesForNode(idx);
-            return isAct(ns[0]) && isAct(ns[1]) && isAct(ns[2]) && isAct(ns[3]);
+            var n = 0;
+            for (var k = 0; k < 4; k++)
+                if (isAct(ns[k])) n++;
+            return n;
+        }
+        function nodeIsActive(idx) {
+            return nodeMatchCount(idx) === 4;
+        }
+
+        // When exactly 3 notes are active and they form a standard triad,
+        // return the index of the one seventh-chord node whose root/3rd/5th
+        // match exactly — the 7th is simply absent from the MIDI.
+        // Returns -1 for augmented triads (no node yet) or non-triad 3-note sets.
+        function triadPartialNode() {
+            var nbits = 0;
+            for (var i = 0; i < 12; i++)
+                if ((activeNotes >> i) & 1) nbits++;
+            if (nbits !== 3) return -1;
+            for (var r = 0; r < 12; r++) {
+                if (!((activeNotes >> r) & 1)) continue;
+                var m3 = !!((activeNotes >> ((r + 3) % 12)) & 1);
+                var m4 = !!((activeNotes >> ((r + 4) % 12)) & 1);
+                var m6 = !!((activeNotes >> ((r + 6) % 12)) & 1);
+                var m7 = !!((activeNotes >> ((r + 7) % 12)) & 1);
+                if (m4 && m7) return r;              // major triad  → maj7 (index r)
+                if (m3 && m7) return 24 + r;         // minor triad  → min7 (index 24+r)
+                if (m3 && m6) return 48 + (r % 3);  // dim triad    → dim7 (index 48+r%3)
+                // augmented (m4 && m8): no node yet → falls through to return -1
+            }
+            return -1;
         }
 
         function edgeColour(etype) {
@@ -488,11 +540,14 @@ Item {
 
             // Nodes
             var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3, Theme.nrDist4, Theme.nrDist5, Theme.nrDist6];
+            var partialNode = (activeNotes !== 0) ? triadPartialNode() : -1;
 
             for (var ni = 0; ni < nodes.length; ni++) {
                 var n = nodes[ni];
                 var np = nodePos(ni);
-                var act = nodeIsActive(ni);
+                var mc = nodeMatchCount(ni);
+                var act = mc === 4;
+                var partial = (ni === partialNode);
                 var sel = (ni === selNode);
                 var nrD = (nodeDists.length > 0) ? nodeDists[ni] : -1;
                 if (nrD > nrC.length - 1)
@@ -522,6 +577,10 @@ Item {
                     ctx.fillStyle = Theme.hlNodeFill;
                     ctx.strokeStyle = Theme.hlColor;
                     ctx.lineWidth = Math.max(0.5, 2.5 * scale);
+                } else if (partial) {
+                    ctx.fillStyle = Qt.rgba(Theme.hlNodeFill.r, Theme.hlNodeFill.g, Theme.hlNodeFill.b, 0.3);
+                    ctx.strokeStyle = Qt.rgba(Theme.hlColor.r, Theme.hlColor.g, Theme.hlColor.b, 0.55);
+                    ctx.lineWidth = Math.max(0.5, 2.0 * scale);
                 } else if (nrD >= 0) {
                     var c = nrC[nrD];
                     ctx.fillStyle = Qt.rgba(c.r, c.g, c.b, 0.35);
@@ -543,8 +602,10 @@ Item {
                     ctx.font = "bold " + fontSize + "px sans-serif";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
-                    ctx.fillStyle = (act || sel) ? Theme.hlColor : (nrD >= 0) ? nrC[nrD] : Theme.triadText;
-                    ctx.fillText(nodeLabel(ni), np.x, np.y);
+                    ctx.fillStyle = (act || sel) ? Theme.hlColor : partial ? Qt.rgba(Theme.hlColor.r, Theme.hlColor.g, Theme.hlColor.b, 0.6) : (nrD >= 0) ? nrC[nrD] : Theme.triadText;
+                    ctx.fillText(
+                        (partial && n.type === "maj") ? majorRootNoteNames[n.root] : nodeLabel(ni),
+                        np.x, np.y);
                 }
             }
 
@@ -644,6 +705,15 @@ Item {
                 canvas.originY = w.y + (canvas.originY - w.y) * factor;
                 canvas.scale *= factor;
                 canvas.requestPaint();
+            }
+        }
+
+        Connections {
+            target: visualizerSwitcher
+            function onSelectionsCleared() {
+                selNode = -1;
+                nodeDists = [];
+                requestPaint();
             }
         }
     }

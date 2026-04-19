@@ -898,5 +898,14 @@ Item {
                 canvas.requestPaint();
             }
         }
+
+        Connections {
+            target: visualizerSwitcher
+            function onSelectionsCleared() {
+                selNode = -1;
+                nodeDists = [];
+                requestPaint();
+            }
+        }
     }
 }

@@ -159,6 +159,18 @@ public:
         emit selectionChanged();
     }
 
+    void clearAllSelections()
+    {
+        clearSelection();
+        emit selectionsCleared();
+    }
+
+    void notifyPlaybackStarted()
+    {
+        clearAllSelections();
+        emit playbackStarted();
+    }
+
     void setSource(const QString &s)
     {
         if (m_source != s) {
@@ -191,6 +203,8 @@ public:
     }
 
 signals:
+    void playbackStarted();
+    void selectionsCleared();
     void sourceChanged();
     void vpOriginXChanged();
     void vpOriginYChanged();

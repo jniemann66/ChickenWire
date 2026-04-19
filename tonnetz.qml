@@ -98,7 +98,7 @@ Item {
         // Viewport state — restored from / saved to visualizerSwitcher on each change
         property real originX: width / 2
         property real originY: height / 2
-        property real scale: 1.0
+        property real scale: 1.75
 
         Component.onCompleted: {
             if (visualizerSwitcher.vpScale > 0) {
@@ -680,6 +680,16 @@ Item {
                 visualizerSwitcher.vpOriginY = canvas.originY;
                 visualizerSwitcher.vpScale = canvas.scale;
                 canvas.requestPaint();
+            }
+        }
+
+        Connections {
+            target: visualizerSwitcher
+            function onSelectionsCleared() {
+                hasSelNode = false;
+                hasSelTriad = false;
+                nrDists = [];
+                requestPaint();
             }
         }
     }

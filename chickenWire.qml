@@ -103,7 +103,7 @@ Item {
         // Viewport — same coordinate system as Tonnetz.qml; restored from / saved to visualizerSwitcher
         property real originX: width / 2
         property real originY: height / 2
-        property real scale: 1.0
+        property real scale: 1.75
 
         Component.onCompleted: {
             if (visualizerSwitcher.vpScale > 0) {
@@ -611,6 +611,16 @@ Item {
                 visualizerSwitcher.vpOriginY = canvas.originY;
                 visualizerSwitcher.vpScale = canvas.scale;
                 canvas.requestPaint();
+            }
+        }
+
+        Connections {
+            target: visualizerSwitcher
+            function onSelectionsCleared() {
+                hasSel = false;
+                hasSelNote = false;
+                nrDists = [];
+                requestPaint();
             }
         }
     }
