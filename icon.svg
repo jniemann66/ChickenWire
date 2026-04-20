@@ -7,44 +7,47 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <!-- Radial gradient: bright blue-violet core fading to lightened navy -->
-    <radialGradient id="hexGlow" cx="256" cy="256" r="148" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#4a5ab8" stop-opacity="1"/>
-      <stop offset="55%"  stop-color="#2a2a42" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#2a2a42" stop-opacity="1"/>
+    <!-- Hex interior gradient: blue-violet core → lightened navy -->
+    <radialGradient id="hexFill" cx="256" cy="256" r="148" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#4a5ab8"/>
+      <stop offset="85%"  stop-color="#2a2a42"/>
+      <stop offset="100%" stop-color="#2a2a42"/>
     </radialGradient>
   </defs>
 
   <!--
-    Six nodes arranged as a pointy-top hexagon, circumradius R=170, centre (256,256).
-      1 top          (256,  86)  minor → blue ring
-      2 top-right    (403, 171)  major → orange ring
-      3 bottom-right (403, 341)  minor → blue ring
-      4 bottom       (256, 426)  major → orange ring
-      5 bottom-left  (109, 341)  minor → blue ring
-      6 top-left     (109, 171)  major → orange ring
+    Flat-top hexagon, circumradius R=170, centre (256,256).
+    Vertices at 0°,60°,120°,180°,240°,300° (0° = right):
+      Right       (426, 256)  major → orange ring
+      Top-right   (341, 109)  minor → blue ring
+      Top-left    (171, 109)  major → orange ring
+      Left         (86, 256)  minor → blue ring
+      Bottom-left (171, 403)  major → orange ring
+      Bottom-right(341, 403)  minor → blue ring
 
-    Edge colours clockwise (P=pink, R=orange, L=blue):
-      1→2 P   2→3 R   3→4 L   4→5 P   5→6 R   6→1 L
+    3 diameter edges through centre (each pair of opposite vertices):
+      Right ↔ Left        → pink  (P)
+      Top-right ↔ Bot-left → orange (R)
+      Top-left ↔ Bot-right → blue  (L)
   -->
 
-  <!-- Hex fill: gradient glow at centre, transparent outside -->
-  <polygon points="256,86 403,171 403,341 256,426 109,341 109,171" fill="url(#hexGlow)"/>
+  <!-- Hex interior fill -->
+  <polygon points="426,256 341,109 171,109 86,256 171,403 341,403" fill="url(#hexFill)"/>
 
-  <!-- Edges (drawn first so nodes sit on top) -->
-  <line x1="256" y1="86"  x2="403" y2="171" stroke="#e93d9a" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
-  <line x1="403" y1="171" x2="403" y2="341" stroke="#f67400" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
-  <line x1="403" y1="341" x2="256" y2="426" stroke="#3daee9" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
-  <line x1="256" y1="426" x2="109" y2="341" stroke="#e93d9a" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
-  <line x1="109" y1="341" x2="109" y2="171" stroke="#f67400" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
-  <line x1="109" y1="171" x2="256" y2="86"  stroke="#3daee9" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
+  <!-- 3 coloured diameter lines crossing at centre -->
+  <line x1="86"  y1="256" x2="426" y2="256" stroke="#e93d9a" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
+  <line x1="341" y1="109" x2="171" y2="403" stroke="#f67400" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
+  <line x1="171" y1="109" x2="341" y2="403" stroke="#3daee9" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
 
-  <!-- Nodes: hollow circles with thick coloured rings -->
-  <!-- minor → blue ring,   major → orange ring -->
-  <circle cx="256" cy="86"  r="40" fill="#2a2a42" stroke="#5a9fd4" stroke-width="9"/>
-  <circle cx="403" cy="171" r="40" fill="#2a2a42" stroke="#e8a045" stroke-width="9"/>
-  <circle cx="403" cy="341" r="40" fill="#2a2a42" stroke="#5a9fd4" stroke-width="9"/>
-  <circle cx="256" cy="426" r="40" fill="#2a2a42" stroke="#e8a045" stroke-width="9"/>
-  <circle cx="109" cy="341" r="40" fill="#2a2a42" stroke="#5a9fd4" stroke-width="9"/>
-  <circle cx="109" cy="171" r="40" fill="#2a2a42" stroke="#e8a045" stroke-width="9"/>
+  <!-- Outer nodes -->
+  <circle cx="426" cy="256" r="38" fill="#2a2a42" stroke="#ffffff" stroke-width="9"/>
+  <circle cx="341" cy="109" r="38" fill="#2a2a42" stroke="#ffffff" stroke-width="9"/>
+  <circle cx="171" cy="109" r="38" fill="#2a2a42" stroke="#ffffff" stroke-width="9"/>
+  <circle cx="86"  cy="256" r="38" fill="#2a2a42" stroke="#ffffff" stroke-width="9"/>
+  <circle cx="171" cy="403" r="38" fill="#2a2a42" stroke="#ffffff" stroke-width="9"/>
+  <circle cx="341" cy="403" r="38" fill="#2a2a42" stroke="#ffffff" stroke-width="9"/>
+
+  <!-- Centre node -->
+  <circle cx="256" cy="256" r="52" fill="#4a5ab8" stroke="#ffffff" stroke-width="9"/>
+  <text x="256" y="266" text-anchor="middle" dominant-baseline="center" dy="0.15em" font-family="sans-serif" font-size="52" font-weight="bold" fill="#ffffff">C</text>
 </svg>
