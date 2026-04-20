@@ -6,6 +6,7 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QClipboard>
+#include <QIcon>
 #include <QFileDialog>
 #include <QDebug>
 #include <QDockWidget>
@@ -55,6 +56,8 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationName(QStringLiteral("ChickenWire"));
     QApplication::setApplicationName(QStringLiteral("ChickenWire"));
     QSettings settings;
+
+    QApplication::setWindowIcon(QIcon(QStringLiteral(":/icon.svg")));
 
     TonnetzController controller;
     VisualizerSwitcher switcher;

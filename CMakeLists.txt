@@ -44,6 +44,11 @@ qt6_add_shaders(appChickenWire "shaders"
     FILES coloreffect.frag
 )
 
+qt_add_resources(appChickenWire "appResources"
+    PREFIX "/"
+    FILES icon.svg
+)
+
 qt_add_qml_module(appChickenWire
     URI ChickenWire
     QML_FILES
