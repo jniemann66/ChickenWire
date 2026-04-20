@@ -7,6 +7,12 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    <!-- Radial gradient: bright blue-violet core fading to lightened navy -->
+    <radialGradient id="hexGlow" cx="256" cy="256" r="148" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#4a5ab8" stop-opacity="1"/>
+      <stop offset="55%"  stop-color="#2a2a42" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#2a2a42" stop-opacity="1"/>
+    </radialGradient>
   </defs>
 
   <!--
@@ -22,8 +28,8 @@
       1→2 P   2→3 R   3→4 L   4→5 P   5→6 R   6→1 L
   -->
 
-  <!-- Navy hexagon fill — transparent outside, navy inside -->
-  <polygon points="256,86 403,171 403,341 256,426 109,341 109,171" fill="#1a1a2e"/>
+  <!-- Hex fill: gradient glow at centre, transparent outside -->
+  <polygon points="256,86 403,171 403,341 256,426 109,341 109,171" fill="url(#hexGlow)"/>
 
   <!-- Edges (drawn first so nodes sit on top) -->
   <line x1="256" y1="86"  x2="403" y2="171" stroke="#e93d9a" stroke-width="11" stroke-linecap="round" filter="url(#edgeGlow)"/>
@@ -35,10 +41,10 @@
 
   <!-- Nodes: hollow circles with thick coloured rings -->
   <!-- minor → blue ring,   major → orange ring -->
-  <circle cx="256" cy="86"  r="40" fill="#1a1a2e" stroke="#5a9fd4" stroke-width="9"/>
-  <circle cx="403" cy="171" r="40" fill="#1a1a2e" stroke="#e8a045" stroke-width="9"/>
-  <circle cx="403" cy="341" r="40" fill="#1a1a2e" stroke="#5a9fd4" stroke-width="9"/>
-  <circle cx="256" cy="426" r="40" fill="#1a1a2e" stroke="#e8a045" stroke-width="9"/>
-  <circle cx="109" cy="341" r="40" fill="#1a1a2e" stroke="#5a9fd4" stroke-width="9"/>
-  <circle cx="109" cy="171" r="40" fill="#1a1a2e" stroke="#e8a045" stroke-width="9"/>
+  <circle cx="256" cy="86"  r="40" fill="#2a2a42" stroke="#5a9fd4" stroke-width="9"/>
+  <circle cx="403" cy="171" r="40" fill="#2a2a42" stroke="#e8a045" stroke-width="9"/>
+  <circle cx="403" cy="341" r="40" fill="#2a2a42" stroke="#5a9fd4" stroke-width="9"/>
+  <circle cx="256" cy="426" r="40" fill="#2a2a42" stroke="#e8a045" stroke-width="9"/>
+  <circle cx="109" cy="341" r="40" fill="#2a2a42" stroke="#5a9fd4" stroke-width="9"/>
+  <circle cx="109" cy="171" r="40" fill="#2a2a42" stroke="#e8a045" stroke-width="9"/>
 </svg>
