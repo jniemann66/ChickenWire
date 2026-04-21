@@ -102,6 +102,7 @@ int main(int argc, char *argv[])
 
     // Transport dock
     auto *transport = new TransportWidget(&midiPlayer, &mw);
+    transport->setObjectName("transport");
     mw.addDockWidget(Qt::BottomDockWidgetArea, transport);
 
     // Channel filter: populate combo when a new file is loaded, wire filter → controller.
@@ -198,6 +199,33 @@ int main(int argc, char *argv[])
         switcher.clearAllSelections();
     });
 
+    bool fullscreenMode = false;
+    Qt::WindowStates preFullscreenState;
+    QList<QDockWidget *> docksToRestore;
+    auto *f11 = new QShortcut(QKeySequence(Qt::Key_F11), &mw, nullptr, nullptr, Qt::ApplicationShortcut);
+    QObject::connect(f11, &QShortcut::activated, [&mw, &fullscreenMode, &preFullscreenState, &docksToRestore]() {
+        if (!fullscreenMode) {
+            preFullscreenState = mw.windowState();
+            docksToRestore.clear();
+            for (auto *dock : mw.findChildren<QDockWidget *>()) {
+                if (dock->isVisible())
+                    docksToRestore.append(dock);
+                dock->hide();
+            }
+            mw.menuBar()->hide();
+            mw.statusBar()->hide();
+            mw.showFullScreen();
+            fullscreenMode = true;
+        } else {
+            mw.setWindowState(preFullscreenState);
+            mw.menuBar()->show();
+            mw.statusBar()->show();
+            for (auto *dock : docksToRestore)
+                dock->show();
+            fullscreenMode = false;
+        }
+    });
+
     QObject::connect(&switcher, &VisualizerSwitcher::sourceChanged, [&]() {
         const QString src = switcher.source();
         tonnetzAction->setChecked(src == QStringLiteral("tonnetz.qml"));
@@ -263,6 +291,7 @@ int main(int argc, char *argv[])
 
     // Color controls dock
     auto *colorDock = new QDockWidget(QStringLiteral("Adjust Color"), &mw);
+    colorDock->setObjectName("colorAdjust");
     colorDock->setAllowedAreas(Qt::AllDockWidgetAreas);
     colorDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
     auto *colorWidget = new QWidget;

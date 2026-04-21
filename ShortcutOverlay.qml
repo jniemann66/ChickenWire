@@ -159,6 +159,10 @@ Rectangle {
         {
             key: "Escape",
             desc: "Clear all selections"
+        },
+        {
+            key: "F11",
+            desc: "Toggle fullscreen"
         }
     ]
 
