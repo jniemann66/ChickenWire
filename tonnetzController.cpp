@@ -146,7 +146,10 @@ QVariantList TonnetzController::computeTriadDistances(int root, bool isMajor) co
 
     QVariantList result;
     result.reserve(24);
-    for (const int v : dist) result.append(v);
+    for (const int v : std::as_const(dist)) {
+        result.append(v);
+    }
+
     return result;
 }
 
