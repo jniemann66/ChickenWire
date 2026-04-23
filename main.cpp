@@ -1,4 +1,5 @@
 #include "midiPlayer.h"
+#include "noteNameDialog.h"
 #include "tonnetzController.h"
 #include "transportWidget.h"
 #include "visualizerSwitcher.h"
@@ -174,6 +175,20 @@ int main(int argc, char *argv[])
 
     viewMenu->addSeparator();
     viewMenu->addAction(transport->toggleViewAction());
+    viewMenu->addSeparator();
+    auto *noteNamesAction = viewMenu->addAction(QStringLiteral("Note &Names…"));
+    QObject::connect(noteNamesAction, &QAction::triggered, [&controller, &mw]() {
+        NoteNameDialog dlg(
+            controller.noteNames(),
+            controller.majorRootNoteNames(),
+            controller.minorRootNoteNames(),
+            &mw);
+        if (dlg.exec() == QDialog::Accepted) {
+            controller.setNoteNames(dlg.noteNames());
+            controller.setMajorRootNoteNames(dlg.majorRootNoteNames());
+            controller.setMinorRootNoteNames(dlg.minorRootNoteNames());
+        }
+    });
 
     // F4 / Shift+F4 cycle through the visualizers in display order.
     static const QStringList visualizerOrder{
