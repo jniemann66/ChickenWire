@@ -503,7 +503,7 @@ Item {
                 var pa = nodePos(ed[0]);
                 var pb = nodePos(ed[1]);
                 var inc = hasSel && (ed[0] === selNode || ed[1] === selNode);
-                ctx.globalAlpha = inc ? 1.0 : 0.2;
+                ctx.globalAlpha = inc ? 1.0 : 0.1;
 
                 var span = angularSpan(ed[0], ed[1]);
                 var cp = curveControlPoint(pa, pb, span);
@@ -643,7 +643,7 @@ Item {
                 var ob = boundaryOffset(nodes[edd[1]].type, nodeR, squareHW);
 
                 var inc = hasSel && (edd[0] === selNode || edd[1] === selNode);
-                ctx.globalAlpha = inc ? 1.0 : 0.2;
+                ctx.globalAlpha = inc ? 1.0 : 0.1;
                 ctx.fillStyle = edgeColour(edd[2]);
                 ctx.beginPath();
                 ctx.arc(dpa.x + ax2 / alen * oa, dpa.y + ay2 / alen * oa, dotR, 0, Math.PI * 2);
