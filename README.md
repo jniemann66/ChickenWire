@@ -4,22 +4,23 @@ An interactive music theory visualizer which displays harmonic relationships on 
 
 ## What It Shows
 
-Two dual representations of the same harmonic space, switchable with **F4**:
+Four views of the same harmonic space, switchable with **F4** (next) and **Shift + F4** (previous):
 
 - **Tonnetz** — triangular lattice where *vertices* are notes and *triangular faces* are triads
-- **ChickenWire** — hexagonal lattice where *vertices* are triads and *hexagonal faces* are notes
+- **ChickenWire** — hexagonal lattice where *vertices* are triads and *hexagonal faces* are notes — the geometric dual of the Tonnetz, where vertices and faces are swapped
+- **Cube Dance** — Douthett & Steinbach's graph of 24 triads plus 4 augmented chords, arranged in four hexatonic cycles joined through the augmented chords as shared pivots
+- **Seventh Chords** — Cannas & Andreatta's generalised Chicken-wire Torus (Bridges 2018), with 63 seventh-chord nodes arranged in concentric rings (°7 at the centre, outward through ø7, m7, dom7, maj7 to Maj7♯5) linked by 14 classes of parsimonious voice-leading transformation
 
-(The ChickenWire Tonnetz is the geometric dual of the regular Tonnetz, meaning that the vertices of the Tonnetz correspond to the faces of the ChickenWire Tonnetz and vice versa)
+The Tonnetz and ChickenWire views share a common coordinate system and stay in sync: panning, zooming, and selections in one view are immediately reflected in the other.
 
-The two views share a common coordinate system and stay in sync: panning, zooming, and selections in one view are immediately reflected in the other.
-
-Edges represent neo-Riemannian transformations (P, R, L), colour-coded consistently:
+Edges represent neo-Riemannian transformations, colour-coded consistently across every view:
 
 | Transformation | Colour |
 |----------------|--------|
 | **P** (Parallel) | pink |
 | **R** (Relative) | orange |
 | **L** (Leading-tone exchange) | blue |
+| **Q** (Cannas/Andreatta Q map, Seventh Chords only) | green |
 
 ## Features
 
