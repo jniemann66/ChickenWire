@@ -1,16 +1,20 @@
 // seventhChords.qml — Cannas/Andreatta generalised Chicken-wire Torus
-// for seventh chords (Bridges 2018, Fig. 3).
+// for seventh chords (Bridges 2018, Fig. 3), extended with an outer
+// Maj7♯5 ring (type 6) and three new transformation classes that link
+// the new ring to the existing maj/dom/min rings.
 //
-// 51 chord nodes + 132 edges, drawn in concentric rings of increasing
-// "brightness" (dim → ø → m → dom → maj):
+// 63 chord nodes + 168 edges, drawn in concentric rings of increasing
+// "brightness" (dim → ø → m → dom → maj → majaug):
 //   centre  °7 orbits  (squares — only 3 nodes, in a 120° triangle)
 //           ø7         (circles)
 //           min7       (rhombi)
 //           dom7       (pentagons)
-//   outer   maj7       (hexagons)
+//           maj7       (hexagons)
+//   outer   Maj7♯5     (heptagons)
 //
 // After enharmonic reduction the paper's 17 transformations collapse to
-// 11 distinct edge classes (12 instances each = 132 edges):
+// 11 distinct edge classes (12 instances each = 132 edges).  Three more
+// classes link the Maj7♯5 ring (+36 edges), for 14 classes / 168 edges:
 //
 //   P12  dom ↔ min      same root, parallel
 //   P14  dom ↔ maj
@@ -23,6 +27,9 @@
 //   L15  dom ↔ °
 //   L42  maj ↔ min
 //   Q43  maj ↔ ø        special Cannas/Andreatta Q map
+//   P46  maj ↔ Maj7♯5   same root (semitone ♯5 ↔ ♮5)
+//   L26  min ↔ Maj7♯5   Maj7♯5 root = min root − 1
+//   L16  dom ↔ Maj7♯5   Maj7♯5 root = dom root − 4   (whole-tone move)
 //
 // Edge colours:  P → pink   R → orange   L → blue   Q → green.
 //
@@ -35,6 +42,7 @@
 //   5..7           toggle R12, R23, R42      (relative edges)
 //   8, 9, 0        toggle L13, L15, L42      (leading-tone edges)
 //   - (minus)      toggle Q43                (special Q edge)
+//   [ ] \          toggle P46, L26, L16      (Maj7♯5 edges)
 //   = (or Backsp.) un-mute every class
 //   click a node   focuses that chord's incident edges at full opacity;
 //                  every other edge stays at the default ~20% (so by
@@ -99,10 +107,21 @@ Item {
         property var majorRootNoteNames: tonnetzController.majorRootNoteNames
         property var minorRootNoteNames: tonnetzController.minorRootNoteNames
         property int activeNotes: tonnetzController.activeNotes
+        property bool showAugmented: visualizerSwitcher.showAugmented
 
         onNoteNamesChanged: requestPaint()
         onMajorRootNoteNamesChanged: requestPaint()
         onMinorRootNoteNamesChanged: requestPaint()
+        onShowAugmentedChanged: {
+            // Clear a selection that now points to a hidden Maj7♯5 node so
+            // focus (and BFS distances) don't linger on an invisible chord.
+            if (!showAugmented && selNode >= 0 && nodes[selNode].type === "majaug") {
+                selNode = -1;
+                nodeDists = [];
+            }
+            fitToWindow();
+            requestPaint();
+        }
         onActiveNotesChanged: {
             // Auto-follow: select the first fully-matching chord so edge focus
             // and F5 BFS distances track the music live.  Always clear the
@@ -111,6 +130,8 @@ Item {
             var best = -1;
             if (activeNotes !== 0) {
                 for (var i = 0; i < nodes.length; i++) {
+                    if (!showAugmented && nodes[i].type === "majaug")
+                        continue;
                     if (nodeMatchCount(i) === 4) {
                         best = i;
                         break;
@@ -137,8 +158,10 @@ Item {
 
         readonly property real baseUnit: 45.0
 
-        // Outermost-ring radius in layout units; the maj hexagons sit there.
-        readonly property real figureRadius: rMaj
+        // Outermost-ring radius in layout units.  Drops back to the maj
+        // hexagons when the Maj7♯5 ring is hidden so the fit-to-window
+        // scaling reclaims that outer band.
+        readonly property real figureRadius: showAugmented ? rMajAug : rMaj
         // Scale-dependent half-extent of an outermost node, in pixels at
         // scale = 1.  This is what `nodeR = max(6, 15*scale)` evaluates to
         // when scale = 1, so the actual visual extent is `(figureRadius *
@@ -171,11 +194,12 @@ Item {
         readonly property real rMin: 3.9
         readonly property real rDom: 5.3
         readonly property real rMaj: 7.0
+        readonly property real rMajAug: 8.5
 
         //   Edge-class visibility
-        readonly property var classNames: ["P12", "P14", "P23", "P35", "R12", "R23", "R42", "L13", "L15", "L42", "Q43"]
-        // Number-row keys (in classNames order):  1 2 3 4 5 6 7 8 9 0 -
-        readonly property var classKeyOrder: [Qt.Key_1, Qt.Key_2, Qt.Key_3, Qt.Key_4, Qt.Key_5, Qt.Key_6, Qt.Key_7, Qt.Key_8, Qt.Key_9, Qt.Key_0, Qt.Key_Minus]
+        readonly property var classNames: ["P12", "P14", "P23", "P35", "R12", "R23", "R42", "L13", "L15", "L42", "Q43", "P46", "L26", "L16"]
+        // Keys (in classNames order):  1 2 3 4 5 6 7 8 9 0 - [ ] \
+        readonly property var classKeyOrder: [Qt.Key_1, Qt.Key_2, Qt.Key_3, Qt.Key_4, Qt.Key_5, Qt.Key_6, Qt.Key_7, Qt.Key_8, Qt.Key_9, Qt.Key_0, Qt.Key_Minus, Qt.Key_BracketLeft, Qt.Key_BracketRight, Qt.Key_Backslash]
         function allClassesVisible() {
             var v = {};
             for (var i = 0; i < classNames.length; i++)
@@ -184,12 +208,19 @@ Item {
         }
         // Derived from visualizerSwitcher.hiddenClasses so the set survives
         // across sessions (and so VisualizerSwitcher remains the single
-        // source of truth for persisted UI state).
+        // source of truth for persisted UI state).  The three Maj7♯5 classes
+        // are additionally gated on the "Show Augmented Chords" menu action.
         property var visibleClasses: {
             var v = {};
             var hidden = visualizerSwitcher.hiddenClasses || [];
-            for (var i = 0; i < classNames.length; i++)
-                v[classNames[i]] = hidden.indexOf(classNames[i]) === -1;
+            var majAugClasses = { "P46": true, "L26": true, "L16": true };
+            for (var i = 0; i < classNames.length; i++) {
+                var cn = classNames[i];
+                var vis = hidden.indexOf(cn) === -1;
+                if (!showAugmented && majAugClasses[cn])
+                    vis = false;
+                v[cn] = vis;
+            }
             return v;
         }
         onVisibleClassesChanged: requestPaint()
@@ -201,7 +232,7 @@ Item {
         property bool useFifthsOrder: visualizerSwitcher.fifthsOrder
         onUseFifthsOrderChanged: requestPaint()
 
-        // Node layout:  0–11 maj | 12–23 dom | 24–35 min | 36–47 ø | 48–50 °
+        // Node layout:  0–11 maj | 12–23 dom | 24–35 min | 36–47 ø | 48–50 ° | 51–62 Maj7♯5
         property var nodes: (function () {
                 var arr = [];
                 for (var r = 0; r < 12; r++)
@@ -229,10 +260,15 @@ Item {
                         type: "dim",
                         root: r
                     });
+                for (var r = 0; r < 12; r++)
+                    arr.push({
+                        type: "majaug",
+                        root: r
+                    });
                 return arr;
             })()
 
-        // Edge table — generated programmatically from the 11 transformation rules.
+        // Edge table — generated programmatically from the 14 transformation rules.
         // Each entry: [nodeA, nodeB, transformationLabel].
         property var edges: (function () {
                 var e = [];
@@ -248,6 +284,9 @@ Item {
                     e.push([12 + r, 48 + ((r + 1) % 3), "L15"]);
                     e.push([0 + r, 24 + ((r + 4) % 12), "L42"]);
                     e.push([0 + r, 36 + ((r + 1) % 12), "Q43"]);
+                    e.push([51 + r, 0 + r, "P46"]);
+                    e.push([51 + r, 24 + ((r + 1) % 12), "L26"]);
+                    e.push([51 + r, 12 + ((r + 4) % 12), "L16"]);
                 }
                 return e;
             })()
@@ -278,6 +317,8 @@ Item {
                 return posPolar(rMin, angleFor(n.root));
             if (n.type === "halfdim")
                 return posPolar(rHalfdim, angleFor(n.root));
+            if (n.type === "majaug")
+                return posPolar(rMajAug, angleFor(n.root));
             return posPolar(rDim, angleForDim(n.root));
         }
 
@@ -292,6 +333,8 @@ Item {
                 return [r, (r + 3) % 12, (r + 7) % 12, (r + 10) % 12];
             if (n.type === "halfdim")
                 return [r, (r + 3) % 12, (r + 6) % 12, (r + 10) % 12];
+            if (n.type === "majaug")
+                return [r, (r + 4) % 12, (r + 8) % 12, (r + 11) % 12];
             return [r, (r + 3) % 12, (r + 6) % 12, (r + 9) % 12];
         }
 
@@ -305,6 +348,8 @@ Item {
                 return minorRootNoteNames[n.root] + "m";
             if (n.type === "halfdim")
                 return minorRootNoteNames[n.root] + "ø";
+            if (n.type === "majaug")
+                return majorRootNoteNames[n.root] + "Δ7♯5";
             return minorRootNoteNames[n.root] + "°";
         }
 
@@ -324,16 +369,17 @@ Item {
         }
 
         // When exactly 3 notes are active and they form a standard triad,
-        // return the index of the one seventh-chord node whose root/3rd/5th
-        // match exactly — the 7th is simply absent from the MIDI.
-        // Returns -1 for augmented triads (no node yet) or non-triad 3-note sets.
-        function triadPartialNode() {
+        // return the seventh-chord node indices whose lower triad matches —
+        // the 7th is simply absent from the MIDI.  Augmented triads are
+        // symmetric under major-third rotation, so all three Maj7♯5 nodes
+        // sharing that triad light up.
+        function triadPartialNodes() {
             var nbits = 0;
             for (var i = 0; i < 12; i++)
                 if ((activeNotes >> i) & 1)
                     nbits++;
             if (nbits !== 3)
-                return -1;
+                return [];
             for (var r = 0; r < 12; r++) {
                 if (!((activeNotes >> r) & 1))
                     continue;
@@ -341,15 +387,17 @@ Item {
                 var m4 = !!((activeNotes >> ((r + 4) % 12)) & 1);
                 var m6 = !!((activeNotes >> ((r + 6) % 12)) & 1);
                 var m7 = !!((activeNotes >> ((r + 7) % 12)) & 1);
+                var m8 = !!((activeNotes >> ((r + 8) % 12)) & 1);
                 if (m4 && m7)
-                    return r;              // major triad  → maj7 (index r)
+                    return [r];                   // major → maj7
                 if (m3 && m7)
-                    return 24 + r;         // minor triad  → min7 (index 24+r)
+                    return [24 + r];              // minor → min7
                 if (m3 && m6)
-                    return 48 + (r % 3);  // dim triad    → dim7 (index 48+r%3)
-                // augmented (m4 && m8): no node yet → falls through to return -1
+                    return [48 + (r % 3)];        // diminished → dim7
+                if (showAugmented && m4 && m8)
+                    return [51 + r, 51 + ((r + 4) % 12), 51 + ((r + 8) % 12)];
             }
-            return -1;
+            return [];
         }
 
         function edgeColour(etype) {
@@ -389,6 +437,8 @@ Item {
             var bestD2 = rad * rad;
             var best = -1;
             for (var i = 0; i < nodes.length; i++) {
+                if (!showAugmented && nodes[i].type === "majaug")
+                    continue;
                 var p = nodePos(i);
                 var d2 = (px - p.x) * (px - p.x) + (py - p.y) * (py - p.y);
                 if (d2 < bestD2) {
@@ -426,6 +476,8 @@ Item {
                 return nodeR * 0.78;    // hexagon inradius
             if (type === "dom")
                 return nodeR * 0.72;    // pentagon inradius
+            if (type === "majaug")
+                return nodeR * 0.82;    // heptagon inradius
             return nodeR * 0.70;                            // rhombus
         }
 
@@ -547,14 +599,16 @@ Item {
 
             // Nodes
             var nrC = [Theme.nrDist0, Theme.nrDist1, Theme.nrDist2, Theme.nrDist3, Theme.nrDist4, Theme.nrDist5, Theme.nrDist6];
-            var partialNode = (activeNotes !== 0) ? triadPartialNode() : -1;
+            var partialNodes = (activeNotes !== 0) ? triadPartialNodes() : [];
 
             for (var ni = 0; ni < nodes.length; ni++) {
                 var n = nodes[ni];
+                if (!showAugmented && n.type === "majaug")
+                    continue;
                 var np = nodePos(ni);
                 var mc = nodeMatchCount(ni);
                 var act = mc === 4;
-                var partial = (ni === partialNode);
+                var partial = (partialNodes.indexOf(ni) >= 0);
                 var sel = (ni === selNode);
                 var nrD = (nodeDists.length > 0) ? nodeDists[ni] : -1;
                 if (nrD > nrC.length - 1)
@@ -567,6 +621,8 @@ Item {
                     pathPolygon(ctx, np.x, np.y, nodeR, 5, -Math.PI / 2);
                 else if (n.type === "min")
                     pathPolygon(ctx, np.x, np.y, nodeR * 1.05, 4, -Math.PI / 2);
+                else if (n.type === "majaug")
+                    pathPolygon(ctx, np.x, np.y, nodeR, 7, -Math.PI / 2);
                 else if (n.type === "halfdim") {
                     ctx.beginPath();
                     ctx.arc(np.x, np.y, nodeR * 0.9, 0, Math.PI * 2);
@@ -593,7 +649,7 @@ Item {
                     ctx.fillStyle = Qt.rgba(c.r, c.g, c.b, 0.35);
                     ctx.strokeStyle = c;
                     ctx.lineWidth = Math.max(0.5, 2.5 * scale);
-                } else if (n.type === "maj" || n.type === "dom") {
+                } else if (n.type === "maj" || n.type === "dom" || n.type === "majaug") {
                     ctx.fillStyle = Theme.majorFill;
                     ctx.strokeStyle = Theme.majorStroke;
                     ctx.lineWidth = Math.max(0.5, 1.5 * scale);
@@ -610,7 +666,7 @@ Item {
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
                     ctx.fillStyle = (act || sel) ? Theme.hlColor : partial ? Qt.rgba(Theme.hlColor.r, Theme.hlColor.g, Theme.hlColor.b, 0.6) : (nrD >= 0) ? nrC[nrD] : Theme.triadText;
-                    ctx.fillText((partial && n.type === "maj") ? majorRootNoteNames[n.root] : nodeLabel(ni), np.x, np.y);
+                    ctx.fillText((partial && (n.type === "maj" || n.type === "majaug")) ? majorRootNoteNames[n.root] : nodeLabel(ni), np.x, np.y);
                 }
             }
 
