@@ -4,7 +4,11 @@ import ChickenWire
 Item {
     anchors.fill: parent
 
-    layer.enabled: visualizerSwitcher.invertColors || visualizerSwitcher.saturation !== 1.0 || visualizerSwitcher.hue !== 0.0 || visualizerSwitcher.brightness !== 1.0 || visualizerSwitcher.contrast !== 1.0
+    layer.enabled: visualizerSwitcher.invertColors
+                   || visualizerSwitcher.saturation !== 1.0
+                   || visualizerSwitcher.hue !== 0.0
+                   || visualizerSwitcher.brightness !== 1.0
+                   || visualizerSwitcher.contrast !== 1.0
     layer.effect: ShaderEffect {
         property real saturation: visualizerSwitcher.saturation
         property real invertColors: visualizerSwitcher.invertColors ? 1.0 : 0.0
@@ -24,7 +28,6 @@ Item {
     // Both visualizers are always loaded; opacity drives the cross-fade.
     // layer.enabled renders each to its own GPU texture before alpha-blending,
     // giving correct compositing over the background above.
-
     Loader {
         id: tonnetzLoader
         anchors.fill: parent
@@ -39,7 +42,7 @@ Item {
             }
         }
         onLoaded: if (visualizerSwitcher.source === "tonnetz.qml")
-            item.forceActiveFocus()
+                      item.forceActiveFocus()
     }
 
     Loader {
@@ -56,7 +59,7 @@ Item {
             }
         }
         onLoaded: if (visualizerSwitcher.source === "chickenWire.qml")
-            item.forceActiveFocus()
+                      item.forceActiveFocus()
     }
 
     Loader {
@@ -73,7 +76,7 @@ Item {
             }
         }
         onLoaded: if (visualizerSwitcher.source === "cubeDance.qml")
-            item.forceActiveFocus()
+                      item.forceActiveFocus()
     }
 
     Loader {
@@ -90,13 +93,15 @@ Item {
             }
         }
         onLoaded: if (visualizerSwitcher.source === "seventhChords.qml")
-            item.forceActiveFocus()
+                      item.forceActiveFocus()
     }
 
     // Apply theme preset whenever the selection changes, and once on startup.
     Connections {
         target: visualizerSwitcher
-        function onThemeNameChanged() { Theme.apply(visualizerSwitcher.themeName); }
+        function onThemeNameChanged() {
+            Theme.apply(visualizerSwitcher.themeName)
+        }
     }
     Component.onCompleted: Theme.apply(visualizerSwitcher.themeName)
 
@@ -104,10 +109,10 @@ Item {
     Connections {
         target: visualizerSwitcher
         function onSourceChanged() {
-            var src = visualizerSwitcher.source;
-            var loader = src === "tonnetz.qml" ? tonnetzLoader : src === "chickenWire.qml" ? cwLoader : src === "cubeDance.qml" ? cdLoader : s7Loader;
+            var src = visualizerSwitcher.source
+            var loader = src === "tonnetz.qml" ? tonnetzLoader : src === "chickenWire.qml" ? cwLoader : src === "cubeDance.qml" ? cdLoader : s7Loader
             if (loader.item)
-                loader.item.forceActiveFocus();
+                loader.item.forceActiveFocus()
         }
     }
 

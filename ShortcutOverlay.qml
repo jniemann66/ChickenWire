@@ -1,10 +1,9 @@
+
 // ShortcutOverlay.qml — semi-transparent panel listing the keyboard shortcuts
 // active for the currently-selected visualizer, plus a Global section.
-//
 // Toggled from main.qml via an F1 Shortcut.  Closes on F1, Esc, or click
 // outside the panel.  Grabs focus when shown so the underlying visualizer
 // doesn't process key presses behind the overlay.
-
 import QtQuick
 import ChickenWire
 
@@ -18,167 +17,131 @@ Rectangle {
     property string activeSource: ""
 
     function toggle() {
-        visible = !visible;
+        visible = !visible
         if (visible)
-            forceActiveFocus();
+            forceActiveFocus()
     }
 
     // Per-visualizer shortcut tables.
     readonly property var sectionData: ({
-            "tonnetz.qml": [
-                {
-                    key: "←/→/↑/↓",
-                    desc: "Move selection"
-                },
-                {
-                    key: "Shift+↑/↓",
-                    desc: "Move along the alternate axis"
-                },
-                {
-                    key: "F5",
-                    desc: "Toggle NR distance highlight"
-                },
-                {
-                    key: "Click",
-                    desc: "Select note or triad"
-                },
-                {
-                    key: "Drag",
-                    desc: "Pan view"
-                },
-                {
-                    key: "Wheel",
-                    desc: "Zoom"
-                }
-            ],
-            "chickenWire.qml": [
-                {
-                    key: "←/→/↑/↓",
-                    desc: "Move selection"
-                },
-                {
-                    key: "Shift+↑/↓",
-                    desc: "Move along the alternate axis"
-                },
-                {
-                    key: "F5",
-                    desc: "Toggle NR distance highlight"
-                },
-                {
-                    key: "Click",
-                    desc: "Select face or chord vertex"
-                },
-                {
-                    key: "Drag",
-                    desc: "Pan view"
-                },
-                {
-                    key: "Wheel",
-                    desc: "Zoom"
-                }
-            ],
-            "cubeDance.qml": [
-                {
-                    key: "F5",
-                    desc: "Toggle NR distance highlight"
-                },
-                {
-                    key: "F7",
-                    desc: "Toggle 'actual cubes' mode (split each aug into 2 vertices, one per bordering cluster)"
-                },
-                {
-                    key: "Click",
-                    desc: "Select chord"
-                },
-                {
-                    key: "Drag",
-                    desc: "Pan view"
-                },
-                {
-                    key: "Wheel",
-                    desc: "Zoom"
-                }
-            ],
-            "seventhChords.qml": [
-                {
-                    key: "F5",
-                    desc: "Toggle depth-coloured neighbour highlight"
-                },
-                {
-                    key: "F6",
-                    desc: "Toggle chromatic ↔ cycle-of-fourths root order"
-                },
-                {
-                    key: "1 / 2 / 3 / 4",
-                    desc: "Toggle P12 / P14 / P23 / P35 (parallel edges)"
-                },
-                {
-                    key: "5 / 6 / 7",
-                    desc: "Toggle R12 / R23 / R42 (relative edges)"
-                },
-                {
-                    key: "8 / 9 / 0",
-                    desc: "Toggle L13 / L15 / L42 (leading-tone edges)"
-                },
-                {
-                    key: "-",
-                    desc: "Toggle Q43 (special Q edge)"
-                },
-                {
-                    key: "= or Backspace",
-                    desc: "Restore all transformation classes"
-                },
-                {
-                    key: "Click",
-                    desc: "Focus a chord's incident edges"
-                },
-                {
-                    key: "Drag",
-                    desc: "Pan view"
-                },
-                {
-                    key: "Wheel",
-                    desc: "Zoom"
-                }
-            ]
-        })
+                                            "tonnetz.qml": [{
+                                                    "key": "←/→/↑/↓",
+                                                    "desc": "Move selection"
+                                                }, {
+                                                    "key": "Shift+↑/↓",
+                                                    "desc": "Move along the alternate axis"
+                                                }, {
+                                                    "key": "F5",
+                                                    "desc": "Toggle NR distance highlight"
+                                                }, {
+                                                    "key": "Click",
+                                                    "desc": "Select note or triad"
+                                                }, {
+                                                    "key": "Drag",
+                                                    "desc": "Pan view"
+                                                }, {
+                                                    "key": "Wheel",
+                                                    "desc": "Zoom"
+                                                }],
+                                            "chickenWire.qml": [{
+                                                    "key": "←/→/↑/↓",
+                                                    "desc": "Move selection"
+                                                }, {
+                                                    "key": "Shift+↑/↓",
+                                                    "desc": "Move along the alternate axis"
+                                                }, {
+                                                    "key": "F5",
+                                                    "desc": "Toggle NR distance highlight"
+                                                }, {
+                                                    "key": "Click",
+                                                    "desc": "Select face or chord vertex"
+                                                }, {
+                                                    "key": "Drag",
+                                                    "desc": "Pan view"
+                                                }, {
+                                                    "key": "Wheel",
+                                                    "desc": "Zoom"
+                                                }],
+                                            "cubeDance.qml": [{
+                                                    "key": "F5",
+                                                    "desc": "Toggle NR distance highlight"
+                                                }, {
+                                                    "key": "F7",
+                                                    "desc": "Toggle 'actual cubes' mode (split each aug into 2 vertices, one per bordering cluster)"
+                                                }, {
+                                                    "key": "Click",
+                                                    "desc": "Select chord"
+                                                }, {
+                                                    "key": "Drag",
+                                                    "desc": "Pan view"
+                                                }, {
+                                                    "key": "Wheel",
+                                                    "desc": "Zoom"
+                                                }],
+                                            "seventhChords.qml": [{
+                                                    "key": "F5",
+                                                    "desc": "Override depth to maximum (4); toggle off to restore slider"
+                                                }, {
+                                                    "key": "F6",
+                                                    "desc": "Toggle chromatic ↔ cycle-of-fourths root order"
+                                                }, {
+                                                    "key": "1 / 2 / 3 / 4",
+                                                    "desc": "Toggle P12 / P14 / P23 / P35 (parallel edges)"
+                                                }, {
+                                                    "key": "5 / 6 / 7",
+                                                    "desc": "Toggle R12 / R23 / R42 (relative edges)"
+                                                }, {
+                                                    "key": "8 / 9 / 0",
+                                                    "desc": "Toggle L13 / L15 / L42 (leading-tone edges)"
+                                                }, {
+                                                    "key": "-",
+                                                    "desc": "Toggle Q43 (special Q edge)"
+                                                }, {
+                                                    "key": "= or Backspace",
+                                                    "desc": "Restore all transformation classes"
+                                                }, {
+                                                    "key": "Click",
+                                                    "desc": "Focus a chord's incident edges"
+                                                }, {
+                                                    "key": "Drag",
+                                                    "desc": "Pan view"
+                                                }, {
+                                                    "key": "Wheel",
+                                                    "desc": "Zoom"
+                                                }]
+                                        })
 
-    readonly property var globalData: [
-        {
-            key: "F1",
-            desc: "Show / hide this shortcut overlay"
-        },
-        {
-            key: "F4",
-            desc: "Next visualizer"
-        },
-        {
-            key: "Shift+F4",
-            desc: "Previous visualizer"
-        },
-        {
-            key: "Escape",
-            desc: "Clear all selections"
-        },
-        {
-            key: "F11",
-            desc: "Toggle fullscreen"
-        }
-    ]
+    readonly property var globalData: [{
+            "key": "F1",
+            "desc": "Show / hide this shortcut overlay"
+        }, {
+            "key": "F4",
+            "desc": "Next visualizer"
+        }, {
+            "key": "Shift+F4",
+            "desc": "Previous visualizer"
+        }, {
+            "key": "Escape",
+            "desc": "Clear all selections"
+        }, {
+            "key": "F11",
+            "desc": "Toggle fullscreen"
+        }]
 
     readonly property var titleFor: ({
-            "tonnetz.qml": "Tonnetz",
-            "chickenWire.qml": "Chicken Wire",
-            "cubeDance.qml": "Cube Dance",
-            "seventhChords.qml": "Seventh Chords"
-        })
+                                         "tonnetz.qml": "Tonnetz",
+                                         "chickenWire.qml": "Chicken Wire",
+                                         "cubeDance.qml": "Cube Dance",
+                                         "seventhChords.qml": "Seventh Chords"
+                                     })
 
     focus: visible
     Keys.onPressed: event => {
-        if (event.key === Qt.Key_F1 || event.key === Qt.Key_Escape)
-            visible = false;
-        event.accepted = true;   // swallow everything so the view behind doesn't react
-    }
+                        if (event.key === Qt.Key_F1
+                            || event.key === Qt.Key_Escape)
+                        visible = false
+                        event.accepted = true // swallow everything so the view behind doesn't react
+                    }
 
     MouseArea {
         anchors.fill: parent
@@ -198,7 +161,9 @@ Rectangle {
         // Click on the panel itself shouldn't dismiss.
         MouseArea {
             anchors.fill: parent
-            onClicked: {}
+            onClicked: {
+
+            }
         }
 
         Column {
