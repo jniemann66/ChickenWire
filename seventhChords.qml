@@ -686,19 +686,19 @@ Item {
 				ctx.stroke()
 
 				if (nodeR > 6) {
-					ctx.font = "bold " + fontSize + "px sans-serif"
 					ctx.textAlign = "center"
 					ctx.textBaseline = "middle"
-					ctx.fillStyle = (act
-									 || sel) ? Theme.hlColor : partial ? Qt.rgba(
-																			 Theme.hlColor.r,
-																			 Theme.hlColor.g,
-																			 Theme.hlColor.b,
-																			 0.6) : (nrD >= 1 && nrD <= effectiveDepth) ? nrC[Math.min(nrD, nrC.length - 1)] : Theme.triadText
-					ctx.fillText((partial
-								  && (n.type === "maj" || n.type
-									  === "majaug")) ? majorRootNoteNames[n.root] : nodeLabel(
-														   ni), np.x, np.y)
+					ctx.fillStyle = (act || sel) ? Theme.hlColor : partial ? Qt.rgba(Theme.hlColor.r, Theme.hlColor.g, Theme.hlColor.b, 0.6) : (nrD >= 1 && nrD <= effectiveDepth) ? nrC[Math.min(nrD, nrC.length - 1)] : Theme.triadText
+					if (n.type === "majaug" && !partial) {
+						// Two-line label so "BbΔ7♯5" fits inside the heptagon.
+						var augFont = Math.max(1, fontSize * 0.8)
+						ctx.font = "bold " + augFont + "px sans-serif"
+						ctx.fillText(majorRootNoteNames[n.root], np.x, np.y - augFont * 0.55)
+						ctx.fillText("Δ7\u266F5", np.x, np.y + augFont * 0.55)
+					} else {
+						ctx.font = "bold " + fontSize + "px sans-serif"
+						ctx.fillText((partial && (n.type === "maj" || n.type === "majaug")) ? majorRootNoteNames[n.root] : nodeLabel(ni), np.x, np.y)
+					}
 				}
 			}
 
