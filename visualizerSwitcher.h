@@ -31,6 +31,7 @@ class VisualizerSwitcher : public QObject
     Q_PROPERTY(qreal brightness   READ brightness   WRITE setBrightness   NOTIFY brightnessChanged)
     Q_PROPERTY(qreal contrast     READ contrast     WRITE setContrast     NOTIFY contrastChanged)
     Q_PROPERTY(QString themeName  READ themeName    WRITE setThemeName    NOTIFY themeNameChanged)
+    Q_PROPERTY(int selDepth      READ selDepth     WRITE setSelDepth     NOTIFY selDepthChanged)
 
     // Shared selection state.  selType: 0=none  1=note  2=triad
     Q_PROPERTY(int  selType    READ selType    NOTIFY selectionChanged)
@@ -133,6 +134,16 @@ public:
         }
     }
 
+    int selDepth() const { return m_selDepth; }
+    void setSelDepth(int v)
+    {
+        v = qBound(0, v, 4);
+        if (m_selDepth != v) {
+            m_selDepth = v;
+            emit selDepthChanged();
+        }
+    }
+
     QString source() const { return m_source; }
     qreal vpOriginX() const { return m_vpOriginX; }
     qreal vpOriginY() const { return m_vpOriginY; }
@@ -230,6 +241,7 @@ signals:
     void hueChanged();
     void brightnessChanged();
     void contrastChanged();
+    void selDepthChanged();
 
 private:
     bool m_invertColors = false;
@@ -241,6 +253,7 @@ private:
     qreal m_hue = 0.0;   // degrees
     qreal m_brightness = 1.0;
     qreal m_contrast = 1.0;
+    int m_selDepth = 1;
     QString m_source;
     QString m_themeName = QStringLiteral("dark");
     qreal m_vpOriginX = 0;

@@ -102,7 +102,7 @@ Rectangle {
             "seventhChords.qml": [
                 {
                     key: "F5",
-                    desc: "Toggle distance highlight from selected chord"
+                    desc: "Toggle depth-coloured neighbour highlight"
                 },
                 {
                     key: "F6",
