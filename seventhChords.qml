@@ -117,6 +117,7 @@ Item {
             // focus (and BFS distances) don't linger on an invisible chord.
             if (!showAugmented && selNode >= 0 && nodes[selNode].type === "majaug") {
                 selNode = -1;
+                selNeighbors = {};
                 nodeDists = [];
             }
             fitToWindow();
@@ -140,10 +141,12 @@ Item {
             }
             if (best >= 0) {
                 selNode = best;
+                selNeighbors = computeNeighbors(best);
                 if (showDistances)
                     nodeDists = computeDistances(best);
             } else {
                 selNode = -1;
+                selNeighbors = {};
                 nodeDists = [];
             }
             requestPaint();
@@ -153,6 +156,7 @@ Item {
         property real originY: height / 2
         property real scale: 1.0
         property int selNode: -1
+        property var selNeighbors: ({})
         property bool showDistances: false
         property var nodeDists: []
 
@@ -411,6 +415,19 @@ Item {
             return Theme.edgeQ;                          // 'Q'
         }
 
+        // Direct neighbours of a node (one edge away).
+        function computeNeighbors(startIdx) {
+            var nbrs = {};
+            for (var ei = 0; ei < edges.length; ei++) {
+                var ee = edges[ei];
+                if (ee[0] === startIdx)
+                    nbrs[ee[1]] = true;
+                else if (ee[1] === startIdx)
+                    nbrs[ee[0]] = true;
+            }
+            return nbrs;
+        }
+
         // BFS distance over the edge table.
         function computeDistances(startIdx) {
             var dist = [];
@@ -649,6 +666,11 @@ Item {
                     ctx.fillStyle = Qt.rgba(c.r, c.g, c.b, 0.35);
                     ctx.strokeStyle = c;
                     ctx.lineWidth = Math.max(0.5, 2.5 * scale);
+                } else if (hasSel && selNeighbors[ni]) {
+                    var c = nrC[1];
+                    ctx.fillStyle = Qt.rgba(c.r, c.g, c.b, 0.35);
+                    ctx.strokeStyle = c;
+                    ctx.lineWidth = Math.max(0.5, 2.5 * scale);
                 } else if (n.type === "maj" || n.type === "dom" || n.type === "majaug") {
                     ctx.fillStyle = Theme.majorFill;
                     ctx.strokeStyle = Theme.majorStroke;
@@ -665,7 +687,7 @@ Item {
                     ctx.font = "bold " + fontSize + "px sans-serif";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
-                    ctx.fillStyle = (act || sel) ? Theme.hlColor : partial ? Qt.rgba(Theme.hlColor.r, Theme.hlColor.g, Theme.hlColor.b, 0.6) : (nrD >= 0) ? nrC[nrD] : Theme.triadText;
+                    ctx.fillStyle = (act || sel) ? Theme.hlColor : partial ? Qt.rgba(Theme.hlColor.r, Theme.hlColor.g, Theme.hlColor.b, 0.6) : (nrD >= 0) ? nrC[nrD] : (hasSel && selNeighbors[ni]) ? nrC[1] : Theme.triadText;
                     ctx.fillText((partial && (n.type === "maj" || n.type === "majaug")) ? majorRootNoteNames[n.root] : nodeLabel(ni), np.x, np.y);
                 }
             }
@@ -749,10 +771,12 @@ Item {
                 var hit = canvas.hitTest(m.x, m.y);
                 if (hit < 0 || hit === canvas.selNode) {
                     canvas.selNode = -1;
+                    canvas.selNeighbors = {};
                     canvas.nodeDists = [];
                     tonnetzController.clearHighlightedNotes();
                 } else {
                     canvas.selNode = hit;
+                    canvas.selNeighbors = canvas.computeNeighbors(hit);
                     tonnetzController.setHighlightedNotes(canvas.notesForNode(hit));
                     if (canvas.showDistances)
                         canvas.nodeDists = canvas.computeDistances(hit);
@@ -773,6 +797,7 @@ Item {
             target: visualizerSwitcher
             function onSelectionsCleared() {
                 selNode = -1;
+                selNeighbors = {};
                 nodeDists = [];
                 requestPaint();
             }
