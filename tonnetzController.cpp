@@ -26,7 +26,7 @@ TonnetzController::TonnetzController(QObject *parent)
     , m_majorRootNoteNames(DEFAULT_MAJOR_ROOT_NOTE_NAMES)
     , m_minorRootNoteNames(DEFAULT_MINOR_ROOT_NOTE_NAMES)
 {
-    // setHighlightedNotes({0, 3, 6, 9}); // Cdim
+	// setHighlightedNotes({0, 4, 8, 11}); // Cmaj7#5
 }
 
 bool TonnetzController::validateNames(const QStringList &names, const char *which)
