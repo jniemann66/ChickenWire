@@ -1,4 +1,3 @@
-
 // ShortcutOverlay.qml — semi-transparent panel listing the keyboard shortcuts
 // active for the currently-selected visualizer, plus a Global section.
 // Toggled from main.qml via an F1 Shortcut.  Closes on F1, Esc, or click
