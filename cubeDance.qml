@@ -1,3 +1,4 @@
+
 // cubeDance.qml — fixed graph of 24 triads + 4 augmented chord nodes arranged
 // into 4 hexatonic cycles (Richard Cohn's "Cube Dance" representation).
 // Each hexatonic cycle contains 6 triads (3 major + 3 minor) connected by
@@ -11,7 +12,6 @@
 // L (leading-tone exchange) blue
 // R (relative)             orange
 // augmented-chord edges    grey  (semitone voice leading, not a NR transformation)
-
 import QtQuick
 import ChickenWire
 
@@ -100,6 +100,7 @@ Item {
             originY = height / 2
             requestPaint()
         }
+
         onWidthChanged: fitToWindow()
         onHeightChanged: fitToWindow()
         Component.onCompleted: fitToWindow()
@@ -189,7 +190,6 @@ Item {
         // C+  cycle cluster (indices 10–15) — upper-right
         // D+  cycle cluster (indices 16–21) — lower-left
         // Eb+ cycle cluster (indices 22–27) — lower-right
-
         property var nodes: [// Augmented chords
             // 0  C+
             {

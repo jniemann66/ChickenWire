@@ -184,6 +184,7 @@ void TonnetzController::handleNoteOn(int semitone, int channel)
 {
     if (semitone < 0 || semitone >= 12)
         return;
+
     if (m_midiChannelFilter >= 0 && channel != m_midiChannelFilter)
         return;
 
@@ -199,6 +200,7 @@ void TonnetzController::handleNoteOff(int semitone, int channel)
 {
     if (semitone < 0 || semitone >= 12)
         return;
+
     if (m_midiChannelFilter >= 0 && channel != m_midiChannelFilter)
         return;
 
