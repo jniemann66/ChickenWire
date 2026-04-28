@@ -11,6 +11,7 @@
 // L (leading-tone exchange) blue
 // R (relative)             orange
 // augmented-chord edges    grey  (semitone voice leading, not a NR transformation)
+
 import QtQuick
 import ChickenWire
 
@@ -111,6 +112,7 @@ Item {
         function centralAugFor(idx) {
             return (idx >= 28) ? Math.floor((idx - 28) / 2) : idx
         }
+
         function isVisibleNode(idx) {
             if (idx < 4)
                 return !cubeMode // 4 central augs: only normal mode
@@ -187,6 +189,7 @@ Item {
         // C+  cycle cluster (indices 10–15) — upper-right
         // D+  cycle cluster (indices 16–21) — lower-left
         // Eb+ cycle cluster (indices 22–27) — lower-right
+
         property var nodes: [// Augmented chords
             // 0  C+
             {

@@ -7,12 +7,12 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QClipboard>
-#include <QIcon>
-#include <QFileDialog>
 #include <QDebug>
 #include <QDockWidget>
 #include <QEvent>
+#include <QFileDialog>
 #include <QFormLayout>
+#include <QIcon>
 #include <QLabel>
 #include <QMainWindow>
 #include <QMenuBar>
@@ -111,6 +111,7 @@ int main(int argc, char *argv[])
                      [&midiPlayer, transport]() {
                          transport->setPresentChannels(midiPlayer.presentChannels());
                      });
+
     QObject::connect(transport, &TransportWidget::channelFilterChanged,
                      &controller, &TonnetzController::setMidiChannelFilter);
 
@@ -183,6 +184,7 @@ int main(int argc, char *argv[])
             controller.majorRootNoteNames(),
             controller.minorRootNoteNames(),
             &mw);
+
         if (dlg.exec() == QDialog::Accepted) {
             controller.setNoteNames(dlg.noteNames());
             controller.setMajorRootNoteNames(dlg.majorRootNoteNames());
@@ -197,12 +199,14 @@ int main(int argc, char *argv[])
         QStringLiteral("cubeDance.qml"),
         QStringLiteral("seventhChords.qml"),
     };
+
     auto cycle = [&switcher](int step) {
         int idx = visualizerOrder.indexOf(switcher.source());
         if (idx < 0) idx = 0;
         int n = visualizerOrder.size();
         switcher.setSource(visualizerOrder.at(((idx + step) % n + n) % n));
     };
+
     auto *f4 = new QShortcut(QKeySequence(Qt::Key_F4), &mw);
     QObject::connect(f4, &QShortcut::activated, [cycle]() { cycle(+1); });
     auto *shiftF4 = new QShortcut(QKeySequence(Qt::SHIFT | Qt::Key_F4), &mw);
@@ -254,9 +258,11 @@ int main(int argc, char *argv[])
     QObject::connect(&switcher, &VisualizerSwitcher::cubeModeChanged, [&]() {
         settings.setValue(QStringLiteral("display/cubeMode"), switcher.cubeMode());
     });
+
     QObject::connect(&switcher, &VisualizerSwitcher::fifthsOrderChanged, [&]() {
         settings.setValue(QStringLiteral("display/fifthsOrder"), switcher.fifthsOrder());
     });
+
     QObject::connect(&switcher, &VisualizerSwitcher::hiddenClassesChanged, [&]() {
         settings.setValue(QStringLiteral("display/hiddenClasses"), switcher.hiddenClasses());
     });
@@ -273,6 +279,7 @@ int main(int argc, char *argv[])
         { QStringLiteral("Light"), QStringLiteral("light") },
         { QStringLiteral("High Contrast"), QStringLiteral("contrast") },
     };
+
     auto *negativeAction = colorMenu->addAction(QStringLiteral("&Negative"));
     negativeAction->setCheckable(true);
     negativeAction->setChecked(switcher.invertColors());
@@ -286,7 +293,7 @@ int main(int argc, char *argv[])
     });
 
 
-    for (const auto &[label, id] : themeItems) {
+	for (const auto& [label, id] : themeItems) {
         auto *a = themeMenu->addAction(label);
         a->setCheckable(true);
         a->setData(id);
