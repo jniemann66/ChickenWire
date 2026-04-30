@@ -182,7 +182,7 @@ void TonnetzController::setMidiChannelFilter(int channel)
 
 void TonnetzController::handleNoteOn(int semitone, int channel)
 {
-    if (semitone < 0 || semitone >= 12)
+	if (semitone < 0 || semitone >= 12)
         return;
 
     if (m_midiChannelFilter >= 0 && channel != m_midiChannelFilter)
@@ -198,11 +198,13 @@ void TonnetzController::handleNoteOn(int semitone, int channel)
 
 void TonnetzController::handleNoteOff(int semitone, int channel)
 {
-    if (semitone < 0 || semitone >= 12)
+	if (semitone < 0 || semitone >= 12) {
         return;
+	}
 
-    if (m_midiChannelFilter >= 0 && channel != m_midiChannelFilter)
+	if (m_midiChannelFilter >= 0 && channel != m_midiChannelFilter) {
         return;
+	}
 
     if (--m_playingNoteCounts[semitone] <= 0) {
         m_playingNoteCounts[semitone] = 0;
