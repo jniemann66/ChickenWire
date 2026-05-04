@@ -61,6 +61,7 @@ qt_add_qml_module(appChickenWire
     cubeDance.qml
     seventhChords.qml
     ShortcutOverlay.qml
+	SOURCES chordsymbol.h chordsymbol.cpp
 )
 
 set_target_properties(appChickenWire PROPERTIES
