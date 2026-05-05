@@ -656,14 +656,14 @@ Item {
                 hasSel = false
                 hasSelNote = false
                 nrDists = []
-                requestPaint()
+                canvas.requestPaint()
             }
         }
 
         Connections {
             target: Theme
             function onThemeChanged() {
-                requestPaint()
+                canvas.requestPaint()
             }
         }
     }

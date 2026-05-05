@@ -756,14 +756,14 @@ Item {
                 hasSelNode = false
                 hasSelTriad = false
                 nrDists = []
-                requestPaint()
+                canvas.requestPaint()
             }
         }
 
         Connections {
             target: Theme
             function onThemeChanged() {
-                requestPaint()
+                canvas.requestPaint()
             }
         }
     }

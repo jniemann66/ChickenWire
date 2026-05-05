@@ -807,14 +807,14 @@ Item {
 			function onSelectionsCleared() {
 				selNode = -1
 				nodeDists = []
-				requestPaint()
+				canvas.requestPaint()
 			}
 		}
 
 		Connections {
 			target: Theme
 			function onThemeChanged() {
-				requestPaint()
+				canvas.requestPaint()
 			}
 		}
 

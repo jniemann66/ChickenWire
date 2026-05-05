@@ -9,6 +9,8 @@
 #include <QClipboard>
 #include <QDebug>
 #include <QDockWidget>
+#include <QFontInfo>
+#include <QFontMetrics>
 #include <QEvent>
 #include <QFileDialog>
 #include <QFormLayout>
@@ -51,9 +53,49 @@ private:
 };
 
 
+static void checkMusicalSymbolFont(const QString& name)
+{
+	const QFontInfo info(name);
+	qDebug() << QStringLiteral("Checking font '%1': resolves to:'%2' style:'%3'")
+				.arg(name, info.family(), info.styleName());
+
+	struct Symbol {
+		const char *name;
+		uint ucs4;
+	};
+
+	static constexpr Symbol accidentals[] = {
+		{ "flat      U+266D",  0x266D },
+		{ "natural   U+266E",  0x266E },
+		{ "sharp     U+266F",  0x266F },
+		{ "dbl-flat  U+1D12B", 0x1D12B },
+		{ "dbl-sharp U+1D12A", 0x1D12A },
+	};
+
+	static constexpr Symbol chordSymbols[] = {
+		{ "maj delta U+0394",  0x0394 },  // Δ  (used in project)
+		{ "half-dim  U+00F8",  0x00F8 },  // ø  (used in project)
+		{ "dim       U+00B0",  0x00B0 },  // °  (used in project)
+	};
+
+	const QFontMetrics metrics(name);
+
+	qDebug() << "-- accidentals --";
+	for (const auto &sym : accidentals) {
+		qDebug() << sym.name << (metrics.inFontUcs4(sym.ucs4) ? "available" : "MISSING");
+	}
+
+	qDebug() << "-- chord symbols --";
+	for (const auto &sym : chordSymbols) {
+		qDebug() << sym.name << (metrics.inFontUcs4(sym.ucs4) ? "available" : "MISSING");
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
+
+	checkMusicalSymbolFont(QFontInfo(QFont(QStringLiteral("sans-serif"))).family());
 	QApplication::setOrganizationName(QStringLiteral("ChickenWire"));
 	QApplication::setApplicationName(QStringLiteral("ChickenWire"));
 	QSettings settings;
