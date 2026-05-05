@@ -72,15 +72,23 @@ inline constexpr uint64_t operator&(ChordQualityFlags lhs, ChordQualityFlags rhs
 	return static_cast<uint64_t>(lhs) & static_cast<uint64_t>(rhs);
 }
 
+enum class ChordSymbolFormat
+{
+	Ascii,  // sharps/flats as #/b, quality as dim/m/maj etc
+	Utf8,   // sharps/flats as ♯/♭, quality as °/ø/Δ etc
+	Html,   // like Utf8 but with HTML markup (eg <sup> for alterations)
+};
+
 struct ChordSymbol
 {
 	std::string root;
 	ChordQualityFlags quality{0ll};
 	std::string bass;
+	bool parensAroundAlterations{true};
 
 	std::unique_ptr<ChordSymbol> denominator; // optional for building polychords (possibly recursively ...)
 
-	std::string toHtml();
+	std::string toText(ChordSymbolFormat fmt);
 };
 
 #endif // CHORDSYMBOL_H

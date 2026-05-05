@@ -1,3 +1,4 @@
+#include "chordsymbol.h"
 #include "midiPlayer.h"
 #include "noteNameDialog.h"
 #include "tonnetzController.h"
@@ -53,6 +54,46 @@ private:
 };
 
 
+static void testChordSymbols()
+{
+	using F = ChordQualityFlags;
+
+	auto make = [](std::string root, ChordQualityFlags q, std::string bass = {}) {
+		ChordSymbol cs;
+		cs.root = std::move(root);
+		cs.quality = q;
+		cs.bass = std::move(bass);
+		return cs;
+	};
+
+	auto print = [](const char *label, ChordSymbol cs) {
+		qDebug().noquote() << label;
+		qDebug().noquote() << "  ascii:" << cs.toText(ChordSymbolFormat::Ascii).c_str();
+		qDebug().noquote() << "  utf-8:" << cs.toText(ChordSymbolFormat::Utf8).c_str();
+		qDebug().noquote() << "  html: " << cs.toText(ChordSymbolFormat::Html).c_str();
+	};
+
+	print("C",          make("C",  F::Maj));
+	print("Cm",         make("C",  F::Min));
+	print("Caug",       make("C",  F::Aug));
+	print("Cdim",       make("C",  F::Dim));
+	print("Cdim7",      make("C",  F::Dim    | F::Seven));
+	print("Cø7",        make("C",  F::HalfDim | F::Seven));
+	print("CΔ7",        make("C",  F::Maj7));
+	print("Am(maj7)",   make("A",  F::Min    | F::Maj7Post));
+	print("Bb7b9",      make("Bb", F::Seven  | F::Flat9));
+	print("Bb7b9#5",    make("Bb", F::Seven  | F::Flat9 | F::Sharp5));
+	print("G7#11",      make("G",  F::Seven  | F::Sharp11));
+	print("C6/9",       make("C",  F::SixNine));
+	print("Csus4",      make("C",  F::Sus4));
+	print("C7sus4",     make("C",  F::Seven  | F::Sus4Post));
+	print("Ebaug",      make("Eb", F::Aug));
+	print("C/E",        make("C",  F::Maj,    "E"));
+	print("FΔ9(#11)",   make("F",  F::Maj9   | F::Sharp11));
+	print("N.C.",       make("",   F::NC));
+	print("(empty)",    make("",   F::Empty));
+}
+
 static void checkMusicalSymbolFont(const QString& name)
 {
 	const QFontInfo info(name);
@@ -96,6 +137,7 @@ int main(int argc, char *argv[])
 	QApplication app(argc, argv);
 
 	checkMusicalSymbolFont(QFontInfo(QFont(QStringLiteral("sans-serif"))).family());
+	// testChordSymbols();
 	QApplication::setOrganizationName(QStringLiteral("ChickenWire"));
 	QApplication::setApplicationName(QStringLiteral("ChickenWire"));
 	QSettings settings;
