@@ -753,9 +753,9 @@ Item {
         Connections {
             target: visualizerSwitcher
             function onSelectionsCleared() {
-                hasSelNode = false
-                hasSelTriad = false
-                nrDists = []
+                canvas.hasSelNode = false
+                canvas.hasSelTriad = false
+                canvas.nrDists = []
                 canvas.requestPaint()
             }
         }

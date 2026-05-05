@@ -653,9 +653,9 @@ Item {
         Connections {
             target: visualizerSwitcher
             function onSelectionsCleared() {
-                hasSel = false
-                hasSelNote = false
-                nrDists = []
+                canvas.hasSel = false
+                canvas.hasSelNote = false
+                canvas.nrDists = []
                 canvas.requestPaint()
             }
         }

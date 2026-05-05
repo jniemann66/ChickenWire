@@ -836,8 +836,8 @@ Item {
         Connections {
             target: visualizerSwitcher
             function onSelectionsCleared() {
-                selNode = -1
-                nodeDists = []
+                canvas.selNode = -1
+                canvas.nodeDists = []
                 canvas.requestPaint()
             }
         }
