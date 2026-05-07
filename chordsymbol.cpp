@@ -137,13 +137,15 @@ std::string ChordSymbol::toText(ChordSymbolFormat fmt)
 		mainParts.push_back(std::move(alt));
 	}
 
-	if (!bass.empty())
+	if (!bass.empty()) {
 		mainParts.push_back("/" + bass);
+	}
 
 	// assemble
 	std::string result;
-	for (const auto &p : mainParts)
+	for (const auto &p : mainParts) {
 		result += p;
+	}
 
 	// symbol substitution
 	switch (fmt) {
