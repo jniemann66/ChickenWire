@@ -345,7 +345,7 @@ Item {
 			if (n.type === "dom")
 				return majorRootNoteNames[n.root] + "7"
 			if (n.type === "min")
-				return minorRootNoteNames[n.root] + "m"
+				return minorRootNoteNames[n.root] + "m7"
 			if (n.type === "halfdim")
 				return minorRootNoteNames[n.root] + "ø"
 			if (n.type === "majaug")
@@ -543,7 +543,7 @@ Item {
 
 			var nodeR = Math.max(6, 15 * scale)
 			var squareHW = Math.max(5, 13 * scale)
-			var fontSize = Math.max(1, 10 * scale)
+			var fontSize = Math.max(1, 7.5 * scale)
 
 			ctx.lineCap = "round"
 
@@ -697,7 +697,11 @@ Item {
 						ctx.fillText("Δ7\u266F5", np.x, np.y + augFont * 0.55)
 					} else {
 						ctx.font = "bold " + fontSize + "px sans-serif"
-						ctx.fillText((partial && (n.type === "maj" || n.type === "majaug")) ? majorRootNoteNames[n.root] : nodeLabel(ni), np.x, np.y)
+						ctx.fillText(
+							partial && (n.type === "maj" || n.type === "majaug") ? majorRootNoteNames[n.root] :
+							partial && n.type === "min" ? minorRootNoteNames[n.root] + "m" :
+							nodeLabel(ni),
+							np.x, np.y)
 					}
 				}
 			}
