@@ -193,6 +193,7 @@ Item {
 
 		//   Edge-class visibility
 		readonly property var classNames: ["P12", "P14", "P23", "P35", "R12", "R23", "R42", "L13", "L15", "L42", "Q43", "P46", "L26", "L16"]
+
 		// Keys (in classNames order):  1 2 3 4 5 6 7 8 9 0 - [ ] \
 		readonly property var classKeyOrder: [Qt.Key_1, Qt.Key_2, Qt.Key_3, Qt.Key_4, Qt.Key_5, Qt.Key_6, Qt.Key_7, Qt.Key_8, Qt.Key_9, Qt.Key_0, Qt.Key_Minus, Qt.Key_BracketLeft, Qt.Key_BracketRight, Qt.Key_Backslash]
 		function allClassesVisible() {
@@ -203,7 +204,7 @@ Item {
 		}
 		// Derived from visualizerSwitcher.hiddenClasses so the set survives
 		// across sessions (and so VisualizerSwitcher remains the single
-		// source of truth for persisted UI state).  The three Maj7♯5 classes
+		// source of truth for persisted UI state). The three Maj7♯5 classes
 		// are additionally gated on the "Show Augmented Chords" menu action.
 		property var visibleClasses: {
 			var v = {}

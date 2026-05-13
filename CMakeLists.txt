@@ -9,6 +9,8 @@ find_package(Qt6 REQUIRED COMPONENTS Quick Widgets QuickWidgets ShaderTools)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
+add_subdirectory(chordsymbol)
+
 qt_add_executable(appChickenWire
     main.cpp
     noteNameDialog.h
@@ -61,7 +63,6 @@ qt_add_qml_module(appChickenWire
     cubeDance.qml
     seventhChords.qml
     ShortcutOverlay.qml
-	SOURCES chordsymbol.h chordsymbol.cpp
 )
 
 set_target_properties(appChickenWire PROPERTIES
@@ -72,7 +73,7 @@ set_target_properties(appChickenWire PROPERTIES
 )
 
 target_link_libraries(appChickenWire
-    PRIVATE Qt6::Quick Qt6::Widgets Qt6::QuickWidgets
+    PRIVATE Qt6::Quick Qt6::Widgets Qt6::QuickWidgets chordsymbol
 )
 
 include(GNUInstallDirs)
