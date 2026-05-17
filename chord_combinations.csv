@@ -1,0 +1,2049 @@
+bits_1_11,note_count,notes
+0,1,C
+1,2,C D♭
+2,2,C D
+3,3,C D♭ D
+4,2,C E♭
+5,3,C D♭ E♭
+6,3,C D E♭
+7,4,C D♭ D E♭
+8,2,C E
+9,3,C D♭ E
+10,3,C D E
+11,4,C D♭ D E
+12,3,C E♭ E
+13,4,C D♭ E♭ E
+14,4,C D E♭ E
+15,5,C D♭ D E♭ E
+16,2,C F
+17,3,C D♭ F
+18,3,C D F
+19,4,C D♭ D F
+20,3,C E♭ F
+21,4,C D♭ E♭ F
+22,4,C D E♭ F
+23,5,C D♭ D E♭ F
+24,3,C E F
+25,4,C D♭ E F
+26,4,C D E F
+27,5,C D♭ D E F
+28,4,C E♭ E F
+29,5,C D♭ E♭ E F
+30,5,C D E♭ E F
+31,6,C D♭ D E♭ E F
+32,2,C F♯
+33,3,C D♭ F♯
+34,3,C D F♯
+35,4,C D♭ D F♯
+36,3,C E♭ F♯
+37,4,C D♭ E♭ F♯
+38,4,C D E♭ F♯
+39,5,C D♭ D E♭ F♯
+40,3,C E F♯
+41,4,C D♭ E F♯
+42,4,C D E F♯
+43,5,C D♭ D E F♯
+44,4,C E♭ E F♯
+45,5,C D♭ E♭ E F♯
+46,5,C D E♭ E F♯
+47,6,C D♭ D E♭ E F♯
+48,3,C F F♯
+49,4,C D♭ F F♯
+50,4,C D F F♯
+51,5,C D♭ D F F♯
+52,4,C E♭ F F♯
+53,5,C D♭ E♭ F F♯
+54,5,C D E♭ F F♯
+55,6,C D♭ D E♭ F F♯
+56,4,C E F F♯
+57,5,C D♭ E F F♯
+58,5,C D E F F♯
+59,6,C D♭ D E F F♯
+60,5,C E♭ E F F♯
+61,6,C D♭ E♭ E F F♯
+62,6,C D E♭ E F F♯
+63,7,C D♭ D E♭ E F F♯
+64,2,C G
+65,3,C D♭ G
+66,3,C D G
+67,4,C D♭ D G
+68,3,C E♭ G
+69,4,C D♭ E♭ G
+70,4,C D E♭ G
+71,5,C D♭ D E♭ G
+72,3,C E G
+73,4,C D♭ E G
+74,4,C D E G
+75,5,C D♭ D E G
+76,4,C E♭ E G
+77,5,C D♭ E♭ E G
+78,5,C D E♭ E G
+79,6,C D♭ D E♭ E G
+80,3,C F G
+81,4,C D♭ F G
+82,4,C D F G
+83,5,C D♭ D F G
+84,4,C E♭ F G
+85,5,C D♭ E♭ F G
+86,5,C D E♭ F G
+87,6,C D♭ D E♭ F G
+88,4,C E F G
+89,5,C D♭ E F G
+90,5,C D E F G
+91,6,C D♭ D E F G
+92,5,C E♭ E F G
+93,6,C D♭ E♭ E F G
+94,6,C D E♭ E F G
+95,7,C D♭ D E♭ E F G
+96,3,C F♯ G
+97,4,C D♭ F♯ G
+98,4,C D F♯ G
+99,5,C D♭ D F♯ G
+100,4,C E♭ F♯ G
+101,5,C D♭ E♭ F♯ G
+102,5,C D E♭ F♯ G
+103,6,C D♭ D E♭ F♯ G
+104,4,C E F♯ G
+105,5,C D♭ E F♯ G
+106,5,C D E F♯ G
+107,6,C D♭ D E F♯ G
+108,5,C E♭ E F♯ G
+109,6,C D♭ E♭ E F♯ G
+110,6,C D E♭ E F♯ G
+111,7,C D♭ D E♭ E F♯ G
+112,4,C F F♯ G
+113,5,C D♭ F F♯ G
+114,5,C D F F♯ G
+115,6,C D♭ D F F♯ G
+116,5,C E♭ F F♯ G
+117,6,C D♭ E♭ F F♯ G
+118,6,C D E♭ F F♯ G
+119,7,C D♭ D E♭ F F♯ G
+120,5,C E F F♯ G
+121,6,C D♭ E F F♯ G
+122,6,C D E F F♯ G
+123,7,C D♭ D E F F♯ G
+124,6,C E♭ E F F♯ G
+125,7,C D♭ E♭ E F F♯ G
+126,7,C D E♭ E F F♯ G
+127,8,C D♭ D E♭ E F F♯ G
+128,2,C A♭
+129,3,C D♭ A♭
+130,3,C D A♭
+131,4,C D♭ D A♭
+132,3,C E♭ A♭
+133,4,C D♭ E♭ A♭
+134,4,C D E♭ A♭
+135,5,C D♭ D E♭ A♭
+136,3,C E A♭
+137,4,C D♭ E A♭
+138,4,C D E A♭
+139,5,C D♭ D E A♭
+140,4,C E♭ E A♭
+141,5,C D♭ E♭ E A♭
+142,5,C D E♭ E A♭
+143,6,C D♭ D E♭ E A♭
+144,3,C F A♭
+145,4,C D♭ F A♭
+146,4,C D F A♭
+147,5,C D♭ D F A♭
+148,4,C E♭ F A♭
+149,5,C D♭ E♭ F A♭
+150,5,C D E♭ F A♭
+151,6,C D♭ D E♭ F A♭
+152,4,C E F A♭
+153,5,C D♭ E F A♭
+154,5,C D E F A♭
+155,6,C D♭ D E F A♭
+156,5,C E♭ E F A♭
+157,6,C D♭ E♭ E F A♭
+158,6,C D E♭ E F A♭
+159,7,C D♭ D E♭ E F A♭
+160,3,C F♯ A♭
+161,4,C D♭ F♯ A♭
+162,4,C D F♯ A♭
+163,5,C D♭ D F♯ A♭
+164,4,C E♭ F♯ A♭
+165,5,C D♭ E♭ F♯ A♭
+166,5,C D E♭ F♯ A♭
+167,6,C D♭ D E♭ F♯ A♭
+168,4,C E F♯ A♭
+169,5,C D♭ E F♯ A♭
+170,5,C D E F♯ A♭
+171,6,C D♭ D E F♯ A♭
+172,5,C E♭ E F♯ A♭
+173,6,C D♭ E♭ E F♯ A♭
+174,6,C D E♭ E F♯ A♭
+175,7,C D♭ D E♭ E F♯ A♭
+176,4,C F F♯ A♭
+177,5,C D♭ F F♯ A♭
+178,5,C D F F♯ A♭
+179,6,C D♭ D F F♯ A♭
+180,5,C E♭ F F♯ A♭
+181,6,C D♭ E♭ F F♯ A♭
+182,6,C D E♭ F F♯ A♭
+183,7,C D♭ D E♭ F F♯ A♭
+184,5,C E F F♯ A♭
+185,6,C D♭ E F F♯ A♭
+186,6,C D E F F♯ A♭
+187,7,C D♭ D E F F♯ A♭
+188,6,C E♭ E F F♯ A♭
+189,7,C D♭ E♭ E F F♯ A♭
+190,7,C D E♭ E F F♯ A♭
+191,8,C D♭ D E♭ E F F♯ A♭
+192,3,C G A♭
+193,4,C D♭ G A♭
+194,4,C D G A♭
+195,5,C D♭ D G A♭
+196,4,C E♭ G A♭
+197,5,C D♭ E♭ G A♭
+198,5,C D E♭ G A♭
+199,6,C D♭ D E♭ G A♭
+200,4,C E G A♭
+201,5,C D♭ E G A♭
+202,5,C D E G A♭
+203,6,C D♭ D E G A♭
+204,5,C E♭ E G A♭
+205,6,C D♭ E♭ E G A♭
+206,6,C D E♭ E G A♭
+207,7,C D♭ D E♭ E G A♭
+208,4,C F G A♭
+209,5,C D♭ F G A♭
+210,5,C D F G A♭
+211,6,C D♭ D F G A♭
+212,5,C E♭ F G A♭
+213,6,C D♭ E♭ F G A♭
+214,6,C D E♭ F G A♭
+215,7,C D♭ D E♭ F G A♭
+216,5,C E F G A♭
+217,6,C D♭ E F G A♭
+218,6,C D E F G A♭
+219,7,C D♭ D E F G A♭
+220,6,C E♭ E F G A♭
+221,7,C D♭ E♭ E F G A♭
+222,7,C D E♭ E F G A♭
+223,8,C D♭ D E♭ E F G A♭
+224,4,C F♯ G A♭
+225,5,C D♭ F♯ G A♭
+226,5,C D F♯ G A♭
+227,6,C D♭ D F♯ G A♭
+228,5,C E♭ F♯ G A♭
+229,6,C D♭ E♭ F♯ G A♭
+230,6,C D E♭ F♯ G A♭
+231,7,C D♭ D E♭ F♯ G A♭
+232,5,C E F♯ G A♭
+233,6,C D♭ E F♯ G A♭
+234,6,C D E F♯ G A♭
+235,7,C D♭ D E F♯ G A♭
+236,6,C E♭ E F♯ G A♭
+237,7,C D♭ E♭ E F♯ G A♭
+238,7,C D E♭ E F♯ G A♭
+239,8,C D♭ D E♭ E F♯ G A♭
+240,5,C F F♯ G A♭
+241,6,C D♭ F F♯ G A♭
+242,6,C D F F♯ G A♭
+243,7,C D♭ D F F♯ G A♭
+244,6,C E♭ F F♯ G A♭
+245,7,C D♭ E♭ F F♯ G A♭
+246,7,C D E♭ F F♯ G A♭
+247,8,C D♭ D E♭ F F♯ G A♭
+248,6,C E F F♯ G A♭
+249,7,C D♭ E F F♯ G A♭
+250,7,C D E F F♯ G A♭
+251,8,C D♭ D E F F♯ G A♭
+252,7,C E♭ E F F♯ G A♭
+253,8,C D♭ E♭ E F F♯ G A♭
+254,8,C D E♭ E F F♯ G A♭
+255,9,C D♭ D E♭ E F F♯ G A♭
+256,2,C A
+257,3,C D♭ A
+258,3,C D A
+259,4,C D♭ D A
+260,3,C E♭ A
+261,4,C D♭ E♭ A
+262,4,C D E♭ A
+263,5,C D♭ D E♭ A
+264,3,C E A
+265,4,C D♭ E A
+266,4,C D E A
+267,5,C D♭ D E A
+268,4,C E♭ E A
+269,5,C D♭ E♭ E A
+270,5,C D E♭ E A
+271,6,C D♭ D E♭ E A
+272,3,C F A
+273,4,C D♭ F A
+274,4,C D F A
+275,5,C D♭ D F A
+276,4,C E♭ F A
+277,5,C D♭ E♭ F A
+278,5,C D E♭ F A
+279,6,C D♭ D E♭ F A
+280,4,C E F A
+281,5,C D♭ E F A
+282,5,C D E F A
+283,6,C D♭ D E F A
+284,5,C E♭ E F A
+285,6,C D♭ E♭ E F A
+286,6,C D E♭ E F A
+287,7,C D♭ D E♭ E F A
+288,3,C F♯ A
+289,4,C D♭ F♯ A
+290,4,C D F♯ A
+291,5,C D♭ D F♯ A
+292,4,C E♭ F♯ A
+293,5,C D♭ E♭ F♯ A
+294,5,C D E♭ F♯ A
+295,6,C D♭ D E♭ F♯ A
+296,4,C E F♯ A
+297,5,C D♭ E F♯ A
+298,5,C D E F♯ A
+299,6,C D♭ D E F♯ A
+300,5,C E♭ E F♯ A
+301,6,C D♭ E♭ E F♯ A
+302,6,C D E♭ E F♯ A
+303,7,C D♭ D E♭ E F♯ A
+304,4,C F F♯ A
+305,5,C D♭ F F♯ A
+306,5,C D F F♯ A
+307,6,C D♭ D F F♯ A
+308,5,C E♭ F F♯ A
+309,6,C D♭ E♭ F F♯ A
+310,6,C D E♭ F F♯ A
+311,7,C D♭ D E♭ F F♯ A
+312,5,C E F F♯ A
+313,6,C D♭ E F F♯ A
+314,6,C D E F F♯ A
+315,7,C D♭ D E F F♯ A
+316,6,C E♭ E F F♯ A
+317,7,C D♭ E♭ E F F♯ A
+318,7,C D E♭ E F F♯ A
+319,8,C D♭ D E♭ E F F♯ A
+320,3,C G A
+321,4,C D♭ G A
+322,4,C D G A
+323,5,C D♭ D G A
+324,4,C E♭ G A
+325,5,C D♭ E♭ G A
+326,5,C D E♭ G A
+327,6,C D♭ D E♭ G A
+328,4,C E G A
+329,5,C D♭ E G A
+330,5,C D E G A
+331,6,C D♭ D E G A
+332,5,C E♭ E G A
+333,6,C D♭ E♭ E G A
+334,6,C D E♭ E G A
+335,7,C D♭ D E♭ E G A
+336,4,C F G A
+337,5,C D♭ F G A
+338,5,C D F G A
+339,6,C D♭ D F G A
+340,5,C E♭ F G A
+341,6,C D♭ E♭ F G A
+342,6,C D E♭ F G A
+343,7,C D♭ D E♭ F G A
+344,5,C E F G A
+345,6,C D♭ E F G A
+346,6,C D E F G A
+347,7,C D♭ D E F G A
+348,6,C E♭ E F G A
+349,7,C D♭ E♭ E F G A
+350,7,C D E♭ E F G A
+351,8,C D♭ D E♭ E F G A
+352,4,C F♯ G A
+353,5,C D♭ F♯ G A
+354,5,C D F♯ G A
+355,6,C D♭ D F♯ G A
+356,5,C E♭ F♯ G A
+357,6,C D♭ E♭ F♯ G A
+358,6,C D E♭ F♯ G A
+359,7,C D♭ D E♭ F♯ G A
+360,5,C E F♯ G A
+361,6,C D♭ E F♯ G A
+362,6,C D E F♯ G A
+363,7,C D♭ D E F♯ G A
+364,6,C E♭ E F♯ G A
+365,7,C D♭ E♭ E F♯ G A
+366,7,C D E♭ E F♯ G A
+367,8,C D♭ D E♭ E F♯ G A
+368,5,C F F♯ G A
+369,6,C D♭ F F♯ G A
+370,6,C D F F♯ G A
+371,7,C D♭ D F F♯ G A
+372,6,C E♭ F F♯ G A
+373,7,C D♭ E♭ F F♯ G A
+374,7,C D E♭ F F♯ G A
+375,8,C D♭ D E♭ F F♯ G A
+376,6,C E F F♯ G A
+377,7,C D♭ E F F♯ G A
+378,7,C D E F F♯ G A
+379,8,C D♭ D E F F♯ G A
+380,7,C E♭ E F F♯ G A
+381,8,C D♭ E♭ E F F♯ G A
+382,8,C D E♭ E F F♯ G A
+383,9,C D♭ D E♭ E F F♯ G A
+384,3,C A♭ A
+385,4,C D♭ A♭ A
+386,4,C D A♭ A
+387,5,C D♭ D A♭ A
+388,4,C E♭ A♭ A
+389,5,C D♭ E♭ A♭ A
+390,5,C D E♭ A♭ A
+391,6,C D♭ D E♭ A♭ A
+392,4,C E A♭ A
+393,5,C D♭ E A♭ A
+394,5,C D E A♭ A
+395,6,C D♭ D E A♭ A
+396,5,C E♭ E A♭ A
+397,6,C D♭ E♭ E A♭ A
+398,6,C D E♭ E A♭ A
+399,7,C D♭ D E♭ E A♭ A
+400,4,C F A♭ A
+401,5,C D♭ F A♭ A
+402,5,C D F A♭ A
+403,6,C D♭ D F A♭ A
+404,5,C E♭ F A♭ A
+405,6,C D♭ E♭ F A♭ A
+406,6,C D E♭ F A♭ A
+407,7,C D♭ D E♭ F A♭ A
+408,5,C E F A♭ A
+409,6,C D♭ E F A♭ A
+410,6,C D E F A♭ A
+411,7,C D♭ D E F A♭ A
+412,6,C E♭ E F A♭ A
+413,7,C D♭ E♭ E F A♭ A
+414,7,C D E♭ E F A♭ A
+415,8,C D♭ D E♭ E F A♭ A
+416,4,C F♯ A♭ A
+417,5,C D♭ F♯ A♭ A
+418,5,C D F♯ A♭ A
+419,6,C D♭ D F♯ A♭ A
+420,5,C E♭ F♯ A♭ A
+421,6,C D♭ E♭ F♯ A♭ A
+422,6,C D E♭ F♯ A♭ A
+423,7,C D♭ D E♭ F♯ A♭ A
+424,5,C E F♯ A♭ A
+425,6,C D♭ E F♯ A♭ A
+426,6,C D E F♯ A♭ A
+427,7,C D♭ D E F♯ A♭ A
+428,6,C E♭ E F♯ A♭ A
+429,7,C D♭ E♭ E F♯ A♭ A
+430,7,C D E♭ E F♯ A♭ A
+431,8,C D♭ D E♭ E F♯ A♭ A
+432,5,C F F♯ A♭ A
+433,6,C D♭ F F♯ A♭ A
+434,6,C D F F♯ A♭ A
+435,7,C D♭ D F F♯ A♭ A
+436,6,C E♭ F F♯ A♭ A
+437,7,C D♭ E♭ F F♯ A♭ A
+438,7,C D E♭ F F♯ A♭ A
+439,8,C D♭ D E♭ F F♯ A♭ A
+440,6,C E F F♯ A♭ A
+441,7,C D♭ E F F♯ A♭ A
+442,7,C D E F F♯ A♭ A
+443,8,C D♭ D E F F♯ A♭ A
+444,7,C E♭ E F F♯ A♭ A
+445,8,C D♭ E♭ E F F♯ A♭ A
+446,8,C D E♭ E F F♯ A♭ A
+447,9,C D♭ D E♭ E F F♯ A♭ A
+448,4,C G A♭ A
+449,5,C D♭ G A♭ A
+450,5,C D G A♭ A
+451,6,C D♭ D G A♭ A
+452,5,C E♭ G A♭ A
+453,6,C D♭ E♭ G A♭ A
+454,6,C D E♭ G A♭ A
+455,7,C D♭ D E♭ G A♭ A
+456,5,C E G A♭ A
+457,6,C D♭ E G A♭ A
+458,6,C D E G A♭ A
+459,7,C D♭ D E G A♭ A
+460,6,C E♭ E G A♭ A
+461,7,C D♭ E♭ E G A♭ A
+462,7,C D E♭ E G A♭ A
+463,8,C D♭ D E♭ E G A♭ A
+464,5,C F G A♭ A
+465,6,C D♭ F G A♭ A
+466,6,C D F G A♭ A
+467,7,C D♭ D F G A♭ A
+468,6,C E♭ F G A♭ A
+469,7,C D♭ E♭ F G A♭ A
+470,7,C D E♭ F G A♭ A
+471,8,C D♭ D E♭ F G A♭ A
+472,6,C E F G A♭ A
+473,7,C D♭ E F G A♭ A
+474,7,C D E F G A♭ A
+475,8,C D♭ D E F G A♭ A
+476,7,C E♭ E F G A♭ A
+477,8,C D♭ E♭ E F G A♭ A
+478,8,C D E♭ E F G A♭ A
+479,9,C D♭ D E♭ E F G A♭ A
+480,5,C F♯ G A♭ A
+481,6,C D♭ F♯ G A♭ A
+482,6,C D F♯ G A♭ A
+483,7,C D♭ D F♯ G A♭ A
+484,6,C E♭ F♯ G A♭ A
+485,7,C D♭ E♭ F♯ G A♭ A
+486,7,C D E♭ F♯ G A♭ A
+487,8,C D♭ D E♭ F♯ G A♭ A
+488,6,C E F♯ G A♭ A
+489,7,C D♭ E F♯ G A♭ A
+490,7,C D E F♯ G A♭ A
+491,8,C D♭ D E F♯ G A♭ A
+492,7,C E♭ E F♯ G A♭ A
+493,8,C D♭ E♭ E F♯ G A♭ A
+494,8,C D E♭ E F♯ G A♭ A
+495,9,C D♭ D E♭ E F♯ G A♭ A
+496,6,C F F♯ G A♭ A
+497,7,C D♭ F F♯ G A♭ A
+498,7,C D F F♯ G A♭ A
+499,8,C D♭ D F F♯ G A♭ A
+500,7,C E♭ F F♯ G A♭ A
+501,8,C D♭ E♭ F F♯ G A♭ A
+502,8,C D E♭ F F♯ G A♭ A
+503,9,C D♭ D E♭ F F♯ G A♭ A
+504,7,C E F F♯ G A♭ A
+505,8,C D♭ E F F♯ G A♭ A
+506,8,C D E F F♯ G A♭ A
+507,9,C D♭ D E F F♯ G A♭ A
+508,8,C E♭ E F F♯ G A♭ A
+509,9,C D♭ E♭ E F F♯ G A♭ A
+510,9,C D E♭ E F F♯ G A♭ A
+511,10,C D♭ D E♭ E F F♯ G A♭ A
+512,2,C B♭
+513,3,C D♭ B♭
+514,3,C D B♭
+515,4,C D♭ D B♭
+516,3,C E♭ B♭
+517,4,C D♭ E♭ B♭
+518,4,C D E♭ B♭
+519,5,C D♭ D E♭ B♭
+520,3,C E B♭
+521,4,C D♭ E B♭
+522,4,C D E B♭
+523,5,C D♭ D E B♭
+524,4,C E♭ E B♭
+525,5,C D♭ E♭ E B♭
+526,5,C D E♭ E B♭
+527,6,C D♭ D E♭ E B♭
+528,3,C F B♭
+529,4,C D♭ F B♭
+530,4,C D F B♭
+531,5,C D♭ D F B♭
+532,4,C E♭ F B♭
+533,5,C D♭ E♭ F B♭
+534,5,C D E♭ F B♭
+535,6,C D♭ D E♭ F B♭
+536,4,C E F B♭
+537,5,C D♭ E F B♭
+538,5,C D E F B♭
+539,6,C D♭ D E F B♭
+540,5,C E♭ E F B♭
+541,6,C D♭ E♭ E F B♭
+542,6,C D E♭ E F B♭
+543,7,C D♭ D E♭ E F B♭
+544,3,C F♯ B♭
+545,4,C D♭ F♯ B♭
+546,4,C D F♯ B♭
+547,5,C D♭ D F♯ B♭
+548,4,C E♭ F♯ B♭
+549,5,C D♭ E♭ F♯ B♭
+550,5,C D E♭ F♯ B♭
+551,6,C D♭ D E♭ F♯ B♭
+552,4,C E F♯ B♭
+553,5,C D♭ E F♯ B♭
+554,5,C D E F♯ B♭
+555,6,C D♭ D E F♯ B♭
+556,5,C E♭ E F♯ B♭
+557,6,C D♭ E♭ E F♯ B♭
+558,6,C D E♭ E F♯ B♭
+559,7,C D♭ D E♭ E F♯ B♭
+560,4,C F F♯ B♭
+561,5,C D♭ F F♯ B♭
+562,5,C D F F♯ B♭
+563,6,C D♭ D F F♯ B♭
+564,5,C E♭ F F♯ B♭
+565,6,C D♭ E♭ F F♯ B♭
+566,6,C D E♭ F F♯ B♭
+567,7,C D♭ D E♭ F F♯ B♭
+568,5,C E F F♯ B♭
+569,6,C D♭ E F F♯ B♭
+570,6,C D E F F♯ B♭
+571,7,C D♭ D E F F♯ B♭
+572,6,C E♭ E F F♯ B♭
+573,7,C D♭ E♭ E F F♯ B♭
+574,7,C D E♭ E F F♯ B♭
+575,8,C D♭ D E♭ E F F♯ B♭
+576,3,C G B♭
+577,4,C D♭ G B♭
+578,4,C D G B♭
+579,5,C D♭ D G B♭
+580,4,C E♭ G B♭
+581,5,C D♭ E♭ G B♭
+582,5,C D E♭ G B♭
+583,6,C D♭ D E♭ G B♭
+584,4,C E G B♭
+585,5,C D♭ E G B♭
+586,5,C D E G B♭
+587,6,C D♭ D E G B♭
+588,5,C E♭ E G B♭
+589,6,C D♭ E♭ E G B♭
+590,6,C D E♭ E G B♭
+591,7,C D♭ D E♭ E G B♭
+592,4,C F G B♭
+593,5,C D♭ F G B♭
+594,5,C D F G B♭
+595,6,C D♭ D F G B♭
+596,5,C E♭ F G B♭
+597,6,C D♭ E♭ F G B♭
+598,6,C D E♭ F G B♭
+599,7,C D♭ D E♭ F G B♭
+600,5,C E F G B♭
+601,6,C D♭ E F G B♭
+602,6,C D E F G B♭
+603,7,C D♭ D E F G B♭
+604,6,C E♭ E F G B♭
+605,7,C D♭ E♭ E F G B♭
+606,7,C D E♭ E F G B♭
+607,8,C D♭ D E♭ E F G B♭
+608,4,C F♯ G B♭
+609,5,C D♭ F♯ G B♭
+610,5,C D F♯ G B♭
+611,6,C D♭ D F♯ G B♭
+612,5,C E♭ F♯ G B♭
+613,6,C D♭ E♭ F♯ G B♭
+614,6,C D E♭ F♯ G B♭
+615,7,C D♭ D E♭ F♯ G B♭
+616,5,C E F♯ G B♭
+617,6,C D♭ E F♯ G B♭
+618,6,C D E F♯ G B♭
+619,7,C D♭ D E F♯ G B♭
+620,6,C E♭ E F♯ G B♭
+621,7,C D♭ E♭ E F♯ G B♭
+622,7,C D E♭ E F♯ G B♭
+623,8,C D♭ D E♭ E F♯ G B♭
+624,5,C F F♯ G B♭
+625,6,C D♭ F F♯ G B♭
+626,6,C D F F♯ G B♭
+627,7,C D♭ D F F♯ G B♭
+628,6,C E♭ F F♯ G B♭
+629,7,C D♭ E♭ F F♯ G B♭
+630,7,C D E♭ F F♯ G B♭
+631,8,C D♭ D E♭ F F♯ G B♭
+632,6,C E F F♯ G B♭
+633,7,C D♭ E F F♯ G B♭
+634,7,C D E F F♯ G B♭
+635,8,C D♭ D E F F♯ G B♭
+636,7,C E♭ E F F♯ G B♭
+637,8,C D♭ E♭ E F F♯ G B♭
+638,8,C D E♭ E F F♯ G B♭
+639,9,C D♭ D E♭ E F F♯ G B♭
+640,3,C A♭ B♭
+641,4,C D♭ A♭ B♭
+642,4,C D A♭ B♭
+643,5,C D♭ D A♭ B♭
+644,4,C E♭ A♭ B♭
+645,5,C D♭ E♭ A♭ B♭
+646,5,C D E♭ A♭ B♭
+647,6,C D♭ D E♭ A♭ B♭
+648,4,C E A♭ B♭
+649,5,C D♭ E A♭ B♭
+650,5,C D E A♭ B♭
+651,6,C D♭ D E A♭ B♭
+652,5,C E♭ E A♭ B♭
+653,6,C D♭ E♭ E A♭ B♭
+654,6,C D E♭ E A♭ B♭
+655,7,C D♭ D E♭ E A♭ B♭
+656,4,C F A♭ B♭
+657,5,C D♭ F A♭ B♭
+658,5,C D F A♭ B♭
+659,6,C D♭ D F A♭ B♭
+660,5,C E♭ F A♭ B♭
+661,6,C D♭ E♭ F A♭ B♭
+662,6,C D E♭ F A♭ B♭
+663,7,C D♭ D E♭ F A♭ B♭
+664,5,C E F A♭ B♭
+665,6,C D♭ E F A♭ B♭
+666,6,C D E F A♭ B♭
+667,7,C D♭ D E F A♭ B♭
+668,6,C E♭ E F A♭ B♭
+669,7,C D♭ E♭ E F A♭ B♭
+670,7,C D E♭ E F A♭ B♭
+671,8,C D♭ D E♭ E F A♭ B♭
+672,4,C F♯ A♭ B♭
+673,5,C D♭ F♯ A♭ B♭
+674,5,C D F♯ A♭ B♭
+675,6,C D♭ D F♯ A♭ B♭
+676,5,C E♭ F♯ A♭ B♭
+677,6,C D♭ E♭ F♯ A♭ B♭
+678,6,C D E♭ F♯ A♭ B♭
+679,7,C D♭ D E♭ F♯ A♭ B♭
+680,5,C E F♯ A♭ B♭
+681,6,C D♭ E F♯ A♭ B♭
+682,6,C D E F♯ A♭ B♭
+683,7,C D♭ D E F♯ A♭ B♭
+684,6,C E♭ E F♯ A♭ B♭
+685,7,C D♭ E♭ E F♯ A♭ B♭
+686,7,C D E♭ E F♯ A♭ B♭
+687,8,C D♭ D E♭ E F♯ A♭ B♭
+688,5,C F F♯ A♭ B♭
+689,6,C D♭ F F♯ A♭ B♭
+690,6,C D F F♯ A♭ B♭
+691,7,C D♭ D F F♯ A♭ B♭
+692,6,C E♭ F F♯ A♭ B♭
+693,7,C D♭ E♭ F F♯ A♭ B♭
+694,7,C D E♭ F F♯ A♭ B♭
+695,8,C D♭ D E♭ F F♯ A♭ B♭
+696,6,C E F F♯ A♭ B♭
+697,7,C D♭ E F F♯ A♭ B♭
+698,7,C D E F F♯ A♭ B♭
+699,8,C D♭ D E F F♯ A♭ B♭
+700,7,C E♭ E F F♯ A♭ B♭
+701,8,C D♭ E♭ E F F♯ A♭ B♭
+702,8,C D E♭ E F F♯ A♭ B♭
+703,9,C D♭ D E♭ E F F♯ A♭ B♭
+704,4,C G A♭ B♭
+705,5,C D♭ G A♭ B♭
+706,5,C D G A♭ B♭
+707,6,C D♭ D G A♭ B♭
+708,5,C E♭ G A♭ B♭
+709,6,C D♭ E♭ G A♭ B♭
+710,6,C D E♭ G A♭ B♭
+711,7,C D♭ D E♭ G A♭ B♭
+712,5,C E G A♭ B♭
+713,6,C D♭ E G A♭ B♭
+714,6,C D E G A♭ B♭
+715,7,C D♭ D E G A♭ B♭
+716,6,C E♭ E G A♭ B♭
+717,7,C D♭ E♭ E G A♭ B♭
+718,7,C D E♭ E G A♭ B♭
+719,8,C D♭ D E♭ E G A♭ B♭
+720,5,C F G A♭ B♭
+721,6,C D♭ F G A♭ B♭
+722,6,C D F G A♭ B♭
+723,7,C D♭ D F G A♭ B♭
+724,6,C E♭ F G A♭ B♭
+725,7,C D♭ E♭ F G A♭ B♭
+726,7,C D E♭ F G A♭ B♭
+727,8,C D♭ D E♭ F G A♭ B♭
+728,6,C E F G A♭ B♭
+729,7,C D♭ E F G A♭ B♭
+730,7,C D E F G A♭ B♭
+731,8,C D♭ D E F G A♭ B♭
+732,7,C E♭ E F G A♭ B♭
+733,8,C D♭ E♭ E F G A♭ B♭
+734,8,C D E♭ E F G A♭ B♭
+735,9,C D♭ D E♭ E F G A♭ B♭
+736,5,C F♯ G A♭ B♭
+737,6,C D♭ F♯ G A♭ B♭
+738,6,C D F♯ G A♭ B♭
+739,7,C D♭ D F♯ G A♭ B♭
+740,6,C E♭ F♯ G A♭ B♭
+741,7,C D♭ E♭ F♯ G A♭ B♭
+742,7,C D E♭ F♯ G A♭ B♭
+743,8,C D♭ D E♭ F♯ G A♭ B♭
+744,6,C E F♯ G A♭ B♭
+745,7,C D♭ E F♯ G A♭ B♭
+746,7,C D E F♯ G A♭ B♭
+747,8,C D♭ D E F♯ G A♭ B♭
+748,7,C E♭ E F♯ G A♭ B♭
+749,8,C D♭ E♭ E F♯ G A♭ B♭
+750,8,C D E♭ E F♯ G A♭ B♭
+751,9,C D♭ D E♭ E F♯ G A♭ B♭
+752,6,C F F♯ G A♭ B♭
+753,7,C D♭ F F♯ G A♭ B♭
+754,7,C D F F♯ G A♭ B♭
+755,8,C D♭ D F F♯ G A♭ B♭
+756,7,C E♭ F F♯ G A♭ B♭
+757,8,C D♭ E♭ F F♯ G A♭ B♭
+758,8,C D E♭ F F♯ G A♭ B♭
+759,9,C D♭ D E♭ F F♯ G A♭ B♭
+760,7,C E F F♯ G A♭ B♭
+761,8,C D♭ E F F♯ G A♭ B♭
+762,8,C D E F F♯ G A♭ B♭
+763,9,C D♭ D E F F♯ G A♭ B♭
+764,8,C E♭ E F F♯ G A♭ B♭
+765,9,C D♭ E♭ E F F♯ G A♭ B♭
+766,9,C D E♭ E F F♯ G A♭ B♭
+767,10,C D♭ D E♭ E F F♯ G A♭ B♭
+768,3,C A B♭
+769,4,C D♭ A B♭
+770,4,C D A B♭
+771,5,C D♭ D A B♭
+772,4,C E♭ A B♭
+773,5,C D♭ E♭ A B♭
+774,5,C D E♭ A B♭
+775,6,C D♭ D E♭ A B♭
+776,4,C E A B♭
+777,5,C D♭ E A B♭
+778,5,C D E A B♭
+779,6,C D♭ D E A B♭
+780,5,C E♭ E A B♭
+781,6,C D♭ E♭ E A B♭
+782,6,C D E♭ E A B♭
+783,7,C D♭ D E♭ E A B♭
+784,4,C F A B♭
+785,5,C D♭ F A B♭
+786,5,C D F A B♭
+787,6,C D♭ D F A B♭
+788,5,C E♭ F A B♭
+789,6,C D♭ E♭ F A B♭
+790,6,C D E♭ F A B♭
+791,7,C D♭ D E♭ F A B♭
+792,5,C E F A B♭
+793,6,C D♭ E F A B♭
+794,6,C D E F A B♭
+795,7,C D♭ D E F A B♭
+796,6,C E♭ E F A B♭
+797,7,C D♭ E♭ E F A B♭
+798,7,C D E♭ E F A B♭
+799,8,C D♭ D E♭ E F A B♭
+800,4,C F♯ A B♭
+801,5,C D♭ F♯ A B♭
+802,5,C D F♯ A B♭
+803,6,C D♭ D F♯ A B♭
+804,5,C E♭ F♯ A B♭
+805,6,C D♭ E♭ F♯ A B♭
+806,6,C D E♭ F♯ A B♭
+807,7,C D♭ D E♭ F♯ A B♭
+808,5,C E F♯ A B♭
+809,6,C D♭ E F♯ A B♭
+810,6,C D E F♯ A B♭
+811,7,C D♭ D E F♯ A B♭
+812,6,C E♭ E F♯ A B♭
+813,7,C D♭ E♭ E F♯ A B♭
+814,7,C D E♭ E F♯ A B♭
+815,8,C D♭ D E♭ E F♯ A B♭
+816,5,C F F♯ A B♭
+817,6,C D♭ F F♯ A B♭
+818,6,C D F F♯ A B♭
+819,7,C D♭ D F F♯ A B♭
+820,6,C E♭ F F♯ A B♭
+821,7,C D♭ E♭ F F♯ A B♭
+822,7,C D E♭ F F♯ A B♭
+823,8,C D♭ D E♭ F F♯ A B♭
+824,6,C E F F♯ A B♭
+825,7,C D♭ E F F♯ A B♭
+826,7,C D E F F♯ A B♭
+827,8,C D♭ D E F F♯ A B♭
+828,7,C E♭ E F F♯ A B♭
+829,8,C D♭ E♭ E F F♯ A B♭
+830,8,C D E♭ E F F♯ A B♭
+831,9,C D♭ D E♭ E F F♯ A B♭
+832,4,C G A B♭
+833,5,C D♭ G A B♭
+834,5,C D G A B♭
+835,6,C D♭ D G A B♭
+836,5,C E♭ G A B♭
+837,6,C D♭ E♭ G A B♭
+838,6,C D E♭ G A B♭
+839,7,C D♭ D E♭ G A B♭
+840,5,C E G A B♭
+841,6,C D♭ E G A B♭
+842,6,C D E G A B♭
+843,7,C D♭ D E G A B♭
+844,6,C E♭ E G A B♭
+845,7,C D♭ E♭ E G A B♭
+846,7,C D E♭ E G A B♭
+847,8,C D♭ D E♭ E G A B♭
+848,5,C F G A B♭
+849,6,C D♭ F G A B♭
+850,6,C D F G A B♭
+851,7,C D♭ D F G A B♭
+852,6,C E♭ F G A B♭
+853,7,C D♭ E♭ F G A B♭
+854,7,C D E♭ F G A B♭
+855,8,C D♭ D E♭ F G A B♭
+856,6,C E F G A B♭
+857,7,C D♭ E F G A B♭
+858,7,C D E F G A B♭
+859,8,C D♭ D E F G A B♭
+860,7,C E♭ E F G A B♭
+861,8,C D♭ E♭ E F G A B♭
+862,8,C D E♭ E F G A B♭
+863,9,C D♭ D E♭ E F G A B♭
+864,5,C F♯ G A B♭
+865,6,C D♭ F♯ G A B♭
+866,6,C D F♯ G A B♭
+867,7,C D♭ D F♯ G A B♭
+868,6,C E♭ F♯ G A B♭
+869,7,C D♭ E♭ F♯ G A B♭
+870,7,C D E♭ F♯ G A B♭
+871,8,C D♭ D E♭ F♯ G A B♭
+872,6,C E F♯ G A B♭
+873,7,C D♭ E F♯ G A B♭
+874,7,C D E F♯ G A B♭
+875,8,C D♭ D E F♯ G A B♭
+876,7,C E♭ E F♯ G A B♭
+877,8,C D♭ E♭ E F♯ G A B♭
+878,8,C D E♭ E F♯ G A B♭
+879,9,C D♭ D E♭ E F♯ G A B♭
+880,6,C F F♯ G A B♭
+881,7,C D♭ F F♯ G A B♭
+882,7,C D F F♯ G A B♭
+883,8,C D♭ D F F♯ G A B♭
+884,7,C E♭ F F♯ G A B♭
+885,8,C D♭ E♭ F F♯ G A B♭
+886,8,C D E♭ F F♯ G A B♭
+887,9,C D♭ D E♭ F F♯ G A B♭
+888,7,C E F F♯ G A B♭
+889,8,C D♭ E F F♯ G A B♭
+890,8,C D E F F♯ G A B♭
+891,9,C D♭ D E F F♯ G A B♭
+892,8,C E♭ E F F♯ G A B♭
+893,9,C D♭ E♭ E F F♯ G A B♭
+894,9,C D E♭ E F F♯ G A B♭
+895,10,C D♭ D E♭ E F F♯ G A B♭
+896,4,C A♭ A B♭
+897,5,C D♭ A♭ A B♭
+898,5,C D A♭ A B♭
+899,6,C D♭ D A♭ A B♭
+900,5,C E♭ A♭ A B♭
+901,6,C D♭ E♭ A♭ A B♭
+902,6,C D E♭ A♭ A B♭
+903,7,C D♭ D E♭ A♭ A B♭
+904,5,C E A♭ A B♭
+905,6,C D♭ E A♭ A B♭
+906,6,C D E A♭ A B♭
+907,7,C D♭ D E A♭ A B♭
+908,6,C E♭ E A♭ A B♭
+909,7,C D♭ E♭ E A♭ A B♭
+910,7,C D E♭ E A♭ A B♭
+911,8,C D♭ D E♭ E A♭ A B♭
+912,5,C F A♭ A B♭
+913,6,C D♭ F A♭ A B♭
+914,6,C D F A♭ A B♭
+915,7,C D♭ D F A♭ A B♭
+916,6,C E♭ F A♭ A B♭
+917,7,C D♭ E♭ F A♭ A B♭
+918,7,C D E♭ F A♭ A B♭
+919,8,C D♭ D E♭ F A♭ A B♭
+920,6,C E F A♭ A B♭
+921,7,C D♭ E F A♭ A B♭
+922,7,C D E F A♭ A B♭
+923,8,C D♭ D E F A♭ A B♭
+924,7,C E♭ E F A♭ A B♭
+925,8,C D♭ E♭ E F A♭ A B♭
+926,8,C D E♭ E F A♭ A B♭
+927,9,C D♭ D E♭ E F A♭ A B♭
+928,5,C F♯ A♭ A B♭
+929,6,C D♭ F♯ A♭ A B♭
+930,6,C D F♯ A♭ A B♭
+931,7,C D♭ D F♯ A♭ A B♭
+932,6,C E♭ F♯ A♭ A B♭
+933,7,C D♭ E♭ F♯ A♭ A B♭
+934,7,C D E♭ F♯ A♭ A B♭
+935,8,C D♭ D E♭ F♯ A♭ A B♭
+936,6,C E F♯ A♭ A B♭
+937,7,C D♭ E F♯ A♭ A B♭
+938,7,C D E F♯ A♭ A B♭
+939,8,C D♭ D E F♯ A♭ A B♭
+940,7,C E♭ E F♯ A♭ A B♭
+941,8,C D♭ E♭ E F♯ A♭ A B♭
+942,8,C D E♭ E F♯ A♭ A B♭
+943,9,C D♭ D E♭ E F♯ A♭ A B♭
+944,6,C F F♯ A♭ A B♭
+945,7,C D♭ F F♯ A♭ A B♭
+946,7,C D F F♯ A♭ A B♭
+947,8,C D♭ D F F♯ A♭ A B♭
+948,7,C E♭ F F♯ A♭ A B♭
+949,8,C D♭ E♭ F F♯ A♭ A B♭
+950,8,C D E♭ F F♯ A♭ A B♭
+951,9,C D♭ D E♭ F F♯ A♭ A B♭
+952,7,C E F F♯ A♭ A B♭
+953,8,C D♭ E F F♯ A♭ A B♭
+954,8,C D E F F♯ A♭ A B♭
+955,9,C D♭ D E F F♯ A♭ A B♭
+956,8,C E♭ E F F♯ A♭ A B♭
+957,9,C D♭ E♭ E F F♯ A♭ A B♭
+958,9,C D E♭ E F F♯ A♭ A B♭
+959,10,C D♭ D E♭ E F F♯ A♭ A B♭
+960,5,C G A♭ A B♭
+961,6,C D♭ G A♭ A B♭
+962,6,C D G A♭ A B♭
+963,7,C D♭ D G A♭ A B♭
+964,6,C E♭ G A♭ A B♭
+965,7,C D♭ E♭ G A♭ A B♭
+966,7,C D E♭ G A♭ A B♭
+967,8,C D♭ D E♭ G A♭ A B♭
+968,6,C E G A♭ A B♭
+969,7,C D♭ E G A♭ A B♭
+970,7,C D E G A♭ A B♭
+971,8,C D♭ D E G A♭ A B♭
+972,7,C E♭ E G A♭ A B♭
+973,8,C D♭ E♭ E G A♭ A B♭
+974,8,C D E♭ E G A♭ A B♭
+975,9,C D♭ D E♭ E G A♭ A B♭
+976,6,C F G A♭ A B♭
+977,7,C D♭ F G A♭ A B♭
+978,7,C D F G A♭ A B♭
+979,8,C D♭ D F G A♭ A B♭
+980,7,C E♭ F G A♭ A B♭
+981,8,C D♭ E♭ F G A♭ A B♭
+982,8,C D E♭ F G A♭ A B♭
+983,9,C D♭ D E♭ F G A♭ A B♭
+984,7,C E F G A♭ A B♭
+985,8,C D♭ E F G A♭ A B♭
+986,8,C D E F G A♭ A B♭
+987,9,C D♭ D E F G A♭ A B♭
+988,8,C E♭ E F G A♭ A B♭
+989,9,C D♭ E♭ E F G A♭ A B♭
+990,9,C D E♭ E F G A♭ A B♭
+991,10,C D♭ D E♭ E F G A♭ A B♭
+992,6,C F♯ G A♭ A B♭
+993,7,C D♭ F♯ G A♭ A B♭
+994,7,C D F♯ G A♭ A B♭
+995,8,C D♭ D F♯ G A♭ A B♭
+996,7,C E♭ F♯ G A♭ A B♭
+997,8,C D♭ E♭ F♯ G A♭ A B♭
+998,8,C D E♭ F♯ G A♭ A B♭
+999,9,C D♭ D E♭ F♯ G A♭ A B♭
+1000,7,C E F♯ G A♭ A B♭
+1001,8,C D♭ E F♯ G A♭ A B♭
+1002,8,C D E F♯ G A♭ A B♭
+1003,9,C D♭ D E F♯ G A♭ A B♭
+1004,8,C E♭ E F♯ G A♭ A B♭
+1005,9,C D♭ E♭ E F♯ G A♭ A B♭
+1006,9,C D E♭ E F♯ G A♭ A B♭
+1007,10,C D♭ D E♭ E F♯ G A♭ A B♭
+1008,7,C F F♯ G A♭ A B♭
+1009,8,C D♭ F F♯ G A♭ A B♭
+1010,8,C D F F♯ G A♭ A B♭
+1011,9,C D♭ D F F♯ G A♭ A B♭
+1012,8,C E♭ F F♯ G A♭ A B♭
+1013,9,C D♭ E♭ F F♯ G A♭ A B♭
+1014,9,C D E♭ F F♯ G A♭ A B♭
+1015,10,C D♭ D E♭ F F♯ G A♭ A B♭
+1016,8,C E F F♯ G A♭ A B♭
+1017,9,C D♭ E F F♯ G A♭ A B♭
+1018,9,C D E F F♯ G A♭ A B♭
+1019,10,C D♭ D E F F♯ G A♭ A B♭
+1020,9,C E♭ E F F♯ G A♭ A B♭
+1021,10,C D♭ E♭ E F F♯ G A♭ A B♭
+1022,10,C D E♭ E F F♯ G A♭ A B♭
+1023,11,C D♭ D E♭ E F F♯ G A♭ A B♭
+1024,2,C B
+1025,3,C D♭ B
+1026,3,C D B
+1027,4,C D♭ D B
+1028,3,C E♭ B
+1029,4,C D♭ E♭ B
+1030,4,C D E♭ B
+1031,5,C D♭ D E♭ B
+1032,3,C E B
+1033,4,C D♭ E B
+1034,4,C D E B
+1035,5,C D♭ D E B
+1036,4,C E♭ E B
+1037,5,C D♭ E♭ E B
+1038,5,C D E♭ E B
+1039,6,C D♭ D E♭ E B
+1040,3,C F B
+1041,4,C D♭ F B
+1042,4,C D F B
+1043,5,C D♭ D F B
+1044,4,C E♭ F B
+1045,5,C D♭ E♭ F B
+1046,5,C D E♭ F B
+1047,6,C D♭ D E♭ F B
+1048,4,C E F B
+1049,5,C D♭ E F B
+1050,5,C D E F B
+1051,6,C D♭ D E F B
+1052,5,C E♭ E F B
+1053,6,C D♭ E♭ E F B
+1054,6,C D E♭ E F B
+1055,7,C D♭ D E♭ E F B
+1056,3,C F♯ B
+1057,4,C D♭ F♯ B
+1058,4,C D F♯ B
+1059,5,C D♭ D F♯ B
+1060,4,C E♭ F♯ B
+1061,5,C D♭ E♭ F♯ B
+1062,5,C D E♭ F♯ B
+1063,6,C D♭ D E♭ F♯ B
+1064,4,C E F♯ B
+1065,5,C D♭ E F♯ B
+1066,5,C D E F♯ B
+1067,6,C D♭ D E F♯ B
+1068,5,C E♭ E F♯ B
+1069,6,C D♭ E♭ E F♯ B
+1070,6,C D E♭ E F♯ B
+1071,7,C D♭ D E♭ E F♯ B
+1072,4,C F F♯ B
+1073,5,C D♭ F F♯ B
+1074,5,C D F F♯ B
+1075,6,C D♭ D F F♯ B
+1076,5,C E♭ F F♯ B
+1077,6,C D♭ E♭ F F♯ B
+1078,6,C D E♭ F F♯ B
+1079,7,C D♭ D E♭ F F♯ B
+1080,5,C E F F♯ B
+1081,6,C D♭ E F F♯ B
+1082,6,C D E F F♯ B
+1083,7,C D♭ D E F F♯ B
+1084,6,C E♭ E F F♯ B
+1085,7,C D♭ E♭ E F F♯ B
+1086,7,C D E♭ E F F♯ B
+1087,8,C D♭ D E♭ E F F♯ B
+1088,3,C G B
+1089,4,C D♭ G B
+1090,4,C D G B
+1091,5,C D♭ D G B
+1092,4,C E♭ G B
+1093,5,C D♭ E♭ G B
+1094,5,C D E♭ G B
+1095,6,C D♭ D E♭ G B
+1096,4,C E G B
+1097,5,C D♭ E G B
+1098,5,C D E G B
+1099,6,C D♭ D E G B
+1100,5,C E♭ E G B
+1101,6,C D♭ E♭ E G B
+1102,6,C D E♭ E G B
+1103,7,C D♭ D E♭ E G B
+1104,4,C F G B
+1105,5,C D♭ F G B
+1106,5,C D F G B
+1107,6,C D♭ D F G B
+1108,5,C E♭ F G B
+1109,6,C D♭ E♭ F G B
+1110,6,C D E♭ F G B
+1111,7,C D♭ D E♭ F G B
+1112,5,C E F G B
+1113,6,C D♭ E F G B
+1114,6,C D E F G B
+1115,7,C D♭ D E F G B
+1116,6,C E♭ E F G B
+1117,7,C D♭ E♭ E F G B
+1118,7,C D E♭ E F G B
+1119,8,C D♭ D E♭ E F G B
+1120,4,C F♯ G B
+1121,5,C D♭ F♯ G B
+1122,5,C D F♯ G B
+1123,6,C D♭ D F♯ G B
+1124,5,C E♭ F♯ G B
+1125,6,C D♭ E♭ F♯ G B
+1126,6,C D E♭ F♯ G B
+1127,7,C D♭ D E♭ F♯ G B
+1128,5,C E F♯ G B
+1129,6,C D♭ E F♯ G B
+1130,6,C D E F♯ G B
+1131,7,C D♭ D E F♯ G B
+1132,6,C E♭ E F♯ G B
+1133,7,C D♭ E♭ E F♯ G B
+1134,7,C D E♭ E F♯ G B
+1135,8,C D♭ D E♭ E F♯ G B
+1136,5,C F F♯ G B
+1137,6,C D♭ F F♯ G B
+1138,6,C D F F♯ G B
+1139,7,C D♭ D F F♯ G B
+1140,6,C E♭ F F♯ G B
+1141,7,C D♭ E♭ F F♯ G B
+1142,7,C D E♭ F F♯ G B
+1143,8,C D♭ D E♭ F F♯ G B
+1144,6,C E F F♯ G B
+1145,7,C D♭ E F F♯ G B
+1146,7,C D E F F♯ G B
+1147,8,C D♭ D E F F♯ G B
+1148,7,C E♭ E F F♯ G B
+1149,8,C D♭ E♭ E F F♯ G B
+1150,8,C D E♭ E F F♯ G B
+1151,9,C D♭ D E♭ E F F♯ G B
+1152,3,C A♭ B
+1153,4,C D♭ A♭ B
+1154,4,C D A♭ B
+1155,5,C D♭ D A♭ B
+1156,4,C E♭ A♭ B
+1157,5,C D♭ E♭ A♭ B
+1158,5,C D E♭ A♭ B
+1159,6,C D♭ D E♭ A♭ B
+1160,4,C E A♭ B
+1161,5,C D♭ E A♭ B
+1162,5,C D E A♭ B
+1163,6,C D♭ D E A♭ B
+1164,5,C E♭ E A♭ B
+1165,6,C D♭ E♭ E A♭ B
+1166,6,C D E♭ E A♭ B
+1167,7,C D♭ D E♭ E A♭ B
+1168,4,C F A♭ B
+1169,5,C D♭ F A♭ B
+1170,5,C D F A♭ B
+1171,6,C D♭ D F A♭ B
+1172,5,C E♭ F A♭ B
+1173,6,C D♭ E♭ F A♭ B
+1174,6,C D E♭ F A♭ B
+1175,7,C D♭ D E♭ F A♭ B
+1176,5,C E F A♭ B
+1177,6,C D♭ E F A♭ B
+1178,6,C D E F A♭ B
+1179,7,C D♭ D E F A♭ B
+1180,6,C E♭ E F A♭ B
+1181,7,C D♭ E♭ E F A♭ B
+1182,7,C D E♭ E F A♭ B
+1183,8,C D♭ D E♭ E F A♭ B
+1184,4,C F♯ A♭ B
+1185,5,C D♭ F♯ A♭ B
+1186,5,C D F♯ A♭ B
+1187,6,C D♭ D F♯ A♭ B
+1188,5,C E♭ F♯ A♭ B
+1189,6,C D♭ E♭ F♯ A♭ B
+1190,6,C D E♭ F♯ A♭ B
+1191,7,C D♭ D E♭ F♯ A♭ B
+1192,5,C E F♯ A♭ B
+1193,6,C D♭ E F♯ A♭ B
+1194,6,C D E F♯ A♭ B
+1195,7,C D♭ D E F♯ A♭ B
+1196,6,C E♭ E F♯ A♭ B
+1197,7,C D♭ E♭ E F♯ A♭ B
+1198,7,C D E♭ E F♯ A♭ B
+1199,8,C D♭ D E♭ E F♯ A♭ B
+1200,5,C F F♯ A♭ B
+1201,6,C D♭ F F♯ A♭ B
+1202,6,C D F F♯ A♭ B
+1203,7,C D♭ D F F♯ A♭ B
+1204,6,C E♭ F F♯ A♭ B
+1205,7,C D♭ E♭ F F♯ A♭ B
+1206,7,C D E♭ F F♯ A♭ B
+1207,8,C D♭ D E♭ F F♯ A♭ B
+1208,6,C E F F♯ A♭ B
+1209,7,C D♭ E F F♯ A♭ B
+1210,7,C D E F F♯ A♭ B
+1211,8,C D♭ D E F F♯ A♭ B
+1212,7,C E♭ E F F♯ A♭ B
+1213,8,C D♭ E♭ E F F♯ A♭ B
+1214,8,C D E♭ E F F♯ A♭ B
+1215,9,C D♭ D E♭ E F F♯ A♭ B
+1216,4,C G A♭ B
+1217,5,C D♭ G A♭ B
+1218,5,C D G A♭ B
+1219,6,C D♭ D G A♭ B
+1220,5,C E♭ G A♭ B
+1221,6,C D♭ E♭ G A♭ B
+1222,6,C D E♭ G A♭ B
+1223,7,C D♭ D E♭ G A♭ B
+1224,5,C E G A♭ B
+1225,6,C D♭ E G A♭ B
+1226,6,C D E G A♭ B
+1227,7,C D♭ D E G A♭ B
+1228,6,C E♭ E G A♭ B
+1229,7,C D♭ E♭ E G A♭ B
+1230,7,C D E♭ E G A♭ B
+1231,8,C D♭ D E♭ E G A♭ B
+1232,5,C F G A♭ B
+1233,6,C D♭ F G A♭ B
+1234,6,C D F G A♭ B
+1235,7,C D♭ D F G A♭ B
+1236,6,C E♭ F G A♭ B
+1237,7,C D♭ E♭ F G A♭ B
+1238,7,C D E♭ F G A♭ B
+1239,8,C D♭ D E♭ F G A♭ B
+1240,6,C E F G A♭ B
+1241,7,C D♭ E F G A♭ B
+1242,7,C D E F G A♭ B
+1243,8,C D♭ D E F G A♭ B
+1244,7,C E♭ E F G A♭ B
+1245,8,C D♭ E♭ E F G A♭ B
+1246,8,C D E♭ E F G A♭ B
+1247,9,C D♭ D E♭ E F G A♭ B
+1248,5,C F♯ G A♭ B
+1249,6,C D♭ F♯ G A♭ B
+1250,6,C D F♯ G A♭ B
+1251,7,C D♭ D F♯ G A♭ B
+1252,6,C E♭ F♯ G A♭ B
+1253,7,C D♭ E♭ F♯ G A♭ B
+1254,7,C D E♭ F♯ G A♭ B
+1255,8,C D♭ D E♭ F♯ G A♭ B
+1256,6,C E F♯ G A♭ B
+1257,7,C D♭ E F♯ G A♭ B
+1258,7,C D E F♯ G A♭ B
+1259,8,C D♭ D E F♯ G A♭ B
+1260,7,C E♭ E F♯ G A♭ B
+1261,8,C D♭ E♭ E F♯ G A♭ B
+1262,8,C D E♭ E F♯ G A♭ B
+1263,9,C D♭ D E♭ E F♯ G A♭ B
+1264,6,C F F♯ G A♭ B
+1265,7,C D♭ F F♯ G A♭ B
+1266,7,C D F F♯ G A♭ B
+1267,8,C D♭ D F F♯ G A♭ B
+1268,7,C E♭ F F♯ G A♭ B
+1269,8,C D♭ E♭ F F♯ G A♭ B
+1270,8,C D E♭ F F♯ G A♭ B
+1271,9,C D♭ D E♭ F F♯ G A♭ B
+1272,7,C E F F♯ G A♭ B
+1273,8,C D♭ E F F♯ G A♭ B
+1274,8,C D E F F♯ G A♭ B
+1275,9,C D♭ D E F F♯ G A♭ B
+1276,8,C E♭ E F F♯ G A♭ B
+1277,9,C D♭ E♭ E F F♯ G A♭ B
+1278,9,C D E♭ E F F♯ G A♭ B
+1279,10,C D♭ D E♭ E F F♯ G A♭ B
+1280,3,C A B
+1281,4,C D♭ A B
+1282,4,C D A B
+1283,5,C D♭ D A B
+1284,4,C E♭ A B
+1285,5,C D♭ E♭ A B
+1286,5,C D E♭ A B
+1287,6,C D♭ D E♭ A B
+1288,4,C E A B
+1289,5,C D♭ E A B
+1290,5,C D E A B
+1291,6,C D♭ D E A B
+1292,5,C E♭ E A B
+1293,6,C D♭ E♭ E A B
+1294,6,C D E♭ E A B
+1295,7,C D♭ D E♭ E A B
+1296,4,C F A B
+1297,5,C D♭ F A B
+1298,5,C D F A B
+1299,6,C D♭ D F A B
+1300,5,C E♭ F A B
+1301,6,C D♭ E♭ F A B
+1302,6,C D E♭ F A B
+1303,7,C D♭ D E♭ F A B
+1304,5,C E F A B
+1305,6,C D♭ E F A B
+1306,6,C D E F A B
+1307,7,C D♭ D E F A B
+1308,6,C E♭ E F A B
+1309,7,C D♭ E♭ E F A B
+1310,7,C D E♭ E F A B
+1311,8,C D♭ D E♭ E F A B
+1312,4,C F♯ A B
+1313,5,C D♭ F♯ A B
+1314,5,C D F♯ A B
+1315,6,C D♭ D F♯ A B
+1316,5,C E♭ F♯ A B
+1317,6,C D♭ E♭ F♯ A B
+1318,6,C D E♭ F♯ A B
+1319,7,C D♭ D E♭ F♯ A B
+1320,5,C E F♯ A B
+1321,6,C D♭ E F♯ A B
+1322,6,C D E F♯ A B
+1323,7,C D♭ D E F♯ A B
+1324,6,C E♭ E F♯ A B
+1325,7,C D♭ E♭ E F♯ A B
+1326,7,C D E♭ E F♯ A B
+1327,8,C D♭ D E♭ E F♯ A B
+1328,5,C F F♯ A B
+1329,6,C D♭ F F♯ A B
+1330,6,C D F F♯ A B
+1331,7,C D♭ D F F♯ A B
+1332,6,C E♭ F F♯ A B
+1333,7,C D♭ E♭ F F♯ A B
+1334,7,C D E♭ F F♯ A B
+1335,8,C D♭ D E♭ F F♯ A B
+1336,6,C E F F♯ A B
+1337,7,C D♭ E F F♯ A B
+1338,7,C D E F F♯ A B
+1339,8,C D♭ D E F F♯ A B
+1340,7,C E♭ E F F♯ A B
+1341,8,C D♭ E♭ E F F♯ A B
+1342,8,C D E♭ E F F♯ A B
+1343,9,C D♭ D E♭ E F F♯ A B
+1344,4,C G A B
+1345,5,C D♭ G A B
+1346,5,C D G A B
+1347,6,C D♭ D G A B
+1348,5,C E♭ G A B
+1349,6,C D♭ E♭ G A B
+1350,6,C D E♭ G A B
+1351,7,C D♭ D E♭ G A B
+1352,5,C E G A B
+1353,6,C D♭ E G A B
+1354,6,C D E G A B
+1355,7,C D♭ D E G A B
+1356,6,C E♭ E G A B
+1357,7,C D♭ E♭ E G A B
+1358,7,C D E♭ E G A B
+1359,8,C D♭ D E♭ E G A B
+1360,5,C F G A B
+1361,6,C D♭ F G A B
+1362,6,C D F G A B
+1363,7,C D♭ D F G A B
+1364,6,C E♭ F G A B
+1365,7,C D♭ E♭ F G A B
+1366,7,C D E♭ F G A B
+1367,8,C D♭ D E♭ F G A B
+1368,6,C E F G A B
+1369,7,C D♭ E F G A B
+1370,7,C D E F G A B
+1371,8,C D♭ D E F G A B
+1372,7,C E♭ E F G A B
+1373,8,C D♭ E♭ E F G A B
+1374,8,C D E♭ E F G A B
+1375,9,C D♭ D E♭ E F G A B
+1376,5,C F♯ G A B
+1377,6,C D♭ F♯ G A B
+1378,6,C D F♯ G A B
+1379,7,C D♭ D F♯ G A B
+1380,6,C E♭ F♯ G A B
+1381,7,C D♭ E♭ F♯ G A B
+1382,7,C D E♭ F♯ G A B
+1383,8,C D♭ D E♭ F♯ G A B
+1384,6,C E F♯ G A B
+1385,7,C D♭ E F♯ G A B
+1386,7,C D E F♯ G A B
+1387,8,C D♭ D E F♯ G A B
+1388,7,C E♭ E F♯ G A B
+1389,8,C D♭ E♭ E F♯ G A B
+1390,8,C D E♭ E F♯ G A B
+1391,9,C D♭ D E♭ E F♯ G A B
+1392,6,C F F♯ G A B
+1393,7,C D♭ F F♯ G A B
+1394,7,C D F F♯ G A B
+1395,8,C D♭ D F F♯ G A B
+1396,7,C E♭ F F♯ G A B
+1397,8,C D♭ E♭ F F♯ G A B
+1398,8,C D E♭ F F♯ G A B
+1399,9,C D♭ D E♭ F F♯ G A B
+1400,7,C E F F♯ G A B
+1401,8,C D♭ E F F♯ G A B
+1402,8,C D E F F♯ G A B
+1403,9,C D♭ D E F F♯ G A B
+1404,8,C E♭ E F F♯ G A B
+1405,9,C D♭ E♭ E F F♯ G A B
+1406,9,C D E♭ E F F♯ G A B
+1407,10,C D♭ D E♭ E F F♯ G A B
+1408,4,C A♭ A B
+1409,5,C D♭ A♭ A B
+1410,5,C D A♭ A B
+1411,6,C D♭ D A♭ A B
+1412,5,C E♭ A♭ A B
+1413,6,C D♭ E♭ A♭ A B
+1414,6,C D E♭ A♭ A B
+1415,7,C D♭ D E♭ A♭ A B
+1416,5,C E A♭ A B
+1417,6,C D♭ E A♭ A B
+1418,6,C D E A♭ A B
+1419,7,C D♭ D E A♭ A B
+1420,6,C E♭ E A♭ A B
+1421,7,C D♭ E♭ E A♭ A B
+1422,7,C D E♭ E A♭ A B
+1423,8,C D♭ D E♭ E A♭ A B
+1424,5,C F A♭ A B
+1425,6,C D♭ F A♭ A B
+1426,6,C D F A♭ A B
+1427,7,C D♭ D F A♭ A B
+1428,6,C E♭ F A♭ A B
+1429,7,C D♭ E♭ F A♭ A B
+1430,7,C D E♭ F A♭ A B
+1431,8,C D♭ D E♭ F A♭ A B
+1432,6,C E F A♭ A B
+1433,7,C D♭ E F A♭ A B
+1434,7,C D E F A♭ A B
+1435,8,C D♭ D E F A♭ A B
+1436,7,C E♭ E F A♭ A B
+1437,8,C D♭ E♭ E F A♭ A B
+1438,8,C D E♭ E F A♭ A B
+1439,9,C D♭ D E♭ E F A♭ A B
+1440,5,C F♯ A♭ A B
+1441,6,C D♭ F♯ A♭ A B
+1442,6,C D F♯ A♭ A B
+1443,7,C D♭ D F♯ A♭ A B
+1444,6,C E♭ F♯ A♭ A B
+1445,7,C D♭ E♭ F♯ A♭ A B
+1446,7,C D E♭ F♯ A♭ A B
+1447,8,C D♭ D E♭ F♯ A♭ A B
+1448,6,C E F♯ A♭ A B
+1449,7,C D♭ E F♯ A♭ A B
+1450,7,C D E F♯ A♭ A B
+1451,8,C D♭ D E F♯ A♭ A B
+1452,7,C E♭ E F♯ A♭ A B
+1453,8,C D♭ E♭ E F♯ A♭ A B
+1454,8,C D E♭ E F♯ A♭ A B
+1455,9,C D♭ D E♭ E F♯ A♭ A B
+1456,6,C F F♯ A♭ A B
+1457,7,C D♭ F F♯ A♭ A B
+1458,7,C D F F♯ A♭ A B
+1459,8,C D♭ D F F♯ A♭ A B
+1460,7,C E♭ F F♯ A♭ A B
+1461,8,C D♭ E♭ F F♯ A♭ A B
+1462,8,C D E♭ F F♯ A♭ A B
+1463,9,C D♭ D E♭ F F♯ A♭ A B
+1464,7,C E F F♯ A♭ A B
+1465,8,C D♭ E F F♯ A♭ A B
+1466,8,C D E F F♯ A♭ A B
+1467,9,C D♭ D E F F♯ A♭ A B
+1468,8,C E♭ E F F♯ A♭ A B
+1469,9,C D♭ E♭ E F F♯ A♭ A B
+1470,9,C D E♭ E F F♯ A♭ A B
+1471,10,C D♭ D E♭ E F F♯ A♭ A B
+1472,5,C G A♭ A B
+1473,6,C D♭ G A♭ A B
+1474,6,C D G A♭ A B
+1475,7,C D♭ D G A♭ A B
+1476,6,C E♭ G A♭ A B
+1477,7,C D♭ E♭ G A♭ A B
+1478,7,C D E♭ G A♭ A B
+1479,8,C D♭ D E♭ G A♭ A B
+1480,6,C E G A♭ A B
+1481,7,C D♭ E G A♭ A B
+1482,7,C D E G A♭ A B
+1483,8,C D♭ D E G A♭ A B
+1484,7,C E♭ E G A♭ A B
+1485,8,C D♭ E♭ E G A♭ A B
+1486,8,C D E♭ E G A♭ A B
+1487,9,C D♭ D E♭ E G A♭ A B
+1488,6,C F G A♭ A B
+1489,7,C D♭ F G A♭ A B
+1490,7,C D F G A♭ A B
+1491,8,C D♭ D F G A♭ A B
+1492,7,C E♭ F G A♭ A B
+1493,8,C D♭ E♭ F G A♭ A B
+1494,8,C D E♭ F G A♭ A B
+1495,9,C D♭ D E♭ F G A♭ A B
+1496,7,C E F G A♭ A B
+1497,8,C D♭ E F G A♭ A B
+1498,8,C D E F G A♭ A B
+1499,9,C D♭ D E F G A♭ A B
+1500,8,C E♭ E F G A♭ A B
+1501,9,C D♭ E♭ E F G A♭ A B
+1502,9,C D E♭ E F G A♭ A B
+1503,10,C D♭ D E♭ E F G A♭ A B
+1504,6,C F♯ G A♭ A B
+1505,7,C D♭ F♯ G A♭ A B
+1506,7,C D F♯ G A♭ A B
+1507,8,C D♭ D F♯ G A♭ A B
+1508,7,C E♭ F♯ G A♭ A B
+1509,8,C D♭ E♭ F♯ G A♭ A B
+1510,8,C D E♭ F♯ G A♭ A B
+1511,9,C D♭ D E♭ F♯ G A♭ A B
+1512,7,C E F♯ G A♭ A B
+1513,8,C D♭ E F♯ G A♭ A B
+1514,8,C D E F♯ G A♭ A B
+1515,9,C D♭ D E F♯ G A♭ A B
+1516,8,C E♭ E F♯ G A♭ A B
+1517,9,C D♭ E♭ E F♯ G A♭ A B
+1518,9,C D E♭ E F♯ G A♭ A B
+1519,10,C D♭ D E♭ E F♯ G A♭ A B
+1520,7,C F F♯ G A♭ A B
+1521,8,C D♭ F F♯ G A♭ A B
+1522,8,C D F F♯ G A♭ A B
+1523,9,C D♭ D F F♯ G A♭ A B
+1524,8,C E♭ F F♯ G A♭ A B
+1525,9,C D♭ E♭ F F♯ G A♭ A B
+1526,9,C D E♭ F F♯ G A♭ A B
+1527,10,C D♭ D E♭ F F♯ G A♭ A B
+1528,8,C E F F♯ G A♭ A B
+1529,9,C D♭ E F F♯ G A♭ A B
+1530,9,C D E F F♯ G A♭ A B
+1531,10,C D♭ D E F F♯ G A♭ A B
+1532,9,C E♭ E F F♯ G A♭ A B
+1533,10,C D♭ E♭ E F F♯ G A♭ A B
+1534,10,C D E♭ E F F♯ G A♭ A B
+1535,11,C D♭ D E♭ E F F♯ G A♭ A B
+1536,3,C B♭ B
+1537,4,C D♭ B♭ B
+1538,4,C D B♭ B
+1539,5,C D♭ D B♭ B
+1540,4,C E♭ B♭ B
+1541,5,C D♭ E♭ B♭ B
+1542,5,C D E♭ B♭ B
+1543,6,C D♭ D E♭ B♭ B
+1544,4,C E B♭ B
+1545,5,C D♭ E B♭ B
+1546,5,C D E B♭ B
+1547,6,C D♭ D E B♭ B
+1548,5,C E♭ E B♭ B
+1549,6,C D♭ E♭ E B♭ B
+1550,6,C D E♭ E B♭ B
+1551,7,C D♭ D E♭ E B♭ B
+1552,4,C F B♭ B
+1553,5,C D♭ F B♭ B
+1554,5,C D F B♭ B
+1555,6,C D♭ D F B♭ B
+1556,5,C E♭ F B♭ B
+1557,6,C D♭ E♭ F B♭ B
+1558,6,C D E♭ F B♭ B
+1559,7,C D♭ D E♭ F B♭ B
+1560,5,C E F B♭ B
+1561,6,C D♭ E F B♭ B
+1562,6,C D E F B♭ B
+1563,7,C D♭ D E F B♭ B
+1564,6,C E♭ E F B♭ B
+1565,7,C D♭ E♭ E F B♭ B
+1566,7,C D E♭ E F B♭ B
+1567,8,C D♭ D E♭ E F B♭ B
+1568,4,C F♯ B♭ B
+1569,5,C D♭ F♯ B♭ B
+1570,5,C D F♯ B♭ B
+1571,6,C D♭ D F♯ B♭ B
+1572,5,C E♭ F♯ B♭ B
+1573,6,C D♭ E♭ F♯ B♭ B
+1574,6,C D E♭ F♯ B♭ B
+1575,7,C D♭ D E♭ F♯ B♭ B
+1576,5,C E F♯ B♭ B
+1577,6,C D♭ E F♯ B♭ B
+1578,6,C D E F♯ B♭ B
+1579,7,C D♭ D E F♯ B♭ B
+1580,6,C E♭ E F♯ B♭ B
+1581,7,C D♭ E♭ E F♯ B♭ B
+1582,7,C D E♭ E F♯ B♭ B
+1583,8,C D♭ D E♭ E F♯ B♭ B
+1584,5,C F F♯ B♭ B
+1585,6,C D♭ F F♯ B♭ B
+1586,6,C D F F♯ B♭ B
+1587,7,C D♭ D F F♯ B♭ B
+1588,6,C E♭ F F♯ B♭ B
+1589,7,C D♭ E♭ F F♯ B♭ B
+1590,7,C D E♭ F F♯ B♭ B
+1591,8,C D♭ D E♭ F F♯ B♭ B
+1592,6,C E F F♯ B♭ B
+1593,7,C D♭ E F F♯ B♭ B
+1594,7,C D E F F♯ B♭ B
+1595,8,C D♭ D E F F♯ B♭ B
+1596,7,C E♭ E F F♯ B♭ B
+1597,8,C D♭ E♭ E F F♯ B♭ B
+1598,8,C D E♭ E F F♯ B♭ B
+1599,9,C D♭ D E♭ E F F♯ B♭ B
+1600,4,C G B♭ B
+1601,5,C D♭ G B♭ B
+1602,5,C D G B♭ B
+1603,6,C D♭ D G B♭ B
+1604,5,C E♭ G B♭ B
+1605,6,C D♭ E♭ G B♭ B
+1606,6,C D E♭ G B♭ B
+1607,7,C D♭ D E♭ G B♭ B
+1608,5,C E G B♭ B
+1609,6,C D♭ E G B♭ B
+1610,6,C D E G B♭ B
+1611,7,C D♭ D E G B♭ B
+1612,6,C E♭ E G B♭ B
+1613,7,C D♭ E♭ E G B♭ B
+1614,7,C D E♭ E G B♭ B
+1615,8,C D♭ D E♭ E G B♭ B
+1616,5,C F G B♭ B
+1617,6,C D♭ F G B♭ B
+1618,6,C D F G B♭ B
+1619,7,C D♭ D F G B♭ B
+1620,6,C E♭ F G B♭ B
+1621,7,C D♭ E♭ F G B♭ B
+1622,7,C D E♭ F G B♭ B
+1623,8,C D♭ D E♭ F G B♭ B
+1624,6,C E F G B♭ B
+1625,7,C D♭ E F G B♭ B
+1626,7,C D E F G B♭ B
+1627,8,C D♭ D E F G B♭ B
+1628,7,C E♭ E F G B♭ B
+1629,8,C D♭ E♭ E F G B♭ B
+1630,8,C D E♭ E F G B♭ B
+1631,9,C D♭ D E♭ E F G B♭ B
+1632,5,C F♯ G B♭ B
+1633,6,C D♭ F♯ G B♭ B
+1634,6,C D F♯ G B♭ B
+1635,7,C D♭ D F♯ G B♭ B
+1636,6,C E♭ F♯ G B♭ B
+1637,7,C D♭ E♭ F♯ G B♭ B
+1638,7,C D E♭ F♯ G B♭ B
+1639,8,C D♭ D E♭ F♯ G B♭ B
+1640,6,C E F♯ G B♭ B
+1641,7,C D♭ E F♯ G B♭ B
+1642,7,C D E F♯ G B♭ B
+1643,8,C D♭ D E F♯ G B♭ B
+1644,7,C E♭ E F♯ G B♭ B
+1645,8,C D♭ E♭ E F♯ G B♭ B
+1646,8,C D E♭ E F♯ G B♭ B
+1647,9,C D♭ D E♭ E F♯ G B♭ B
+1648,6,C F F♯ G B♭ B
+1649,7,C D♭ F F♯ G B♭ B
+1650,7,C D F F♯ G B♭ B
+1651,8,C D♭ D F F♯ G B♭ B
+1652,7,C E♭ F F♯ G B♭ B
+1653,8,C D♭ E♭ F F♯ G B♭ B
+1654,8,C D E♭ F F♯ G B♭ B
+1655,9,C D♭ D E♭ F F♯ G B♭ B
+1656,7,C E F F♯ G B♭ B
+1657,8,C D♭ E F F♯ G B♭ B
+1658,8,C D E F F♯ G B♭ B
+1659,9,C D♭ D E F F♯ G B♭ B
+1660,8,C E♭ E F F♯ G B♭ B
+1661,9,C D♭ E♭ E F F♯ G B♭ B
+1662,9,C D E♭ E F F♯ G B♭ B
+1663,10,C D♭ D E♭ E F F♯ G B♭ B
+1664,4,C A♭ B♭ B
+1665,5,C D♭ A♭ B♭ B
+1666,5,C D A♭ B♭ B
+1667,6,C D♭ D A♭ B♭ B
+1668,5,C E♭ A♭ B♭ B
+1669,6,C D♭ E♭ A♭ B♭ B
+1670,6,C D E♭ A♭ B♭ B
+1671,7,C D♭ D E♭ A♭ B♭ B
+1672,5,C E A♭ B♭ B
+1673,6,C D♭ E A♭ B♭ B
+1674,6,C D E A♭ B♭ B
+1675,7,C D♭ D E A♭ B♭ B
+1676,6,C E♭ E A♭ B♭ B
+1677,7,C D♭ E♭ E A♭ B♭ B
+1678,7,C D E♭ E A♭ B♭ B
+1679,8,C D♭ D E♭ E A♭ B♭ B
+1680,5,C F A♭ B♭ B
+1681,6,C D♭ F A♭ B♭ B
+1682,6,C D F A♭ B♭ B
+1683,7,C D♭ D F A♭ B♭ B
+1684,6,C E♭ F A♭ B♭ B
+1685,7,C D♭ E♭ F A♭ B♭ B
+1686,7,C D E♭ F A♭ B♭ B
+1687,8,C D♭ D E♭ F A♭ B♭ B
+1688,6,C E F A♭ B♭ B
+1689,7,C D♭ E F A♭ B♭ B
+1690,7,C D E F A♭ B♭ B
+1691,8,C D♭ D E F A♭ B♭ B
+1692,7,C E♭ E F A♭ B♭ B
+1693,8,C D♭ E♭ E F A♭ B♭ B
+1694,8,C D E♭ E F A♭ B♭ B
+1695,9,C D♭ D E♭ E F A♭ B♭ B
+1696,5,C F♯ A♭ B♭ B
+1697,6,C D♭ F♯ A♭ B♭ B
+1698,6,C D F♯ A♭ B♭ B
+1699,7,C D♭ D F♯ A♭ B♭ B
+1700,6,C E♭ F♯ A♭ B♭ B
+1701,7,C D♭ E♭ F♯ A♭ B♭ B
+1702,7,C D E♭ F♯ A♭ B♭ B
+1703,8,C D♭ D E♭ F♯ A♭ B♭ B
+1704,6,C E F♯ A♭ B♭ B
+1705,7,C D♭ E F♯ A♭ B♭ B
+1706,7,C D E F♯ A♭ B♭ B
+1707,8,C D♭ D E F♯ A♭ B♭ B
+1708,7,C E♭ E F♯ A♭ B♭ B
+1709,8,C D♭ E♭ E F♯ A♭ B♭ B
+1710,8,C D E♭ E F♯ A♭ B♭ B
+1711,9,C D♭ D E♭ E F♯ A♭ B♭ B
+1712,6,C F F♯ A♭ B♭ B
+1713,7,C D♭ F F♯ A♭ B♭ B
+1714,7,C D F F♯ A♭ B♭ B
+1715,8,C D♭ D F F♯ A♭ B♭ B
+1716,7,C E♭ F F♯ A♭ B♭ B
+1717,8,C D♭ E♭ F F♯ A♭ B♭ B
+1718,8,C D E♭ F F♯ A♭ B♭ B
+1719,9,C D♭ D E♭ F F♯ A♭ B♭ B
+1720,7,C E F F♯ A♭ B♭ B
+1721,8,C D♭ E F F♯ A♭ B♭ B
+1722,8,C D E F F♯ A♭ B♭ B
+1723,9,C D♭ D E F F♯ A♭ B♭ B
+1724,8,C E♭ E F F♯ A♭ B♭ B
+1725,9,C D♭ E♭ E F F♯ A♭ B♭ B
+1726,9,C D E♭ E F F♯ A♭ B♭ B
+1727,10,C D♭ D E♭ E F F♯ A♭ B♭ B
+1728,5,C G A♭ B♭ B
+1729,6,C D♭ G A♭ B♭ B
+1730,6,C D G A♭ B♭ B
+1731,7,C D♭ D G A♭ B♭ B
+1732,6,C E♭ G A♭ B♭ B
+1733,7,C D♭ E♭ G A♭ B♭ B
+1734,7,C D E♭ G A♭ B♭ B
+1735,8,C D♭ D E♭ G A♭ B♭ B
+1736,6,C E G A♭ B♭ B
+1737,7,C D♭ E G A♭ B♭ B
+1738,7,C D E G A♭ B♭ B
+1739,8,C D♭ D E G A♭ B♭ B
+1740,7,C E♭ E G A♭ B♭ B
+1741,8,C D♭ E♭ E G A♭ B♭ B
+1742,8,C D E♭ E G A♭ B♭ B
+1743,9,C D♭ D E♭ E G A♭ B♭ B
+1744,6,C F G A♭ B♭ B
+1745,7,C D♭ F G A♭ B♭ B
+1746,7,C D F G A♭ B♭ B
+1747,8,C D♭ D F G A♭ B♭ B
+1748,7,C E♭ F G A♭ B♭ B
+1749,8,C D♭ E♭ F G A♭ B♭ B
+1750,8,C D E♭ F G A♭ B♭ B
+1751,9,C D♭ D E♭ F G A♭ B♭ B
+1752,7,C E F G A♭ B♭ B
+1753,8,C D♭ E F G A♭ B♭ B
+1754,8,C D E F G A♭ B♭ B
+1755,9,C D♭ D E F G A♭ B♭ B
+1756,8,C E♭ E F G A♭ B♭ B
+1757,9,C D♭ E♭ E F G A♭ B♭ B
+1758,9,C D E♭ E F G A♭ B♭ B
+1759,10,C D♭ D E♭ E F G A♭ B♭ B
+1760,6,C F♯ G A♭ B♭ B
+1761,7,C D♭ F♯ G A♭ B♭ B
+1762,7,C D F♯ G A♭ B♭ B
+1763,8,C D♭ D F♯ G A♭ B♭ B
+1764,7,C E♭ F♯ G A♭ B♭ B
+1765,8,C D♭ E♭ F♯ G A♭ B♭ B
+1766,8,C D E♭ F♯ G A♭ B♭ B
+1767,9,C D♭ D E♭ F♯ G A♭ B♭ B
+1768,7,C E F♯ G A♭ B♭ B
+1769,8,C D♭ E F♯ G A♭ B♭ B
+1770,8,C D E F♯ G A♭ B♭ B
+1771,9,C D♭ D E F♯ G A♭ B♭ B
+1772,8,C E♭ E F♯ G A♭ B♭ B
+1773,9,C D♭ E♭ E F♯ G A♭ B♭ B
+1774,9,C D E♭ E F♯ G A♭ B♭ B
+1775,10,C D♭ D E♭ E F♯ G A♭ B♭ B
+1776,7,C F F♯ G A♭ B♭ B
+1777,8,C D♭ F F♯ G A♭ B♭ B
+1778,8,C D F F♯ G A♭ B♭ B
+1779,9,C D♭ D F F♯ G A♭ B♭ B
+1780,8,C E♭ F F♯ G A♭ B♭ B
+1781,9,C D♭ E♭ F F♯ G A♭ B♭ B
+1782,9,C D E♭ F F♯ G A♭ B♭ B
+1783,10,C D♭ D E♭ F F♯ G A♭ B♭ B
+1784,8,C E F F♯ G A♭ B♭ B
+1785,9,C D♭ E F F♯ G A♭ B♭ B
+1786,9,C D E F F♯ G A♭ B♭ B
+1787,10,C D♭ D E F F♯ G A♭ B♭ B
+1788,9,C E♭ E F F♯ G A♭ B♭ B
+1789,10,C D♭ E♭ E F F♯ G A♭ B♭ B
+1790,10,C D E♭ E F F♯ G A♭ B♭ B
+1791,11,C D♭ D E♭ E F F♯ G A♭ B♭ B
+1792,4,C A B♭ B
+1793,5,C D♭ A B♭ B
+1794,5,C D A B♭ B
+1795,6,C D♭ D A B♭ B
+1796,5,C E♭ A B♭ B
+1797,6,C D♭ E♭ A B♭ B
+1798,6,C D E♭ A B♭ B
+1799,7,C D♭ D E♭ A B♭ B
+1800,5,C E A B♭ B
+1801,6,C D♭ E A B♭ B
+1802,6,C D E A B♭ B
+1803,7,C D♭ D E A B♭ B
+1804,6,C E♭ E A B♭ B
+1805,7,C D♭ E♭ E A B♭ B
+1806,7,C D E♭ E A B♭ B
+1807,8,C D♭ D E♭ E A B♭ B
+1808,5,C F A B♭ B
+1809,6,C D♭ F A B♭ B
+1810,6,C D F A B♭ B
+1811,7,C D♭ D F A B♭ B
+1812,6,C E♭ F A B♭ B
+1813,7,C D♭ E♭ F A B♭ B
+1814,7,C D E♭ F A B♭ B
+1815,8,C D♭ D E♭ F A B♭ B
+1816,6,C E F A B♭ B
+1817,7,C D♭ E F A B♭ B
+1818,7,C D E F A B♭ B
+1819,8,C D♭ D E F A B♭ B
+1820,7,C E♭ E F A B♭ B
+1821,8,C D♭ E♭ E F A B♭ B
+1822,8,C D E♭ E F A B♭ B
+1823,9,C D♭ D E♭ E F A B♭ B
+1824,5,C F♯ A B♭ B
+1825,6,C D♭ F♯ A B♭ B
+1826,6,C D F♯ A B♭ B
+1827,7,C D♭ D F♯ A B♭ B
+1828,6,C E♭ F♯ A B♭ B
+1829,7,C D♭ E♭ F♯ A B♭ B
+1830,7,C D E♭ F♯ A B♭ B
+1831,8,C D♭ D E♭ F♯ A B♭ B
+1832,6,C E F♯ A B♭ B
+1833,7,C D♭ E F♯ A B♭ B
+1834,7,C D E F♯ A B♭ B
+1835,8,C D♭ D E F♯ A B♭ B
+1836,7,C E♭ E F♯ A B♭ B
+1837,8,C D♭ E♭ E F♯ A B♭ B
+1838,8,C D E♭ E F♯ A B♭ B
+1839,9,C D♭ D E♭ E F♯ A B♭ B
+1840,6,C F F♯ A B♭ B
+1841,7,C D♭ F F♯ A B♭ B
+1842,7,C D F F♯ A B♭ B
+1843,8,C D♭ D F F♯ A B♭ B
+1844,7,C E♭ F F♯ A B♭ B
+1845,8,C D♭ E♭ F F♯ A B♭ B
+1846,8,C D E♭ F F♯ A B♭ B
+1847,9,C D♭ D E♭ F F♯ A B♭ B
+1848,7,C E F F♯ A B♭ B
+1849,8,C D♭ E F F♯ A B♭ B
+1850,8,C D E F F♯ A B♭ B
+1851,9,C D♭ D E F F♯ A B♭ B
+1852,8,C E♭ E F F♯ A B♭ B
+1853,9,C D♭ E♭ E F F♯ A B♭ B
+1854,9,C D E♭ E F F♯ A B♭ B
+1855,10,C D♭ D E♭ E F F♯ A B♭ B
+1856,5,C G A B♭ B
+1857,6,C D♭ G A B♭ B
+1858,6,C D G A B♭ B
+1859,7,C D♭ D G A B♭ B
+1860,6,C E♭ G A B♭ B
+1861,7,C D♭ E♭ G A B♭ B
+1862,7,C D E♭ G A B♭ B
+1863,8,C D♭ D E♭ G A B♭ B
+1864,6,C E G A B♭ B
+1865,7,C D♭ E G A B♭ B
+1866,7,C D E G A B♭ B
+1867,8,C D♭ D E G A B♭ B
+1868,7,C E♭ E G A B♭ B
+1869,8,C D♭ E♭ E G A B♭ B
+1870,8,C D E♭ E G A B♭ B
+1871,9,C D♭ D E♭ E G A B♭ B
+1872,6,C F G A B♭ B
+1873,7,C D♭ F G A B♭ B
+1874,7,C D F G A B♭ B
+1875,8,C D♭ D F G A B♭ B
+1876,7,C E♭ F G A B♭ B
+1877,8,C D♭ E♭ F G A B♭ B
+1878,8,C D E♭ F G A B♭ B
+1879,9,C D♭ D E♭ F G A B♭ B
+1880,7,C E F G A B♭ B
+1881,8,C D♭ E F G A B♭ B
+1882,8,C D E F G A B♭ B
+1883,9,C D♭ D E F G A B♭ B
+1884,8,C E♭ E F G A B♭ B
+1885,9,C D♭ E♭ E F G A B♭ B
+1886,9,C D E♭ E F G A B♭ B
+1887,10,C D♭ D E♭ E F G A B♭ B
+1888,6,C F♯ G A B♭ B
+1889,7,C D♭ F♯ G A B♭ B
+1890,7,C D F♯ G A B♭ B
+1891,8,C D♭ D F♯ G A B♭ B
+1892,7,C E♭ F♯ G A B♭ B
+1893,8,C D♭ E♭ F♯ G A B♭ B
+1894,8,C D E♭ F♯ G A B♭ B
+1895,9,C D♭ D E♭ F♯ G A B♭ B
+1896,7,C E F♯ G A B♭ B
+1897,8,C D♭ E F♯ G A B♭ B
+1898,8,C D E F♯ G A B♭ B
+1899,9,C D♭ D E F♯ G A B♭ B
+1900,8,C E♭ E F♯ G A B♭ B
+1901,9,C D♭ E♭ E F♯ G A B♭ B
+1902,9,C D E♭ E F♯ G A B♭ B
+1903,10,C D♭ D E♭ E F♯ G A B♭ B
+1904,7,C F F♯ G A B♭ B
+1905,8,C D♭ F F♯ G A B♭ B
+1906,8,C D F F♯ G A B♭ B
+1907,9,C D♭ D F F♯ G A B♭ B
+1908,8,C E♭ F F♯ G A B♭ B
+1909,9,C D♭ E♭ F F♯ G A B♭ B
+1910,9,C D E♭ F F♯ G A B♭ B
+1911,10,C D♭ D E♭ F F♯ G A B♭ B
+1912,8,C E F F♯ G A B♭ B
+1913,9,C D♭ E F F♯ G A B♭ B
+1914,9,C D E F F♯ G A B♭ B
+1915,10,C D♭ D E F F♯ G A B♭ B
+1916,9,C E♭ E F F♯ G A B♭ B
+1917,10,C D♭ E♭ E F F♯ G A B♭ B
+1918,10,C D E♭ E F F♯ G A B♭ B
+1919,11,C D♭ D E♭ E F F♯ G A B♭ B
+1920,5,C A♭ A B♭ B
+1921,6,C D♭ A♭ A B♭ B
+1922,6,C D A♭ A B♭ B
+1923,7,C D♭ D A♭ A B♭ B
+1924,6,C E♭ A♭ A B♭ B
+1925,7,C D♭ E♭ A♭ A B♭ B
+1926,7,C D E♭ A♭ A B♭ B
+1927,8,C D♭ D E♭ A♭ A B♭ B
+1928,6,C E A♭ A B♭ B
+1929,7,C D♭ E A♭ A B♭ B
+1930,7,C D E A♭ A B♭ B
+1931,8,C D♭ D E A♭ A B♭ B
+1932,7,C E♭ E A♭ A B♭ B
+1933,8,C D♭ E♭ E A♭ A B♭ B
+1934,8,C D E♭ E A♭ A B♭ B
+1935,9,C D♭ D E♭ E A♭ A B♭ B
+1936,6,C F A♭ A B♭ B
+1937,7,C D♭ F A♭ A B♭ B
+1938,7,C D F A♭ A B♭ B
+1939,8,C D♭ D F A♭ A B♭ B
+1940,7,C E♭ F A♭ A B♭ B
+1941,8,C D♭ E♭ F A♭ A B♭ B
+1942,8,C D E♭ F A♭ A B♭ B
+1943,9,C D♭ D E♭ F A♭ A B♭ B
+1944,7,C E F A♭ A B♭ B
+1945,8,C D♭ E F A♭ A B♭ B
+1946,8,C D E F A♭ A B♭ B
+1947,9,C D♭ D E F A♭ A B♭ B
+1948,8,C E♭ E F A♭ A B♭ B
+1949,9,C D♭ E♭ E F A♭ A B♭ B
+1950,9,C D E♭ E F A♭ A B♭ B
+1951,10,C D♭ D E♭ E F A♭ A B♭ B
+1952,6,C F♯ A♭ A B♭ B
+1953,7,C D♭ F♯ A♭ A B♭ B
+1954,7,C D F♯ A♭ A B♭ B
+1955,8,C D♭ D F♯ A♭ A B♭ B
+1956,7,C E♭ F♯ A♭ A B♭ B
+1957,8,C D♭ E♭ F♯ A♭ A B♭ B
+1958,8,C D E♭ F♯ A♭ A B♭ B
+1959,9,C D♭ D E♭ F♯ A♭ A B♭ B
+1960,7,C E F♯ A♭ A B♭ B
+1961,8,C D♭ E F♯ A♭ A B♭ B
+1962,8,C D E F♯ A♭ A B♭ B
+1963,9,C D♭ D E F♯ A♭ A B♭ B
+1964,8,C E♭ E F♯ A♭ A B♭ B
+1965,9,C D♭ E♭ E F♯ A♭ A B♭ B
+1966,9,C D E♭ E F♯ A♭ A B♭ B
+1967,10,C D♭ D E♭ E F♯ A♭ A B♭ B
+1968,7,C F F♯ A♭ A B♭ B
+1969,8,C D♭ F F♯ A♭ A B♭ B
+1970,8,C D F F♯ A♭ A B♭ B
+1971,9,C D♭ D F F♯ A♭ A B♭ B
+1972,8,C E♭ F F♯ A♭ A B♭ B
+1973,9,C D♭ E♭ F F♯ A♭ A B♭ B
+1974,9,C D E♭ F F♯ A♭ A B♭ B
+1975,10,C D♭ D E♭ F F♯ A♭ A B♭ B
+1976,8,C E F F♯ A♭ A B♭ B
+1977,9,C D♭ E F F♯ A♭ A B♭ B
+1978,9,C D E F F♯ A♭ A B♭ B
+1979,10,C D♭ D E F F♯ A♭ A B♭ B
+1980,9,C E♭ E F F♯ A♭ A B♭ B
+1981,10,C D♭ E♭ E F F♯ A♭ A B♭ B
+1982,10,C D E♭ E F F♯ A♭ A B♭ B
+1983,11,C D♭ D E♭ E F F♯ A♭ A B♭ B
+1984,6,C G A♭ A B♭ B
+1985,7,C D♭ G A♭ A B♭ B
+1986,7,C D G A♭ A B♭ B
+1987,8,C D♭ D G A♭ A B♭ B
+1988,7,C E♭ G A♭ A B♭ B
+1989,8,C D♭ E♭ G A♭ A B♭ B
+1990,8,C D E♭ G A♭ A B♭ B
+1991,9,C D♭ D E♭ G A♭ A B♭ B
+1992,7,C E G A♭ A B♭ B
+1993,8,C D♭ E G A♭ A B♭ B
+1994,8,C D E G A♭ A B♭ B
+1995,9,C D♭ D E G A♭ A B♭ B
+1996,8,C E♭ E G A♭ A B♭ B
+1997,9,C D♭ E♭ E G A♭ A B♭ B
+1998,9,C D E♭ E G A♭ A B♭ B
+1999,10,C D♭ D E♭ E G A♭ A B♭ B
+2000,7,C F G A♭ A B♭ B
+2001,8,C D♭ F G A♭ A B♭ B
+2002,8,C D F G A♭ A B♭ B
+2003,9,C D♭ D F G A♭ A B♭ B
+2004,8,C E♭ F G A♭ A B♭ B
+2005,9,C D♭ E♭ F G A♭ A B♭ B
+2006,9,C D E♭ F G A♭ A B♭ B
+2007,10,C D♭ D E♭ F G A♭ A B♭ B
+2008,8,C E F G A♭ A B♭ B
+2009,9,C D♭ E F G A♭ A B♭ B
+2010,9,C D E F G A♭ A B♭ B
+2011,10,C D♭ D E F G A♭ A B♭ B
+2012,9,C E♭ E F G A♭ A B♭ B
+2013,10,C D♭ E♭ E F G A♭ A B♭ B
+2014,10,C D E♭ E F G A♭ A B♭ B
+2015,11,C D♭ D E♭ E F G A♭ A B♭ B
+2016,7,C F♯ G A♭ A B♭ B
+2017,8,C D♭ F♯ G A♭ A B♭ B
+2018,8,C D F♯ G A♭ A B♭ B
+2019,9,C D♭ D F♯ G A♭ A B♭ B
+2020,8,C E♭ F♯ G A♭ A B♭ B
+2021,9,C D♭ E♭ F♯ G A♭ A B♭ B
+2022,9,C D E♭ F♯ G A♭ A B♭ B
+2023,10,C D♭ D E♭ F♯ G A♭ A B♭ B
+2024,8,C E F♯ G A♭ A B♭ B
+2025,9,C D♭ E F♯ G A♭ A B♭ B
+2026,9,C D E F♯ G A♭ A B♭ B
+2027,10,C D♭ D E F♯ G A♭ A B♭ B
+2028,9,C E♭ E F♯ G A♭ A B♭ B
+2029,10,C D♭ E♭ E F♯ G A♭ A B♭ B
+2030,10,C D E♭ E F♯ G A♭ A B♭ B
+2031,11,C D♭ D E♭ E F♯ G A♭ A B♭ B
+2032,8,C F F♯ G A♭ A B♭ B
+2033,9,C D♭ F F♯ G A♭ A B♭ B
+2034,9,C D F F♯ G A♭ A B♭ B
+2035,10,C D♭ D F F♯ G A♭ A B♭ B
+2036,9,C E♭ F F♯ G A♭ A B♭ B
+2037,10,C D♭ E♭ F F♯ G A♭ A B♭ B
+2038,10,C D E♭ F F♯ G A♭ A B♭ B
+2039,11,C D♭ D E♭ F F♯ G A♭ A B♭ B
+2040,9,C E F F♯ G A♭ A B♭ B
+2041,10,C D♭ E F F♯ G A♭ A B♭ B
+2042,10,C D E F F♯ G A♭ A B♭ B
+2043,11,C D♭ D E F F♯ G A♭ A B♭ B
+2044,10,C E♭ E F F♯ G A♭ A B♭ B
+2045,11,C D♭ E♭ E F F♯ G A♭ A B♭ B
+2046,11,C D E♭ E F F♯ G A♭ A B♭ B
+2047,12,C D♭ D E♭ E F F♯ G A♭ A B♭ B
